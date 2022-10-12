@@ -1,0 +1,34 @@
+#########################################################################
+# File Name: 99-ipv6
+# Author: Carbon (ecrasy@gmail.com)
+# Description: feel free to use
+# Created Time: 2022-09-26 01:39:07 UTC
+# Modified Time: 2022-10-01 12:56:57 UTC
+#########################################################################
+
+
+#!/bin/bash
+
+[ "$ACTION" = ifup ] || exit 0
+[ "$INTERFACE" = wan ] || exit 0
+
+sleep 5s
+
+prefixs=$(ip -6 route show | grep default | sed -e 's/^.*from //g' | sed 's/ via.*$//g')
+ula_prefix=""
+
+echo $ula_prefix > /tmp/_ula_prefix
+for prefix in $prefixs
+do
+    ula_prefix=$prefix
+    echo $ula_prefix >> /tmp/_ula_prefix
+done
+
+# uci set network.globals.ula_prefix="$ula_prefix"
+# uci commit network
+# /sbin/ifup lan
+
+echo $ula_prefix
+
+source /etc/model.sh
+
