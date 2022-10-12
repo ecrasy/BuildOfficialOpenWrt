@@ -47,7 +47,7 @@ env:
   TOOLCHAIN_RELEASE_UPLOAD: true
   FIRMWARE_RELEASE_UPLOAD: true
   FREE_UP_DISK: true
-  COMBINE_DISK: false
+  COMBINE_DISK: true
   TZ: Asia/Shanghai
 
 jobs:
