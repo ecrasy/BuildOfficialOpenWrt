@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2022-10-12 14:42:20 UTC
+# Modified Time: 2022-10-13 01:09:29 UTC
 #########################################################################
 
 
@@ -37,6 +37,11 @@ echo "Fixing luci-app-statistics error from github.com/openwrt/luci/issues/5373"
 touch package/base-files/files/etc/bench.log
 chmod 0666 package/base-files/files/etc/bench.log
 echo "Touching coremark log file to fix uhttpd error!!!"
+
+# fixing dnsmasq compile error
+# from: https://github.com/openwrt/openwrt/issues/9043
+cp $GITHUB_WORKSPACE/data/dnsmasq-struct-daemon.patch package/network/services/dnsmasq/patches/
+echo "Fixing dnsmasq issue 9043"
 
 echo "FIX Completed!!!"
 
