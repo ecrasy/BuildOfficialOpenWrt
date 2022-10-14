@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-10-14 16:18:33 UTC
+ # Modified Time: 2022-10-14 16:25:06 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -164,8 +164,15 @@ jobs:
               gh release upload "$TOOLCHAIN_TAG" $TOOLCHAIN_OUTPUT/$asset
             done
           fi
-          export assets=$(gh release view "$TOOLCHAIN_TAG" --json "asset")
+          export assets=$(gh release view "$TOOLCHAIN_TAG" --json "assets")
           echo "gh release view: $assets"
+          if [ ! -z "$assets" ]; then
+            for asset in $assets
+            do
+              gh release delete-asset "$TOOLCHAIN_TAG" $asset -y
+            done
+            gh release delete "$TOOLCHAIN_TAG" -y
+          fi
 
       - name: Compare Toolchain Hash
         id: hash
