@@ -40,8 +40,8 @@ env:
   FIX_SH: fix.sh
   FEEDS_SH: feeds.sh
   IMAGE_TAG: x86_64
-  TOOLCHAIN_TAG: toolchain-x84
-  TOOLCHAIN_NAME: toolchain-image-x86
+  TOOLCHAIN_TAG: toolchain-x86_64
+  TOOLCHAIN_NAME: toolchain-image-x86_64
   TOOLCHAIN_RELEASE_UPLOAD: true
   FIRMWARE_RELEASE_UPLOAD: true
   FREE_UP_DISK: true
@@ -54,6 +54,7 @@ jobs:
 
     outputs:
       OPENWRT_ROOT_PATH: ${{ steps.clone.outputs.OPENWRT_ROOT_PATH }}
+      TOOLCHAIN_OUTPUT: ${{ steps.clone.outputs.TOOLCHAIN_OUTPUT }}
       CURRENT_BRANCH: ${{ steps.env.outputs.CURRENT_BRANCH }}
       SOURCE_OWNER: ${{ steps.env.outputs.SOURCE_OWNER }}
       SOURCE_REPO: ${{ steps.env.outputs.SOURCE_REPO }}
@@ -79,10 +80,10 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-          sudo -E apt-get -qq update
-          sudo -E apt-get -qq install $(cat $GITHUB_WORKSPACE/openwrt-env)
-          sudo -E apt-get -qq autoremove --purge
-          sudo -E apt-get -qq clean
+          sudo -E apt-get update
+          sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/openwrt-env)
+          sudo -E apt-get -y autoremove --purge
+          sudo -E apt-get -y clean
           sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
           mkdir workspace
 
@@ -95,9 +96,14 @@ jobs:
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_ENV
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_OUTPUT
 
+          mkdir -p $GITHUB_WORKSPACE/output
+          cd $GITHUB_WORKSPACE/output
+          export TOOLCHAIN_OUTPUT="$(pwd)"
+          echo "TOOLCHAIN_OUTPUT=$TOOLCHAIN_OUTPUT" >> $GITHUB_ENV
+          echo "TOOLCHAIN_OUTPUT=$TOOLCHAIN_OUTPUT" >> $GITHUB_OUTPUT
+
       - name: Generate Toolchain Config
         run: |
-          cd $GITHUB_WORKSPACE
           cp $CONFIG_FILE $OPENWRT_ROOT_PATH/.config
           echo -e "\nCONFIG_ALL=y" >> $OPENWRT_ROOT_PATH/.config
           echo -e "\nCONFIG_ALL_NONSHARED=y" >> $OPENWRT_ROOT_PATH/.config
@@ -111,7 +117,6 @@ jobs:
           export CURRENT_BRANCH="$(git symbolic-ref --short HEAD)"
           echo "CURRENT_BRANCH=$CURRENT_BRANCH" >> $GITHUB_ENV
           echo "CURRENT_BRANCH=$CURRENT_BRANCH" >> $GITHUB_OUTPUT
-          echo "CURRENT_BRANCH = $CURRENT_BRANCH"
 
           cd $OPENWRT_ROOT_PATH
           export SOURCE_OWNER="$(echo $SOURCE_URL | awk -F '/' '{print $(NF-1)}')"
@@ -180,7 +185,6 @@ jobs:
           split -d -b 1900M $TOOLCHAIN_IMAGE $GITHUB_WORKSPACE/output/$TOOLCHAIN_IMAGE.img.
           rm $TOOLCHAIN_IMAGE
           cd $OPENWRT_ROOT_PATH
-          mkdir -p $GITHUB_WORKSPACE/output
           echo $CURRENT_HASH > $GITHUB_WORKSPACE/output/$TOOLCHAIN_IMAGE.hash
 
       - name: Upload Toolchain Image To Artifact
@@ -192,25 +196,36 @@ jobs:
 
       - name: Delete Toolchain Image From Release
         if: env.TOOLCHAIN_RELEASE_UPLOAD == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
-        uses: dev-drprasad/delete-tag-and-release@v0.2.0
-        with:
-          delete_release: true 
-          tag_name: ${{ env.TOOLCHAIN_TAG }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEBIAN_FRONTEND: noninteractive
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          export assets=$(gh release view "$TOOLCHAIN_TAG" --json "assets" --jq ".assets.[].name")
+          if [ ! -z "$assets" ]; then
+            echo "try to delete old toolchain release assets: $assets"
+            for asset in $assets
+            do
+              gh release delete-asset "$TOOLCHAIN_TAG" $asset -y
+            done
+            gh release delete "$TOOLCHAIN_TAG" -y
+          fi
 
       - name: Upload Toolchain Image To Release
         if: env.TOOLCHAIN_RELEASE_UPLOAD == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
-        uses: ncipollo/release-action@v1.11.1
-        with:
-          name: ${{ env.TOOLCHAIN_NAME }}
-          allowUpdates: true
-          replacesArtifacts: true
-          tag: ${{ env.TOOLCHAIN_TAG }}
-          body: toolchain for x86_64 built @ ${{ env.BUILD_DATE }}
-          commit: ${{ env.CURRENT_BRANCH }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: output/*
+        env:
+          DEBIAN_FRONTEND: noninteractive
+          NOTES: Toolchain for x86_64 built @ ${{ env.BUILD_DATE }}
+          COMMIT: ${{ env.CURRENT_BRANCH }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          assets=$(ls $TOOLCHAIN_OUTPUT)
+          if [ ! -z "$assets" ]; then
+            gh release create "$TOOLCHAIN_TAG" --title "$TOOLCHAIN_NAME" --notes "$NOTES" --target "$COMMIT"
+            for asset in $assets
+            do
+              gh release upload "$TOOLCHAIN_TAG" $TOOLCHAIN_OUTPUT/$asset
+            done
+          fi
 
   Build:
     needs: [Toolchain]
@@ -262,6 +277,7 @@ jobs:
           echo "TOOLCHAIN_IMAGE=$(echo '${{needs.Toolchain.outputs.TOOLCHAIN_IMAGE}}')" >> $GITHUB_ENV
           echo "BUILD_DATE=$(echo '${{needs.Toolchain.outputs.BUILD_DATE}}')" >> $GITHUB_ENV
 
+
       - name: Checkout
         run: |
           cd $GITHUB_WORKSPACE
@@ -275,10 +291,10 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-          sudo -E apt-get -qq update
-          sudo -E apt-get -qq install $(cat $GITHUB_WORKSPACE/openwrt-env)
-          sudo -E apt-get -qq autoremove --purge
-          sudo -E apt-get -qq clean
+          sudo -E apt-get update
+          sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/openwrt-env)
+          sudo -E apt-get -y autoremove --purge
+          sudo -E apt-get -y clean
           sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
       - name: Download Toolchain Image From Artifacts
@@ -310,7 +326,7 @@ jobs:
           cd workspace
           for i in {0..9}
           do
-          curl -fsL https://github.com/$GITHUB_REPOSITORY/releases/download/$TOOLCHAIN_TAG/$TOOLCHAIN_IMAGE.img.0$i >> $TOOLCHAIN_IMAGE.img || break
+            curl -fsL https://github.com/$GITHUB_REPOSITORY/releases/download/$TOOLCHAIN_TAG/$TOOLCHAIN_IMAGE.img.0$i >> $TOOLCHAIN_IMAGE.img || break
           done
           mkdir openwrt-ro openwrt workdir overlay
           sudo mount -o loop $TOOLCHAIN_IMAGE.img openwrt-ro
@@ -320,7 +336,6 @@ jobs:
 
       - name: Load Custom Feeds
         run: |
-          cd $GITHUB_WORKSPACE
           cp $FEEDS_SH $OPENWRT_ROOT_PATH/$FEEDS_SH
           chmod +x $OPENWRT_ROOT_PATH/$FEEDS_SH
           cd $OPENWRT_ROOT_PATH
@@ -335,7 +350,6 @@ jobs:
 
       - name: Load Custom Configuration
         run: |
-          cd $GITHUB_WORKSPACE
           cp $DIY_SH $OPENWRT_ROOT_PATH/$DIY_SH
           cp $FIX_SH $OPENWRT_ROOT_PATH/$FIX_SH
           cp $CONFIG_FILE $OPENWRT_ROOT_PATH/.config
@@ -352,9 +366,9 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo rm -rf /usr/share/dotnet
-          sudo -E apt-get -q purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
-          sudo -E apt-get -qq autoremove --purge
-          sudo -E apt-get -qq clean
+          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
+          sudo -E apt-get -y autoremove --purge
+          sudo -E apt-get -y clean
           docker image prune -a -f
 
       - name: Download Packages

@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-10-14 16:46:58 UTC
+ # Modified Time: 2022-10-14 17:07:20 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -100,9 +100,6 @@ jobs:
 
           mkdir -p $GITHUB_WORKSPACE/output
           cd $GITHUB_WORKSPACE/output
-          echo "Hello World1" > result1.txt
-          echo "Hello World2" > result2.txt
-          echo "Hello World3" > result3.txt
           export TOOLCHAIN_OUTPUT="$(pwd)"
           echo "TOOLCHAIN_OUTPUT=$TOOLCHAIN_OUTPUT" >> $GITHUB_ENV
           echo "TOOLCHAIN_OUTPUT=$TOOLCHAIN_OUTPUT" >> $GITHUB_OUTPUT
@@ -117,8 +114,6 @@ jobs:
 
       - name: Generate Variables
         id: env
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd $GITHUB_WORKSPACE
           export CURRENT_BRANCH="$(git symbolic-ref --short HEAD)"
@@ -154,26 +149,6 @@ jobs:
           echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
           echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_OUTPUT
 
-          cd $GITHUB_WORKSPACE
-          assets=$(ls $TOOLCHAIN_OUTPUT)
-          echo $assets
-          if [ ! -z "$assets" ]; then
-            gh release create "$TOOLCHAIN_TAG" --title "$TOOLCHAIN_NAME" --notes "test" --target "$CURRENT_BRANCH"
-            for asset in $assets
-            do
-              gh release upload "$TOOLCHAIN_TAG" $TOOLCHAIN_OUTPUT/$asset
-            done
-          fi
-          export assets=$(gh release view "$TOOLCHAIN_TAG" --json "assets" --jq ".assets.[].name")
-          echo "gh release view: $assets"
-          if [ ! -z "$assets" ]; then
-            for asset in $assets
-            do
-              gh release delete-asset "$TOOLCHAIN_TAG" $asset -y
-            done
-            gh release delete "$TOOLCHAIN_TAG" -y
-          fi
-
       - name: Compare Toolchain Hash
         id: hash
         run: |
@@ -205,7 +180,6 @@ jobs:
 
       - name: Generate Toolchain Image
         if: steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
-        id: carbon
         run: |
           cd workspace
           mksquashfs openwrt $TOOLCHAIN_IMAGE -force-gid 1001 -force-uid 1001 -comp zstd
@@ -228,12 +202,14 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          export assets=$(gh release view $TOOLCHAIN_TAG)
-          echo "toolchain release assets:$assets"
+          export assets=$(gh release view "$TOOLCHAIN_TAG" --json "assets" --jq ".assets.[].name")
           if [ ! -z "$assets" ]; then
-            echo "try to delete old toolchain release assets"
-            gh release delete $TOOLCHAIN_TAG -y
-            git push origin :refs/tags/$TOOLCHAIN_TAG
+            echo "try to delete old toolchain release assets: $assets"
+            for asset in $assets
+            do
+              gh release delete-asset "$TOOLCHAIN_TAG" $asset -y
+            done
+            gh release delete "$TOOLCHAIN_TAG" -y
           fi
 
       - name: Upload Toolchain Image To Release
@@ -511,23 +487,32 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          export ASSETS=$(gh release view $IMAGE_TAG)
-          echo "image release assets:$ASSETS"
-          if [ ! -z "$ASSETS" ]; then
-            echo "try to delete old image release assets"
-            gh release delete $IMAGE_TAG -y
-            git push origin :refs/tags/$IMAGE_TAG
+          export assets=$(gh release view "$IMAGE_TAG" --json "assets" --jq ".assets.[].name")
+          if [ ! -z "$assets" ]; then
+            echo "try to delete old image release assets: $assets"
+            for asset in $assets
+            do
+              gh release delete-asset "$IMAGE_TAG" $asset -y
+            done
+            gh release delete "$IMAGE_TAG" -y
           fi
 
       - name: Deploy Files To Release
         if: env.FIRMWARE_RELEASE_UPLOAD == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          TITLE: ${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
+          IMAGE_NAME: ${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
           NOTES: Firmware for x86_64 built @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
-          FILES: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}/*
+          IMAGE_OUTPUT: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create "$IMAGE_TAG" --title "$TITLE" --notes "$NOTES" --target "$COMMIT" "$FILES"
+          assets=$(ls "$IMAGE_OUTPUT")
+          if [ ! -z "$assets" ]; then
+            gh release create "$IMAGE_TAG" --title "$IMAGE_NAME" --notes "$NOTES" --target "$COMMIT"
+            for asset in $assets
+            do
+              gh release upload "$IMAGE_TAG" $IMAGE_OUTPUT/$asset
+            done
+          fi
 
