@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-10-14 15:28:26 UTC
+ # Modified Time: 2022-10-14 15:39:42 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -100,7 +100,9 @@ jobs:
 
           mkdir -p $GITHUB_WORKSPACE/output
           cd $GITHUB_WORKSPACE/output
-          echo "Hello World" > result.txt
+          echo "Hello World1" > result1.txt
+          echo "Hello World2" > result2.txt
+          echo "Hello World3" > result2.txt
           export TOOLCHAIN_OUTPUT="$(pwd)"
           echo "TOOLCHAIN_OUTPUT=$TOOLCHAIN_OUTPUT" >> $GITHUB_ENV
           echo "TOOLCHAIN_OUTPUT=$TOOLCHAIN_OUTPUT" >> $GITHUB_OUTPUT
@@ -153,7 +155,12 @@ jobs:
           echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
           echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_OUTPUT
           cd $GITHUB_WORKSPACE
-          gh release create "$TOOLCHAIN_TAG" --title "$TOOLCHAIN_NAME" --notes "test" --target "$CURRENT_BRANCH" "$TOOLCHAIN_OUTPUT"
+          outputs=$(ls $TOOLCHAIN_OUTPUT)
+          echo $outputs
+          for op in $outputs
+          do
+            gh release create "$TOOLCHAIN_TAG" --title "$TOOLCHAIN_NAME" --notes "test" --target "$CURRENT_BRANCH" "$TOOLCHAIN_OUTPUT/$op"
+          done
       - name: Compare Toolchain Hash
         id: hash
         run: |
