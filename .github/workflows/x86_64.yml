@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-10-14 07:37:18 UTC
+ # Modified Time: 2022-10-14 07:58:24 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -157,6 +157,12 @@ jobs:
           if [ -z "$CACHE_HASH" ] || [ "$CURRENT_HASH" != "$CACHE_HASH" ]; then
             echo "REBUILD_TOOLCHAIN=true" >> $GITHUB_OUTPUT
           fi
+
+      - name: Print Toolchain Release
+        run: |
+          assets=$(gh release view $TOOLCHAIN_TAG)
+          echo "toolchain release assets:$assets"
+
 
       - name: Compile Tools
         if: steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
