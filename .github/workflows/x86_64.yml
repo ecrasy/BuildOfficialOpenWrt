@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-10-14 05:34:53 UTC
+ # Modified Time: 2022-10-14 07:37:18 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -195,14 +195,20 @@ jobs:
       - name: Delete Toolchain Image From Release
         if: env.TOOLCHAIN_RELEASE_UPLOAD == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         env:
+          DEBIAN_FRONTEND: noninteractive
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release delete $TOOLCHAIN_TAG -y
-          git push origin :refs/tags/$TOOLCHAIN_TAG
+          assets=$(gh release list $TOOLCHAIN_TAG)
+          echo "toolchain release assets:$assets"
+          if [ ! -z "$assets" ]; then
+            gh release delete $TOOLCHAIN_TAG --yes
+            git push origin :refs/tags/$TOOLCHAIN_TAG
+          fi
 
       - name: Upload Toolchain Image To Release
         if: env.TOOLCHAIN_RELEASE_UPLOAD == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         env:
+          DEBIAN_FRONTEND: noninteractive
           NOTES: Toolchain for x86_64 built @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -465,14 +471,20 @@ jobs:
       - name: Delete Files From Release
         if: env.FIRMWARE_RELEASE_UPLOAD == 'true'
         env:
+          DEBIAN_FRONTEND: noninteractive
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release delete $IMAGE_TAG -y
-          git push origin :refs/tags/$IMAGE_TAG
+          assets=$(gh release list $IMAGE_TAG)
+          echo "image release assets:$assets"
+          if [ ! -z "$assets" ]; then
+            gh release delete $IMAGE_TAG --yes
+            git push origin :refs/tags/$IMAGE_TAG
+          fi
 
       - name: Deploy Files To Release
         if: env.FIRMWARE_RELEASE_UPLOAD == 'true'
         env:
+          DEBIAN_FRONTEND: noninteractive
           TITLE: ${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
           NOTES: Firmware for x86_64 built @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
