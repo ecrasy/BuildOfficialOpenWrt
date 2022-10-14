@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-10-14 08:07:39 UTC
+ # Modified Time: 2022-10-14 08:16:28 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -81,10 +81,10 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-          sudo -E apt-get -qq update
-          sudo -E apt-get -qq install $(cat $GITHUB_WORKSPACE/openwrt-env)
-          sudo -E apt-get -qq autoremove --purge
-          sudo -E apt-get -qq clean
+          sudo -E apt-get update
+          sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/openwrt-env)
+          sudo -E apt-get -y autoremove --purge
+          sudo -E apt-get -y clean
           sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
           mkdir workspace
 
@@ -287,10 +287,10 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-          sudo -E apt-get -qq update
-          sudo -E apt-get -qq install $(cat $GITHUB_WORKSPACE/openwrt-env)
-          sudo -E apt-get -qq autoremove --purge
-          sudo -E apt-get -qq clean
+          sudo -E apt-get update
+          sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/openwrt-env)
+          sudo -E apt-get -y autoremove --purge
+          sudo -E apt-get -y clean
           sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
       - name: Download Toolchain Image From Artifacts
@@ -364,9 +364,9 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo rm -rf /usr/share/dotnet
-          sudo -E apt-get -q purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
-          sudo -E apt-get -qq autoremove --purge
-          sudo -E apt-get -qq clean
+          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
+          sudo -E apt-get -y autoremove --purge
+          sudo -E apt-get -y clean
           docker image prune -a -f
 
       - name: Download Packages
@@ -456,8 +456,8 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo -E apt-get -qq update
-          sudo -E apt-get -qq install zip unzip rsync
+          sudo -E apt-get update
+          sudo -E apt-get -y install zip unzip rsync
           sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
       - name: Download Bin Archive
