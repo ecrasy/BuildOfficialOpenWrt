@@ -257,7 +257,7 @@ jobs:
           sudo mkfs.btrfs -L combinedisk $LV_DEVNAME
           sudo mount -o compress=zstd $LV_DEVNAME $GITHUB_WORKSPACE
           sudo chown -R runner:runner $GITHUB_WORKSPACE
-          mkdir $GITHUB_WORKSPACE/tmp
+          mkdir -p $GITHUB_WORKSPACE/tmp
           chmod 0777 $GITHUB_WORKSPACE/tmp
           sudo cp -rp /tmp/* $GITHUB_WORKSPACE/tmp
           sudo mount -B $GITHUB_WORKSPACE/tmp /tmp
