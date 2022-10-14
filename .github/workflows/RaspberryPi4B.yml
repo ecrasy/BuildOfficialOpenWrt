@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:23:37 UTC
- # Modified Time: 2022-10-14 05:27:32 UTC
+ # Modified Time: 2022-10-14 05:35:29 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -396,6 +396,8 @@ jobs:
           echo "df -hT"
           df -hT
           echo -e "============================\n"
+
+      - name: Print Btrfs Usage
         if: env.COMBINE_DISK == 'true'
         run: |
           echo "btrfs filesystem usage"

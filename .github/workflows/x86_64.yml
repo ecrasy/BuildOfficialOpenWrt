@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-10-14 05:32:52 UTC
+ # Modified Time: 2022-10-14 05:34:53 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -391,6 +391,7 @@ jobs:
           zip -r $DEVICE_TARGET-$DEVICE_SUBTARGET.zip bin
 
       - name: Print Disk Usage
+        if: always()
         run: |
           echo "lsblk -f"
           lsblk -f
@@ -398,7 +399,10 @@ jobs:
           echo "df -hT"
           df -hT
           echo -e "============================\n"
+
+      - name: Print Btrfs Usage
         if: env.COMBINE_DISK == 'true'
+        run: |
           echo "btrfs filesystem usage"
           sudo btrfs filesystem usage $GITHUB_WORKSPACE
           echo -e "============================\n"
