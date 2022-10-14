@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-10-14 08:51:45 UTC
+ # Modified Time: 2022-10-14 09:00:40 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -166,7 +166,6 @@ jobs:
           fi
 
       - name: Print Toolchain Release
-        continue-on-error: true
         env:
           DEBIAN_FRONTEND: noninteractive
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -283,6 +282,8 @@ jobs:
           echo "DEVICE_SUBTARGET=$(echo '${{needs.Toolchain.outputs.DEVICE_SUBTARGET}}')" >> $GITHUB_ENV
           echo "TOOLCHAIN_IMAGE=$(echo '${{needs.Toolchain.outputs.TOOLCHAIN_IMAGE}}')" >> $GITHUB_ENV
           echo "BUILD_DATE=$(echo '${{needs.Toolchain.outputs.BUILD_DATE}}')" >> $GITHUB_ENV
+          echo "TOOLCHAIN_DEL=$(echo '${{needs.Toolchain.outputs.TOOLCHAIN_DEL}}')" >> $GITHUB_ENV
+
 
       - name: Checkout
         run: |
@@ -456,6 +457,7 @@ jobs:
           echo "DEVICE_SUBTARGET=$(echo '${{needs.Toolchain.outputs.DEVICE_SUBTARGET}}')" >> $GITHUB_ENV
           echo "TOOLCHAIN_IMAGE=$(echo '${{needs.Toolchain.outputs.TOOLCHAIN_IMAGE}}')" >> $GITHUB_ENV
           echo "BUILD_DATE=$(echo '${{needs.Toolchain.outputs.BUILD_DATE}}')" >> $GITHUB_ENV
+          echo "TOOLCHAIN_DEL=$(echo '${{needs.Toolchain.outputs.TOOLCHAIN_DEL}}')" >> $GITHUB_ENV
 
       - name: Checkout
         uses: actions/checkout@v3
