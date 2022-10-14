@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:23:37 UTC
- # Modified Time: 2022-10-14 03:50:07 UTC
+ # Modified Time: 2022-10-14 04:09:39 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -197,9 +197,12 @@ jobs:
           git push origin :refs/tags/$TOOLCHAIN_TAG
 
       - name: Upload Toolchain Image To Release
+        env:
+          NOTES: Toolchain for RaspberryPi 4b built @ ${{ env.BUILD_DATE }}
+          COMMIT: ${{ env.CURRENT_BRANCH }}
         if: env.TOOLCHAIN_RELEASE_UPLOAD == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         run: |
-          gh release create $TOOLCHAIN_TAG --title $TOOLCHAIN_NAME --notes "toolchain for RaspberryPi 4b built @ ${{ env.BUILD_DATE }}" --target ${{ env.CURRENT_BRANCH }} output/*
+          gh release create $TOOLCHAIN_TAG --title $TOOLCHAIN_NAME --notes $NOTES --target $COMMIT output/*
 
   Build:
     needs: [Toolchain]
@@ -456,7 +459,12 @@ jobs:
           git push origin :refs/tags/$IMAGE_TAG
 
       - name: Deploy Files To Release
+        env:
+          TITLE: ${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
+          NOTES: Firmware for RaspberryPi 4b built @ ${{ env.BUILD_DATE }}
+          COMMIT: ${{ env.CURRENT_BRANCH }}
+          FILES: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}/*
         if: env.FIRMWARE_RELEASE_UPLOAD == 'true'
         run: |
-          gh release create $IMAGE_TAG --title "${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}" --notes "Firmware for RaspberryPi 4b built @ ${{ env.BUILD_DATE }}" --target ${{ env.CURRENT_BRANCH }} ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}/*
+          gh release create $IMAGE_TAG --title $TITLE --notes $NOTES --target $COMMIT $FILES 
 
