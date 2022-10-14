@@ -218,12 +218,12 @@ jobs:
           COMMIT: ${{ env.CURRENT_BRANCH }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          assets=$(ls $TOOLCHAIN_OUTPUT)
+          assets=$(ls "$TOOLCHAIN_OUTPUT")
           if [ ! -z "$assets" ]; then
             gh release create "$TOOLCHAIN_TAG" --title "$TOOLCHAIN_NAME" --notes "$NOTES" --target "$COMMIT"
             for asset in $assets
             do
-              gh release upload "$TOOLCHAIN_TAG" $TOOLCHAIN_OUTPUT/$asset
+              gh release upload "$TOOLCHAIN_TAG" "$TOOLCHAIN_OUTPUT/$asset"
             done
           fi
 

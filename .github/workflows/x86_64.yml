@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-10-14 17:07:20 UTC
+ # Modified Time: 2022-10-14 17:14:40 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -220,12 +220,12 @@ jobs:
           COMMIT: ${{ env.CURRENT_BRANCH }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          assets=$(ls $TOOLCHAIN_OUTPUT)
+          assets=$(ls "$TOOLCHAIN_OUTPUT")
           if [ ! -z "$assets" ]; then
             gh release create "$TOOLCHAIN_TAG" --title "$TOOLCHAIN_NAME" --notes "$NOTES" --target "$COMMIT"
             for asset in $assets
             do
-              gh release upload "$TOOLCHAIN_TAG" $TOOLCHAIN_OUTPUT/$asset
+              gh release upload "$TOOLCHAIN_TAG" "$TOOLCHAIN_OUTPUT/$asset"
             done
           fi
 
@@ -512,7 +512,7 @@ jobs:
             gh release create "$IMAGE_TAG" --title "$IMAGE_NAME" --notes "$NOTES" --target "$COMMIT"
             for asset in $assets
             do
-              gh release upload "$IMAGE_TAG" $IMAGE_OUTPUT/$asset
+              gh release upload "$IMAGE_TAG" "$IMAGE_OUTPUT/$asset"
             done
           fi
 
