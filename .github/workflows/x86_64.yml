@@ -99,7 +99,6 @@ jobs:
 
       - name: Generate Toolchain Config
         run: |
-          cd $GITHUB_WORKSPACE
           cp $CONFIG_FILE $OPENWRT_ROOT_PATH/.config
           echo -e "\nCONFIG_ALL=y" >> $OPENWRT_ROOT_PATH/.config
           echo -e "\nCONFIG_ALL_NONSHARED=y" >> $OPENWRT_ROOT_PATH/.config
@@ -113,7 +112,6 @@ jobs:
           export CURRENT_BRANCH="$(git symbolic-ref --short HEAD)"
           echo "CURRENT_BRANCH=$CURRENT_BRANCH" >> $GITHUB_ENV
           echo "CURRENT_BRANCH=$CURRENT_BRANCH" >> $GITHUB_OUTPUT
-          echo "CURRENT_BRANCH = $CURRENT_BRANCH"
 
           cd $OPENWRT_ROOT_PATH
           export SOURCE_OWNER="$(echo $SOURCE_URL | awk -F '/' '{print $(NF-1)}')"
@@ -325,7 +323,6 @@ jobs:
 
       - name: Load Custom Feeds
         run: |
-          cd $GITHUB_WORKSPACE
           cp $FEEDS_SH $OPENWRT_ROOT_PATH/$FEEDS_SH
           chmod +x $OPENWRT_ROOT_PATH/$FEEDS_SH
           cd $OPENWRT_ROOT_PATH
@@ -340,7 +337,6 @@ jobs:
 
       - name: Load Custom Configuration
         run: |
-          cd $GITHUB_WORKSPACE
           cp $DIY_SH $OPENWRT_ROOT_PATH/$DIY_SH
           cp $FIX_SH $OPENWRT_ROOT_PATH/$FIX_SH
           cp $CONFIG_FILE $OPENWRT_ROOT_PATH/.config
