@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-10-14 14:41:40 UTC
+ # Modified Time: 2022-10-14 14:55:25 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -56,6 +56,7 @@ jobs:
 
     outputs:
       OPENWRT_ROOT_PATH: ${{ steps.clone.outputs.OPENWRT_ROOT_PATH }}
+      TOOLCHAIN_OUTPUT: ${{ steps.clone.outputs.TOOLCHAIN_OUTPUT }}
       CURRENT_BRANCH: ${{ steps.env.outputs.CURRENT_BRANCH }}
       SOURCE_OWNER: ${{ steps.env.outputs.SOURCE_OWNER }}
       SOURCE_REPO: ${{ steps.env.outputs.SOURCE_REPO }}
@@ -64,7 +65,6 @@ jobs:
       DEVICE_SUBTARGET: ${{ steps.env.outputs.DEVICE_SUBTARGET }}
       TOOLCHAIN_IMAGE: ${{ steps.env.outputs.TOOLCHAIN_IMAGE }}
       BUILD_DATE: ${{ steps.env.outputs.BUILD_DATE }}
-      IMAGE_PATH: ${{ steps.env.outputs.IMAGE_PATH }}
 
     steps:
       - name: Setup Variables
@@ -97,6 +97,12 @@ jobs:
           git checkout -b action_build
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_ENV
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_OUTPUT
+
+          mkdir -p $GITHUB_WORKSPACE/output
+          cd $GITHUB_WORKSPACE/output
+          echo "TOOLCHAIN_OUTPUT=$PWD" >> $GITHUB_ENV
+          echo "TOOLCHAIN_OUTPUT=$PWD" >> $GITHUB_OUTPUT
+          echo "TOOLCHAIN_OUTPUT: $TOOLCHAIN_OUTPUT"
 
       - name: Generate Toolchain Config
         run: |
@@ -142,13 +148,9 @@ jobs:
           export BUILD_DATE=$(date +"%Y-%m-%d")
           echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
           echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_OUTPUT
-          echo "IMAGE_PATH=$GITHUB_WORKSPACE/output" >> GITHUB_ENV
-          echo "IMAGE_PATH=$GITHUB_WORKSPACE/output" >> GITHUB_OUTPUT
 
       - name: Compare Toolchain Hash
         id: hash
-        env:
-          FILES: ${{ env.IMAGE_PATH }}/*
         run: |
           cd $OPENWRT_ROOT_PATH
           export CURRENT_HASH=$(git log --pretty=tformat:"%H" -n1 tools toolchain)
@@ -160,7 +162,6 @@ jobs:
           if [ -z "$CACHE_HASH" ] || [ "$CURRENT_HASH" != "$CACHE_HASH" ]; then
             echo "REBUILD_TOOLCHAIN=true" >> $GITHUB_OUTPUT
           fi
-          echo "IMAGE_PATH:$FILES"
 
       - name: Compile Tools
         if: steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
@@ -179,6 +180,7 @@ jobs:
 
       - name: Generate Toolchain Image
         if: steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
+        id: carbon
         run: |
           cd workspace
           mksquashfs openwrt $TOOLCHAIN_IMAGE -force-gid 1001 -force-uid 1001 -comp zstd
@@ -215,7 +217,7 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
           NOTES: Toolchain for x86_64 built @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
-          FILES: ${{ env.IMAGE_PATH }}/*
+          FILES: ${{ env.TOOLCHAIN_OUTPUT }}/*
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "$TOOLCHAIN_TAG" --title "$TOOLCHAIN_NAME" --notes "$NOTES" --target "$COMMIT" "$FILES"
