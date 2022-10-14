@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-10-14 14:35:11 UTC
+ # Modified Time: 2022-10-14 14:41:40 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -64,6 +64,7 @@ jobs:
       DEVICE_SUBTARGET: ${{ steps.env.outputs.DEVICE_SUBTARGET }}
       TOOLCHAIN_IMAGE: ${{ steps.env.outputs.TOOLCHAIN_IMAGE }}
       BUILD_DATE: ${{ steps.env.outputs.BUILD_DATE }}
+      IMAGE_PATH: ${{ steps.env.outputs.IMAGE_PATH }}
 
     steps:
       - name: Setup Variables
@@ -142,6 +143,7 @@ jobs:
           echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
           echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_OUTPUT
           echo "IMAGE_PATH=$GITHUB_WORKSPACE/output" >> GITHUB_ENV
+          echo "IMAGE_PATH=$GITHUB_WORKSPACE/output" >> GITHUB_OUTPUT
 
       - name: Compare Toolchain Hash
         id: hash
