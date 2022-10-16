@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:23:37 UTC
- # Modified Time: 2022-10-16 03:21:37 UTC
+ # Modified Time: 2022-10-16 04:56:37 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -384,8 +384,8 @@ jobs:
           echo "$(nproc) threads compile packages"
           make buildinfo
           make diffconfig buildversion feedsversion
-          make target/compile -j$(nproc) || make target/compile -j1 V=s
-          make package/compile -j$(nproc) || make package/compile -j1 V=s
+          make target/compile -j$(nproc)
+          make package/compile -j$(nproc)
           make package/index
 
       - name: Generate Firmware
