@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2022-10-13 01:09:29 UTC
+# Modified Time: 2022-10-15 23:25:40 UTC
 #########################################################################
 
 
@@ -28,7 +28,7 @@
 
 # fixing error from https://github.com/openwrt/luci/issues/5373
 # luci-app-statistics: misconfiguration shipped pointing to non-existent directory
-str="^option Include '/etc/collectd/conf.d'"
+str="[ \f\r\t\n]*option Include '/etc/collectd/conf.d'"
 cmd="s@$str@#&@"
 sed -ri "$cmd" feeds/luci/applications/luci-app-statistics/root/etc/config/luci_statistics
 echo "Fixing luci-app-statistics error from github.com/openwrt/luci/issues/5373"
@@ -40,8 +40,8 @@ echo "Touching coremark log file to fix uhttpd error!!!"
 
 # fixing dnsmasq compile error
 # from: https://github.com/openwrt/openwrt/issues/9043
-cp $GITHUB_WORKSPACE/data/dnsmasq-struct-daemon.patch package/network/services/dnsmasq/patches/
-echo "Fixing dnsmasq issue 9043"
+# cp $GITHUB_WORKSPACE/data/dnsmasq-struct-daemon.patch package/network/services/dnsmasq/patches/
+# echo "Fixing dnsmasq issue 9043"
 
 echo "FIX Completed!!!"
 
