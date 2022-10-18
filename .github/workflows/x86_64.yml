@@ -390,7 +390,6 @@ jobs:
           make buildinfo
           make diffconfig buildversion feedsversion
           make target/compile -j$(nproc) IGNORE_ERRORS="m n" || make target/compile -j1 V=s IGNORE_ERRORS=1
-          make package/kernel/button-hotplug/compile -j$(nproc)
           make package/compile -j$(nproc) IGNORE_ERRORS="m n" || make package/compile -j1 V=s IGNORE_ERRORS=1
           make package/index
 
