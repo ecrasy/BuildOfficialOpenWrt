@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-10-19 15:22:00 UTC
+ # Modified Time: 2022-10-22 05:50:50 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -93,7 +93,7 @@ jobs:
       - name: Clone Openwrt Source
         id: clone
         run: |
-          git clone --branch $SOURCE_TAG --single-branch $SOURCE_URL workspace/openwrt
+          git clone --depth 120 --branch $SOURCE_TAG $SOURCE_URL workspace/openwrt
           cd workspace/openwrt
           git checkout -b action_build
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_ENV
