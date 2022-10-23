@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:23:37 UTC
- # Modified Time: 2022-10-22 13:32:03 UTC
+ # Modified Time: 2022-10-23 00:42:37 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -37,6 +37,7 @@ on:
 env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git
   SOURCE_TAG: v22.03.2
+  CLONE_DEPTH: 200
   CONFIG_FILE: configs/RaspberryPi4B.config
   DIY_SH: diy.sh
   FIX_SH: fix.sh
@@ -93,7 +94,7 @@ jobs:
       - name: Clone Openwrt Source
         id: clone
         run: |
-          git clone --depth 120 --branch $SOURCE_TAG $SOURCE_URL workspace/openwrt
+          git clone --depth $CLONE_DEPTH --branch $SOURCE_TAG $SOURCE_URL workspace/openwrt
           cd workspace/openwrt
           git checkout -b action_build
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_ENV
