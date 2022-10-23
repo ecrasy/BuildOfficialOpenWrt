@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-10-23 08:44:42 UTC
+ # Modified Time: 2022-10-23 09:32:35 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -508,7 +508,7 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
           IMAGE_NAME: ${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
-          NOTES: Firmware for x86_64 built @ ${{ env.BUILD_DATE }}
+          NOTES: Firmware for x86_64 built from openwrt tag ${{ env.SOURCE_TAG }} @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           IMAGE_OUTPUT: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B_master.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-10-23 05:38:21 UTC
- # Modified Time: 2022-10-23 08:44:04 UTC
+ # Modified Time: 2022-10-23 09:31:25 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -504,8 +504,8 @@ jobs:
         if: env.FIRMWARE_RELEASE_UPLOAD == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          IMAGE_NAME: ${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
-          NOTES: Firmware for RaspberryPi 4b built @ ${{ env.BUILD_DATE }}
+          IMAGE_NAME: ${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-master
+          NOTES: Firmware for RaspberryPi 4b built from openwrt master branch @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           IMAGE_OUTPUT: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
