@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B_master.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-10-23 05:38:21 UTC
- # Modified Time: 2022-10-23 05:42:51 UTC
+ # Modified Time: 2022-10-23 08:44:04 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -28,7 +28,7 @@ name: Build RaspberryPi4B with master
 on:
   workflow_dispatch:
   schedule:
-    - cron: '45 12 * * SAT'
+    - cron: '45 8 * * SAT'
   #watch:
   # types: [started]
 
