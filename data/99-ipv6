@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-09-26 01:39:07 UTC
-# Modified Time: 2022-10-24 13:15:05 UTC
+# Modified Time: 2022-10-24 13:44:33 UTC
 #########################################################################
 
 
@@ -12,13 +12,7 @@
 [ "$ACTION" = ifup ] || exit 0
 [ "$INTERFACE" = wan ] || exit 0
 
-sleep 3s
-
-# fix issue
-# https://forum.openwrt.org/t/ppp-and-dnsmasq-issue/91475
-uci add_list dhcp.@dnsmasq[0].notinterface='pppoe-wan'
-uci commit dhcp
-/etc/init.d/dnsmasq restart
+sleep 5s
 
 prefixs=$(ip -6 route show | grep default | sed -e 's/^.*from //g' | sed 's/ via.*$//g')
 ula_prefix=""
