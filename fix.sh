@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2022-10-25 01:25:47 UTC
+# Modified Time: 2022-10-25 08:57:47 UTC
 #########################################################################
 
 
@@ -45,7 +45,8 @@ echo "Fix dnsmasq issue 9043"
 
 # try to fix error:Failed to load DMC firmware i915/glk_dmc_ver1_04.bin
 rm -rf package/firmware/linux-firmware/intel.mk package/kernel/linux/modules/video.mk
-cp $GITHUB_WORKSPACE/data/firmware/* package/firmware/linux-firmware/
+cp $GITHUB_WORKSPACE/data/firmware/intel.mk package/firmware/linux-firmware/intel.mk
+cp $GITHUB_WORKSPACE/data/firmware/video.mk package/kernel/linux/modules/video.mk
 echo "Fix i915 firmware loading error!!!"
 
 echo "FIX Completed!!!"
