@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2022-10-25 00:38:12 UTC
+# Modified Time: 2022-10-25 00:56:55 UTC
 #########################################################################
 
 
@@ -31,22 +31,26 @@
 str="[ \f\r\t\n]*option Include '/etc/collectd/conf.d'"
 cmd="s@$str@#&@"
 sed -ri "$cmd" feeds/luci/applications/luci-app-statistics/root/etc/config/luci_statistics
-echo "Fixing luci-app-statistics error from github.com/openwrt/luci/issues/5373"
+echo "Fix luci-app-statistics error from github.com/openwrt/luci/issues/5373"
 
-# fixing stupid coremark error
+# fixing stupid coremark bench file error
 touch package/base-files/files/etc/bench.log
 chmod 0666 package/base-files/files/etc/bench.log
-echo "Touching coremark log file to fix uhttpd error!!!"
+echo "Touch coremark log file to fix uhttpd error!!!"
 
 # fixing dnsmasq compile error
 # from: https://github.com/openwrt/openwrt/issues/9043
-cp $GITHUB_WORKSPACE/data/patches/dnsmasq-struct-daemon.patch package/network/services/dnsmasq/patches/
-echo "Fixing dnsmasq issue 9043"
+cd $GITHUB_WORKSPACE/data
+cp patches/dnsmasq-struct-daemon.patch package/network/services/dnsmasq/patches/
+cd -
+echo "Fix dnsmasq issue 9043"
 
 # try to fix error:Failed to load DMC firmware i915/glk_dmc_ver1_04.bin
 rm -rf package/firmware/linux-firmware/intel.mk package/kernel/linux/modules/video.mk
-cp $GITHUB_WORKSPACE/data/makefiles/* package/firmware/linux-firmware/
-echo "Fixing i915 firmware loading error!!!"
+cd $GITHUB_WORKSPACE/data
+cp firmware/* package/firmware/linux-firmware/
+cd -
+echo "Fix i915 firmware loading error!!!"
 
 echo "FIX Completed!!!"
 
