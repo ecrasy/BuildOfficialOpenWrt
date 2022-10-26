@@ -2,7 +2,7 @@
  # File Name: x86_64_master.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-10-23 05:39:25 UTC
- # Modified Time: 2022-10-23 09:36:04 UTC
+ # Modified Time: 2022-10-25 23:59:57 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -36,7 +36,7 @@ env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git
   SOURCE_BRANCH: master
   CLONE_DEPTH: 200
-  CONFIG_FILE: configs/x86_64_master.config
+  CONFIG_FILE: configs/for_master/x86_64.config
   DIY_SH: diy.sh
   FIX_SH: fix.sh
   FEEDS_SH: feeds.sh

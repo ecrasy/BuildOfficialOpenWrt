@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-10-23 09:36:38 UTC
+ # Modified Time: 2022-10-26 00:00:34 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -38,7 +38,7 @@ env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git
   SOURCE_TAG: v22.03.2
   CLONE_DEPTH: 200
-  CONFIG_FILE: configs/x86_64.config
+  CONFIG_FILE: configs/for_tag/x86_64.config
   DIY_SH: diy.sh
   FIX_SH: fix.sh
   FEEDS_SH: feeds.sh
