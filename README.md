@@ -5,7 +5,7 @@ Build OpenWrt for official source code.
 
 
 ## IPv6自动设置ula_prefix
-**data/etc/054-ula-prefix**  
+[data/etc/054-ula-prefix](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/data/etc/054-ula-prefix)  
 脚本负责在WAN网络连接之后查询 **ula prefix**  
 然后设置给全局网络使用  
 由于运营商给 **ula prefix** 时有延迟  
