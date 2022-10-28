@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2022-10-25 11:03:38 UTC
+# Modified Time: 2022-10-28 00:36:00 UTC
 #########################################################################
 
 
@@ -42,12 +42,6 @@ echo "Touch coremark log file to fix uhttpd error!!!"
 # from: https://github.com/openwrt/openwrt/issues/9043
 cp $GITHUB_WORKSPACE/data/patches/dnsmasq-struct-daemon.patch package/network/services/dnsmasq/patches/
 echo "Fix dnsmasq issue 9043"
-
-# try to fix error:Failed to load DMC firmware i915/glk_dmc_ver1_04.bin
-rm -rf package/firmware/linux-firmware/intel.mk package/kernel/linux/modules/video.mk
-cp $GITHUB_WORKSPACE/data/firmware/intel.mk package/firmware/linux-firmware/intel.mk
-cp $GITHUB_WORKSPACE/data/firmware/video.mk package/kernel/linux/modules/video.mk
-echo "Fix i915 firmware loading error!!!"
 
 echo "FIX Completed!!!"
 
