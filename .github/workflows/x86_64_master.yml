@@ -2,7 +2,7 @@
  # File Name: x86_64_master.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-10-23 05:39:25 UTC
- # Modified Time: 2022-10-25 23:59:57 UTC
+ # Modified Time: 2022-10-30 10:14:39 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -206,9 +206,9 @@ jobs:
             echo "try to delete old toolchain release assets: $assets"
             for asset in $assets
             do
-              gh release delete-asset "$TOOLCHAIN_TAG" $asset -y
+              gh release delete-asset "$TOOLCHAIN_TAG" $asset --yes
             done
-            gh release delete "$TOOLCHAIN_TAG" -y
+            gh release delete "$TOOLCHAIN_TAG" --cleanup-tag --yes
           fi
 
       - name: Upload Toolchain Image To Release
@@ -495,9 +495,9 @@ jobs:
             echo "try to delete old image release assets: $assets"
             for asset in $assets
             do
-              gh release delete-asset "$IMAGE_TAG" $asset -y
+              gh release delete-asset "$IMAGE_TAG" $asset --yes
             done
-            gh release delete "$IMAGE_TAG" -y
+            gh release delete "$IMAGE_TAG" --cleanup-tag --yes
           fi
 
       - name: Deploy Files To Release
