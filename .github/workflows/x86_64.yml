@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-10-30 10:15:10 UTC
+ # Modified Time: 2022-11-03 11:26:05 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -391,7 +391,11 @@ jobs:
           make buildinfo
           make diffconfig buildversion feedsversion
           make target/compile -j$(nproc) IGNORE_ERRORS="m n" || make target/compile -j1 V=s IGNORE_ERRORS=1
+
+          make package/kernel/cryptodev-linux/compile -j$(nproc)
+          make package/kernel/ksmbd/compile -j$(nproc)
           make package/kernel/button-hotplug/compile -j$(nproc)
+
           make package/compile -j$(nproc) IGNORE_ERRORS="m n" || make package/compile -j1 V=s IGNORE_ERRORS=1
           make package/index
 
