@@ -16,3 +16,10 @@ Build OpenWrt for official source code.
 如果为空则证明时间过短  
 需要稍微加一点等待的时间  
 一般是2秒到5秒之间  
+
+## update_configs.sh
+脚本接受2个参数，  
+第一个是config文件的目录，  
+第二个是openwrt的源码目录，  
+目录可以是相对路径或者绝对路径，  
+脚本根据参数提供的目录更新config文件。
