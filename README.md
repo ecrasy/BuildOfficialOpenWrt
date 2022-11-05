@@ -23,3 +23,9 @@ Build OpenWrt for official source code.
 第二个是openwrt的源码目录，  
 目录可以是相对路径或者绝对路径，  
 脚本根据参数提供的目录更新config文件。
+
+## cloudshark 
+master分支编译的云鲨无法运行  
+也看不到log信息  
+tag 22.03.2编译的云鲨正常  
+目前使用一个星期没发现什么大问题
