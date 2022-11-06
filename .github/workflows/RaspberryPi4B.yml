@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:23:37 UTC
- # Modified Time: 2022-11-06 02:02:25 UTC
+ # Modified Time: 2022-11-06 04:20:26 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -206,7 +206,7 @@ jobs:
         run: |
           export assets=$(gh release view "$TOOLCHAIN_TAG" --json "assets" --jq ".assets.[].name")
           if [ ! -z "$assets" ]; then
-            echo "try to delete old toolchain release assets: $assets"
+            echo -e "try to delete old toolchain release assets:\n$assets"
             for asset in $assets
             do
               gh release delete-asset "$TOOLCHAIN_TAG" $asset --yes
@@ -228,8 +228,8 @@ jobs:
             echo "create release with tag:$TOOLCHAIN_TAG to $COMMIT"
             for asset in $assets
             do
-              gh release upload "$TOOLCHAIN_TAG" "$TOOLCHAIN_OUTPUT/$asset"
-              echo "upload $asset to release @ tag:$TOOLCHAIN_TAG"
+              export gru=$(gh release upload --clobber "$TOOLCHAIN_TAG" "$TOOLCHAIN_OUTPUT/$asset")
+              echo "upload $asset to release at tag:$TOOLCHAIN_TAG end with result:$gru"
             done
           fi
 
@@ -495,7 +495,7 @@ jobs:
         run: |
           export assets=$(gh release view "$IMAGE_TAG" --json "assets" --jq ".assets.[].name")
           if [ ! -z "$assets" ]; then
-            echo "try to delete old image release assets: $assets"
+            echo -e "try to delete old image release assets:\n$assets"
             for asset in $assets
             do
               gh release delete-asset "$IMAGE_TAG" $asset --yes
@@ -519,8 +519,8 @@ jobs:
             echo "create release with tag:$IMAGE_TAG to $COMMIT"
             for asset in $assets
             do
-              gh release upload "$IMAGE_TAG" "$IMAGE_OUTPUT/$asset"
-              echo "upload $asset to release @ tag:$IMAGE_TAG"
+              export gru=$(gh release upload --clobber "$IMAGE_TAG" "$IMAGE_OUTPUT/$asset")
+              echo "upload $asset to release at tag:$IMAGE_TAG end with result:$gru"
             done
           fi
 
