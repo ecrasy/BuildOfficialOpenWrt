@@ -2,7 +2,7 @@
  # File Name: x86_64_master.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-10-23 05:39:25 UTC
- # Modified Time: 2022-10-30 10:14:39 UTC
+ # Modified Time: 2022-11-06 02:03:34 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -167,14 +167,14 @@ jobs:
         run: |
           cd $OPENWRT_ROOT_PATH
           echo "$(nproc) threads compile tools"
-          make tools/compile -j$(nproc) || make tools/compile -j1 V=s
+          make tools/compile -j$(nproc)
 
       - name: Compile Toolchain
         if: steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         run: |
           cd $OPENWRT_ROOT_PATH
           echo "$(nproc) threads compile toolchain"
-          make toolchain/compile -j$(nproc) || make toolchain/compile -j1 V=s
+          make toolchain/compile -j$(nproc)
           rm -rf .config* dl bin
 
       - name: Generate Toolchain Image
@@ -378,7 +378,7 @@ jobs:
         id: download
         run: |
           cd $OPENWRT_ROOT_PATH
-          make download -j8 || make download -j1 V=s
+          make download -j8
           df -hT
 
       - name: Compile Packages
@@ -387,17 +387,19 @@ jobs:
           echo "$(nproc) threads compile packages"
           make buildinfo
           make diffconfig buildversion feedsversion
-          make target/compile -j$(nproc) IGNORE_ERRORS="m n" || make target/compile -j1 V=s IGNORE_ERRORS=1
+          make target/compile -j$(nproc) IGNORE_ERRORS="m n"
+
           make package/kernel/button-hotplug/compile -j$(nproc)
-          make package/compile -j$(nproc) IGNORE_ERRORS="m n" || make package/compile -j1 V=s IGNORE_ERRORS=1
+
+          make package/compile -j$(nproc) IGNORE_ERRORS="m n"
           make package/index
 
       - name: Generate Firmware
         id: generate
         run: |
           cd $OPENWRT_ROOT_PATH
-          make package/install -j$(nproc) || make package/install -j1 V=s
-          make target/install -j$(nproc) || make target/install -j1 V=s
+          make package/install -j$(nproc)
+          make target/install -j$(nproc)
           make json_overview_image_info
           make checksum
 
