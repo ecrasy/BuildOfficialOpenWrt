@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2022-10-28 00:36:00 UTC
+# Modified Time: 2022-11-06 23:59:53 UTC
 #########################################################################
 
 
@@ -40,8 +40,8 @@ echo "Touch coremark log file to fix uhttpd error!!!"
 
 # fixing dnsmasq compile error
 # from: https://github.com/openwrt/openwrt/issues/9043
-cp $GITHUB_WORKSPACE/data/patches/dnsmasq-struct-daemon.patch package/network/services/dnsmasq/patches/
-echo "Fix dnsmasq issue 9043"
+# cp $GITHUB_WORKSPACE/data/patches/dnsmasq-struct-daemon.patch package/network/services/dnsmasq/patches/
+# echo "Fix dnsmasq issue 9043"
 
 echo "FIX Completed!!!"
 
