@@ -4,13 +4,18 @@
 # Description: replace default model string with empty string
 # will be called in wlan up event
 # Created Time: 2022-07-25 01:30:41 UTC
-# Modified Time: 2022-11-04 12:17:14 UTC
+# Modified Time: 2022-11-05 15:12:08 UTC
 #########################################################################
 
 
 #!/bin/sh
 
-model=$(lscpu | grep "BIOS Model name" | sed -e "s|BIOS Model name:||g")
+model=$(lscpu | grep "^Model name:" | sed -e "s|Model name:||g")
+if [ -z "$model" ]
+then
+    model=$(lscpu | grep "^BIOS Model name:" | sed -e "s|BIOS Model name:||g")
+fi
+
 if [ -z "$model" ]
 then
     model="GenuineIntel"
