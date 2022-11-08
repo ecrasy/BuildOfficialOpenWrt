@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:23:37 UTC
- # Modified Time: 2022-11-06 23:57:07 UTC
+ # Modified Time: 2022-11-08 01:36:44 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -372,6 +372,7 @@ jobs:
           cp $DIY_SH $OPENWRT_ROOT_PATH/$DIY_SH
           cp $FIX_SH $OPENWRT_ROOT_PATH/$FIX_SH
           cp $CONFIG_FILE $OPENWRT_ROOT_PATH/.config
+          cp data/patches/dnsmasq-struct-daemon.patch $OPENWRT_ROOT_PATH/package/network/services/dnsmasq/patches/
           chmod +x $OPENWRT_ROOT_PATH/$DIY_SH
           chmod +x $OPENWRT_ROOT_PATH/$FIX_SH
           cd $OPENWRT_ROOT_PATH
