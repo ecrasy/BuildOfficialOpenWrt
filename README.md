@@ -3,6 +3,9 @@
 Build OpenWrt for official source code.  
 [LEDE源码编译版本](https://github.com/ecrasy/BuildOpenWrt)  
 
+## 概览 
+![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/config.jpg)  
+![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/network.jpg)  
 
 ## IPv6自动设置ula_prefix
 [data/etc/054-ula-prefix](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/data/etc/054-ula-prefix)  
