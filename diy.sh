@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-23 13:01:29 UTC
-# Modified Time: 2022-11-02 13:26:12 UTC
+# Modified Time: 2022-11-10 04:50:35 UTC
 #########################################################################
 
 
@@ -45,5 +45,5 @@ echo "Add 054-ula-prefix"
 # cp -f $GITHUB_WORKSPACE/data/etc/config/* package/base-files/files/etc/config/
 # echo "Add base config files"
 
-echo "DIY Completed!!!"
+echo -e "DIY Completed!!!\n"
 
