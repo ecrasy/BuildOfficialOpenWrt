@@ -2,7 +2,7 @@
  # File Name: x86_64_master.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-10-23 05:39:25 UTC
- # Modified Time: 2022-11-12 11:36:39 UTC
+ # Modified Time: 2022-11-12 12:55:23 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -23,7 +23,7 @@
 ##**********************************************************************/
 
 
-name: Build x86_64 with master
+name: Build official openwrt branch master for x86_64
 
 on:
   workflow_dispatch:
