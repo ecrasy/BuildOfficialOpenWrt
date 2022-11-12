@@ -2,7 +2,7 @@
  # File Name: x86_64_2203.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-08 11:38:30 UTC
- # Modified Time: 2022-11-12 11:16:28 UTC
+ # Modified Time: 2022-11-12 11:36:20 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -42,7 +42,7 @@ env:
   FEEDS_SH: feeds.sh
   IMAGE_TAG: x86_64-openwrt-2203
   TOOLCHAIN_TAG: toolchain-x86_64-openwrt-2203
-  TOOLCHAIN_NAME: toolchain-image-x86_64-openwrt-2203
+  TOOLCHAIN_NAME: Toolchain-image-x86_64-openwrt-2203
   TOOLCHAIN_RELEASE_UPLOAD: true
   FIRMWARE_RELEASE_UPLOAD: true
   FREE_UP_DISK: true
@@ -522,7 +522,7 @@ jobs:
         if: env.FIRMWARE_RELEASE_UPLOAD == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          IMAGE_NAME: ${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-openwrt-2203
+          IMAGE_NAME: Firmware-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-openwrt-2203
           NOTES: Firmware for x86_64 built from branch openwrt-22.03 @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           IMAGE_OUTPUT: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}
