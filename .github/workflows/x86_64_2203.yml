@@ -1,11 +1,9 @@
 ##************************************************************************
- # File Name: x86_64.yml
+ # File Name: x86_64_2203.yml
  # Author: Carbon (ecrasy@gmail.com)
- # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-11-12 11:11:04 UTC
- # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
- # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
- # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
+ # Created Time: 2022-11-08 11:38:30 UTC
+ # Modified Time: 2022-11-12 11:16:28 UTC
+ # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
  # ┃      ━     ┃
@@ -25,22 +23,26 @@
 ##**********************************************************************/
 
 
-name: Build x86_64
+name: Build official openwrt branch openwrt-22.03 x86_64
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '15 8 * * SAT'
+  #watch:
+  # types: [started]
 
 env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git
-  SOURCE_TAG: v22.03.2
+  SOURCE_BRANCH: openwrt-22.03
   CLONE_DEPTH: 200
   CONFIG_FILE: configs/for_tag/x86_64.config
   DIY_SH: diy.sh
   FIX_SH: fix.sh
   FEEDS_SH: feeds.sh
-  IMAGE_TAG: x86_64
-  TOOLCHAIN_TAG: toolchain-x86_64
-  TOOLCHAIN_NAME: toolchain-image-x86_64
+  IMAGE_TAG: x86_64-openwrt-2203
+  TOOLCHAIN_TAG: toolchain-x86_64-openwrt-2203
+  TOOLCHAIN_NAME: toolchain-image-x86_64-openwrt-2203
   TOOLCHAIN_RELEASE_UPLOAD: true
   FIRMWARE_RELEASE_UPLOAD: true
   FREE_UP_DISK: true
@@ -90,9 +92,8 @@ jobs:
       - name: Clone Openwrt Source
         id: clone
         run: |
-          git clone --depth $CLONE_DEPTH --branch $SOURCE_TAG $SOURCE_URL workspace/openwrt
+          git clone --depth $CLONE_DEPTH -b $SOURCE_BRANCH $SOURCE_URL workspace/openwrt
           cd workspace/openwrt
-          git checkout -b action_build
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_ENV
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_OUTPUT
 
@@ -214,7 +215,7 @@ jobs:
         if: env.TOOLCHAIN_RELEASE_UPLOAD == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          NOTES: Toolchain for x86_64 built from openwrt tag ${{ env.SOURCE_TAG }} @ ${{ env.BUILD_DATE }}
+          NOTES: Toolchain for x86_64 built from branch openwrt-22.03 @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -413,8 +414,8 @@ jobs:
         id: generate
         run: |
           cd $OPENWRT_ROOT_PATH
-          make package/install -j$(nproc)
-          make target/install -j$(nproc)
+          make package/install -j$(nproc) || make package/install -j1 V=s
+          make target/install -j$(nproc) || make target/install -j1 V=s
           make json_overview_image_info
           make checksum
 
@@ -521,8 +522,8 @@ jobs:
         if: env.FIRMWARE_RELEASE_UPLOAD == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          IMAGE_NAME: ${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
-          NOTES: Firmware for x86_64 built from openwrt tag ${{ env.SOURCE_TAG }} @ ${{ env.BUILD_DATE }}
+          IMAGE_NAME: ${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-openwrt-2203
+          NOTES: Firmware for x86_64 built from branch openwrt-22.03 @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           IMAGE_OUTPUT: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
