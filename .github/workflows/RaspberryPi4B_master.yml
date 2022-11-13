@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B_master.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-10-23 05:38:21 UTC
- # Modified Time: 2022-11-12 12:53:48 UTC
+ # Modified Time: 2022-11-13 00:20:00 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -23,7 +23,7 @@
 ##**********************************************************************/
 
 
-name: Build official openwrt branch master for raspberrypi 4b
+name: Build openwrt branch master for raspberrypi 4b
 
 on:
   workflow_dispatch:

@@ -2,7 +2,7 @@
  # File Name: x86_64.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-11-12 12:54:52 UTC
+ # Modified Time: 2022-11-13 00:21:06 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -25,7 +25,7 @@
 ##**********************************************************************/
 
 
-name: Build official openwrt tag v22.03.2 for x86_64
+name: Build openwrt tag v22.03.2 for x86_64
 
 on:
   workflow_dispatch:
