@@ -2,7 +2,7 @@
  # File Name: x86_64_2203.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-08 11:38:30 UTC
- # Modified Time: 2022-11-13 00:20:39 UTC
+ # Modified Time: 2022-11-26 13:10:35 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -42,7 +42,7 @@ env:
   FEEDS_SH: feeds.sh
   IMAGE_TAG: x86_64-openwrt-2203
   TOOLCHAIN_TAG: toolchain-x86_64-openwrt-2203
-  TOOLCHAIN_NAME: Toolchain-image-x86_64-openwrt-2203
+  TOOLCHAIN_NAME: Toolchain-x86_64-openwrt-2203
   TOOLCHAIN_RELEASE_UPLOAD: true
   FIRMWARE_RELEASE_UPLOAD: true
   FREE_UP_DISK: true

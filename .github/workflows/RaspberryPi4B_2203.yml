@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B_2203.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-12 11:11:39 UTC
- # Modified Time: 2022-11-13 00:19:53 UTC
+ # Modified Time: 2022-11-26 13:08:39 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -41,8 +41,8 @@ env:
   FIX_SH: fix.sh
   FEEDS_SH: feeds.sh
   IMAGE_TAG: RaspberryPi4B-2203
-  TOOLCHAIN_TAG: toolchain-bcm2711-2203
-  TOOLCHAIN_NAME: Toolchain-image-bcm2711-2203
+  TOOLCHAIN_TAG: toolchain-bcm2711-openwrt-2203
+  TOOLCHAIN_NAME: Toolchain-bcm2711-openwrt-2203
   TOOLCHAIN_RELEASE_UPLOAD: true
   FIRMWARE_RELEASE_UPLOAD: true
   FREE_UP_DISK: true

@@ -2,7 +2,7 @@
  # File Name: x86_64_master.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-10-23 05:39:25 UTC
- # Modified Time: 2022-11-13 00:20:59 UTC
+ # Modified Time: 2022-11-26 13:10:45 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -42,7 +42,7 @@ env:
   FEEDS_SH: feeds.sh
   IMAGE_TAG: x86_64-master
   TOOLCHAIN_TAG: toolchain-x86_64-master
-  TOOLCHAIN_NAME: Toolchain-image-x86_64-master
+  TOOLCHAIN_NAME: Toolchain-x86_64-master
   TOOLCHAIN_RELEASE_UPLOAD: true
   FIRMWARE_RELEASE_UPLOAD: true
   FREE_UP_DISK: true

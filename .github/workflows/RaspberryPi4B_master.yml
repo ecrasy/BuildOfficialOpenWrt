@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B_master.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-10-23 05:38:21 UTC
- # Modified Time: 2022-11-13 00:20:00 UTC
+ # Modified Time: 2022-11-26 13:09:05 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -42,7 +42,7 @@ env:
   FEEDS_SH: feeds.sh
   IMAGE_TAG: RaspberryPi4B-master
   TOOLCHAIN_TAG: toolchain-bcm2711-master
-  TOOLCHAIN_NAME: Toolchain-image-bcm2711-master
+  TOOLCHAIN_NAME: Toolchain-bcm2711-master
   TOOLCHAIN_RELEASE_UPLOAD: true
   FIRMWARE_RELEASE_UPLOAD: true
   FREE_UP_DISK: true
