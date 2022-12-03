@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:23:37 UTC
- # Modified Time: 2022-12-02 12:16:08 UTC
+ # Modified Time: 2022-12-03 00:53:30 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -38,7 +38,8 @@ env:
   DIY_SH: diy.sh
   FIX_SH: fix.sh
   FEEDS_SH: feeds.sh
-  IMAGE_TAG: RaspberryPi4B-22032
+  IMAGE_TAG: firmware-bcm2711-22032
+  IMAGE_NAME: Firmware-bcm2711-TAG22032
   TOOLCHAIN_TAG: toolchain-bcm2711-22032
   TOOLCHAIN_NAME: Toolchain-bcm2711-TAG22032
   TOOLCHAIN_RELEASE_UPLOAD: true
@@ -517,7 +518,6 @@ jobs:
         if: env.FIRMWARE_RELEASE_UPLOAD == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          IMAGE_NAME: Firmware-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
           NOTES: Firmware for RaspberryPi 4b built from openwrt tag ${{ env.SOURCE_TAG }}@ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           IMAGE_OUTPUT: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}

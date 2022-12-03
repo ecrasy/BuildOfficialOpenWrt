@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B_2203.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-12 11:11:39 UTC
- # Modified Time: 2022-12-02 12:13:18 UTC
+ # Modified Time: 2022-12-03 00:56:51 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -40,7 +40,8 @@ env:
   DIY_SH: diy.sh
   FIX_SH: fix.sh
   FEEDS_SH: feeds.sh
-  IMAGE_TAG: RaspberryPi4B-openwrt-2203
+  IMAGE_TAG: firmware-bcm2711-openwrt-2203
+  IMAGE_NAME: Firmware-bcm2711-openwrt-2203
   TOOLCHAIN_TAG: toolchain-bcm2711-openwrt-2203
   TOOLCHAIN_NAME: Toolchain-bcm2711-openwrt-2203
   TOOLCHAIN_RELEASE_UPLOAD: true
@@ -518,7 +519,6 @@ jobs:
         if: env.FIRMWARE_RELEASE_UPLOAD == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          IMAGE_NAME: Firmware-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-openwrt-2203
           NOTES: Firmware for RaspberryPi 4b built from openwrt branch openwrt-22.03 @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           IMAGE_OUTPUT: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}
