@@ -2,7 +2,7 @@
  # File Name: x86_64_master.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-10-23 05:39:25 UTC
- # Modified Time: 2022-11-26 13:10:45 UTC
+ # Modified Time: 2022-12-04 02:09:54 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -40,7 +40,8 @@ env:
   DIY_SH: diy.sh
   FIX_SH: fix.sh
   FEEDS_SH: feeds.sh
-  IMAGE_TAG: x86_64-master
+  IMAGE_TAG: firmware-x86_64-master
+  IMAGE_NAME: Firmware-x86_64-master
   TOOLCHAIN_TAG: toolchain-x86_64-master
   TOOLCHAIN_NAME: Toolchain-x86_64-master
   TOOLCHAIN_RELEASE_UPLOAD: true
@@ -519,7 +520,6 @@ jobs:
         if: env.FIRMWARE_RELEASE_UPLOAD == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          IMAGE_NAME: Firmware-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-master
           NOTES: Firmware for x86_64 built from openwrt master branch @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           IMAGE_OUTPUT: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}
