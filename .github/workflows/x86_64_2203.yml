@@ -2,7 +2,7 @@
  # File Name: x86_64_2203.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-08 11:38:30 UTC
- # Modified Time: 2022-12-03 00:57:37 UTC
+ # Modified Time: 2022-12-08 08:31:44 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -36,7 +36,7 @@ env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git
   SOURCE_BRANCH: openwrt-22.03
   CLONE_DEPTH: 200
-  CONFIG_FILE: configs/for_tag/x86_64.config
+  CONFIG_FILE: configs/for_openwrt-2203/x86_64.config
   DIY_SH: diy.sh
   FIX_SH: fix.sh
   FEEDS_SH: feeds.sh
