@@ -1,8 +1,8 @@
 ##************************************************************************
- # File Name: x86_64_22032.yml
+ # File Name: x86_64_tag22032.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-12-08 08:56:41 UTC
+ # Modified Time: 2022-12-08 09:43:22 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -34,7 +34,7 @@ env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git
   SOURCE_TAG: v22.03.2
   CLONE_DEPTH: 200
-  CONFIG_FILE: configs/for_22032/x86_64.config
+  CONFIG_FILE: configs/for_tag22032/x86_64.config
   DIY_SH: diy.sh
   FIX_SH: fix.sh
   FEEDS_SH: feeds.sh
