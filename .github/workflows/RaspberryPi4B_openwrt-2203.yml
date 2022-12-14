@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B_openwrt-2203.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-12 11:11:39 UTC
- # Modified Time: 2022-12-08 08:56:17 UTC
+ # Modified Time: 2022-12-14 23:10:43 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -370,7 +370,6 @@ jobs:
           cp $DIY_SH $OPENWRT_ROOT_PATH/$DIY_SH
           cp $FIX_SH $OPENWRT_ROOT_PATH/$FIX_SH
           cp $CONFIG_FILE $OPENWRT_ROOT_PATH/.config
-          cp data/patches/dnsmasq-struct-daemon.patch $OPENWRT_ROOT_PATH/package/network/services/dnsmasq/patches/
           chmod +x $OPENWRT_ROOT_PATH/$DIY_SH
           chmod +x $OPENWRT_ROOT_PATH/$FIX_SH
           cd $OPENWRT_ROOT_PATH
