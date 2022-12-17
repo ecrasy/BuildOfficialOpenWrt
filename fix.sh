@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2022-12-14 23:09:51 UTC
+# Modified Time: 2022-12-17 02:38:10 UTC
 #########################################################################
 
 
@@ -42,7 +42,7 @@ echo "Touch coremark log file to fix uhttpd error!!!"
 # from: https://github.com/openwrt/openwrt/issues/9043
 dnsmasq_path="package/network/services/dnsmasq"
 dnsmasq_ver=$(grep 'PKG_UPSTREAM_VERSION:=2.86' ${dnsmasq_path}/Makefile)
-if [ ! -z "${dnsmasq_ver}" ];then
+if [ ! -z "${dnsmasq_ver}" ]; then
     cp $GITHUB_WORKSPACE/data/patches/dnsmasq-struct-daemon.patch ${dnsmasq_path}/patches/
     echo "Fix dnsmasq v2.86 issue 9043"
 fi
