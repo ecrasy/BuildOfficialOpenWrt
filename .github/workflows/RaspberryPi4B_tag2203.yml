@@ -1,8 +1,8 @@
 ##************************************************************************
- # File Name: x86_64_tag22032.yml
+ # File Name: RaspberryPi4B_tag2203.yml
  # Author: Carbon (ecrasy@gmail.com)
- # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2022-12-14 23:10:52 UTC
+ # Created Time: 2022-07-16 15:23:37 UTC
+ # Modified Time: 2023-01-05 00:23:32 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -25,23 +25,23 @@
 ##**********************************************************************/
 
 
-name: Build openwrt tag v22.03.2 for x86_64
+name: Build openwrt tag v22.03 for raspberrypi 4b
 
 on:
   workflow_dispatch:
 
 env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git
-  SOURCE_TAG: v22.03.2
+  SOURCE_TAG: v22.03.3
   CLONE_DEPTH: 200
-  CONFIG_FILE: configs/for_tag22032/x86_64.config
+  CONFIG_FILE: configs/for_tag22032/RaspberryPi4B.config
   DIY_SH: diy.sh
   FIX_SH: fix.sh
   FEEDS_SH: feeds.sh
-  IMAGE_TAG: firmware-x86_64-22032
-  IMAGE_NAME: Firmware-x86_64-TAG22032
-  TOOLCHAIN_TAG: toolchain-x86_64-22032
-  TOOLCHAIN_NAME: Toolchain-x86_64-TAG22032
+  IMAGE_TAG: firmware-bcm2711-22032
+  IMAGE_NAME: Firmware-bcm2711-TAG22032
+  TOOLCHAIN_TAG: toolchain-bcm2711-22032
+  TOOLCHAIN_NAME: Toolchain-bcm2711-TAG22032
   TOOLCHAIN_RELEASE_UPLOAD: true
   FIRMWARE_RELEASE_UPLOAD: true
   FREE_UP_DISK: true
@@ -215,7 +215,7 @@ jobs:
         if: env.TOOLCHAIN_RELEASE_UPLOAD == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          NOTES: Toolchain for x86_64 built from openwrt tag ${{ env.SOURCE_TAG }} @ ${{ env.BUILD_DATE }}
+          NOTES: Toolchain for RaspberryPi 4b built from openwrt tag ${{ env.SOURCE_TAG }} @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -401,11 +401,6 @@ jobs:
           make buildinfo
           make diffconfig buildversion feedsversion
           make target/compile -j$(nproc) IGNORE_ERRORS="m n"
-
-          make package/kernel/cryptodev-linux/compile -j$(nproc)
-          make package/kernel/ksmbd/compile -j$(nproc)
-          make package/kernel/button-hotplug/compile -j$(nproc)
-
           make package/compile -j$(nproc) IGNORE_ERRORS="m n"
           make package/index
 
@@ -413,6 +408,7 @@ jobs:
         id: generate
         run: |
           cd $OPENWRT_ROOT_PATH
+          echo "dtparam=i2c_arm=on,audio=on" >> target/linux/bcm27xx/image/config.txt
           make package/install -j$(nproc)
           make target/install -j$(nproc)
           make json_overview_image_info
@@ -521,7 +517,7 @@ jobs:
         if: env.FIRMWARE_RELEASE_UPLOAD == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          NOTES: Firmware for x86_64 built from openwrt tag ${{ env.SOURCE_TAG }} @ ${{ env.BUILD_DATE }}
+          NOTES: Firmware for RaspberryPi 4b built from openwrt tag ${{ env.SOURCE_TAG }}@ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           IMAGE_OUTPUT: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
