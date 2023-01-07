@@ -37,5 +37,11 @@ master分支编译的云鲨目前(20230107)正常运行
 去掉了冲突的odhcpd模块  
 如果DHCP v6无法分配IP  
 则需要额外配置一下  
+DHCP配置文件：  
+[/etc/config/dhcp](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/dhcp)  
+
+下面是可选的DNS转发配置：  
+额外配置的DNS转发地址  
+来自于pppoe拨号获取的dns信息  
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/DHCP.jpg)  
-[/etc/config/dhcp](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/dhcp)
+
