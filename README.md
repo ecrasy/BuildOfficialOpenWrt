@@ -29,7 +29,13 @@ Build OpenWrt for official source code.
 脚本根据参数提供的目录更新config文件。
 
 ## cloudshark 
-master分支编译的云鲨无法运行  
-也看不到log信息  
-tag 22.03.2编译的云鲨正常  
-目前使用一个星期没发现什么大问题
+master分支编译的云鲨目前(20230107)正常运行  
+目前(20230107)master分支固件使用中没发现什么大问题
+
+## 额外配置  
+为了适配最新的dnsmasq v2.88  
+去掉了冲突的odhcpd模块  
+如果DHCP v6无法分配IP  
+则需要额外配置一下  
+![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/DHCP.jpg)  
+[/etc/config/dhcp](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/dhcp)
