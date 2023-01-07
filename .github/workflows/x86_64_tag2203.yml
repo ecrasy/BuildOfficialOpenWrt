@@ -2,7 +2,7 @@
  # File Name: x86_64_tag2203.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2023-01-05 01:04:21 UTC
+ # Modified Time: 2023-01-07 07:40:26 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -29,6 +29,10 @@ name: Build openwrt tag v22.03 for x86_64
 
 on:
   workflow_dispatch:
+  #schedule:
+  # - cron: '15 8 * * SAT'
+  #watch:
+  # types: [started]
 
 env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git

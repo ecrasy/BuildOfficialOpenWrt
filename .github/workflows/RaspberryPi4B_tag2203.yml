@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B_tag2203.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:23:37 UTC
- # Modified Time: 2023-01-05 01:03:44 UTC
+ # Modified Time: 2023-01-07 07:40:39 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -29,6 +29,10 @@ name: Build openwrt tag v22.03 for raspberrypi 4b
 
 on:
   workflow_dispatch:
+  #schedule:
+  # - cron: '15 8 * * SAT'
+  #watch:
+  # types: [started]
 
 env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git
