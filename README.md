@@ -45,3 +45,17 @@ DHCP配置文件：
 来自于pppoe拨号获取的dns信息  
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/DHCP.jpg)  
 
+获取IPv6-PD：  
+ssh登录到OpenWrt路由器  
+打开编辑/etc/config/network  
+手动更改wan6为:  
+```
+config interface 'wan6'
+	option device '@wan'
+	option proto 'dhcpv6'
+	option reqaddress 'try'
+	option reqprefix 'auto'
+```  
+让wan6成为wan的别名  
+wan的IPv6获取设置为手动  
+wan6的IPv6获取设置为自动  
