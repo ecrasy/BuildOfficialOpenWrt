@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B_openwrt-2203.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-12 11:11:39 UTC
- # Modified Time: 2023-01-07 07:39:50 UTC
+ # Modified Time: 2023-01-07 07:46:49 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -28,7 +28,7 @@ name: Build openwrt branch openwrt-22.03 for raspberrypi 4b
 on:
   workflow_dispatch:
   #schedule:
-  # - cron: '45 8 * * SAT'
+  # - cron: '25 8 * * SAT'
   #watch:
   # types: [started]
 
