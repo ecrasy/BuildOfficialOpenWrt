@@ -41,7 +41,9 @@ DHCP配置文件：
 [/etc/config/dhcp](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/dhcp)  
 
 下面是可选的DNS转发配置：  
-额外配置的DNS转发地址  
+dnsmasq会自动处理pppoe-wan拨号获取的dns设置  
+所以这个设置可做可不做  
+下面配置的DNS转发地址  
 来自于pppoe拨号获取的dns信息  
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/DHCP.jpg)  
 
