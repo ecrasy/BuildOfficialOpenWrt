@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B_openwrt-2203.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-12 11:11:39 UTC
- # Modified Time: 2023-01-10 08:08:50 UTC
+ # Modified Time: 2023-01-10 12:37:39 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -482,6 +482,17 @@ jobs:
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Free Up Disk Space
+        if: env.FREE_UP_DISK == 'true'
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo -E apt-get -qq -y purge ghc* zulu* google* dotnet* mysql* azure-cli firefox powershell
+          sudo -E apt-get -y autoremove --purge
+          sudo -E apt-get -y clean
+          docker image prune -a -f
 
       - name: Initialize Environment
         env:
