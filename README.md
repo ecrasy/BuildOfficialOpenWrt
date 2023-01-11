@@ -14,10 +14,10 @@ Build OpenWrt for official source code.
 登录密码是默认密码password  
 wan口配置为pppoe拨号上网  
 需要手动填写拨号的账户密码  
-[backup-OpenWrt-common.tar.gz](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/backup-OpenWrt-common.tar.gz)    
+[点击下载配置](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/backup-OpenWrt-common.tar.gz)    
 
 ## IPv6自动设置ula_prefix
-[data/etc/054-ula-prefix](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/data/etc/054-ula-prefix)  
+[ula prefix](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/data/etc/095-ula-prefix)  
 脚本负责在WAN网络连接之后查询 **ula prefix**  
 总共会尝试8次  
 每次失败会睡眠等待1秒  
@@ -41,7 +41,7 @@ master分支编译的云鲨目前(20230107)正常运行
 如果DHCP v6无法分配IP  
 则需要额外配置一下  
 DHCP配置文件：  
-[/etc/config/dhcp](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/dhcp)  
+[点击查看配置](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/dhcp)  
 
 下面是可选的DNS转发配置：  
 dnsmasq会自动处理pppoe-wan拨号获取的dns设置  
