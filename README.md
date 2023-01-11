@@ -7,19 +7,22 @@ Build OpenWrt for official source code.
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/config.jpg)  
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/network.jpg)  
 
+## 官方源码编译固件的恢复配置
+这是基于官方源码master分支编译的固件的恢复配置  
+在系统->备份与升级->恢复配置  
+上传备份然后等待重启  
+登录密码是默认密码password  
+wan口配置为pppoe拨号上网  
+需要手动填写拨号的账户密码  
+[backup-OpenWrt-common.tar.gz](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/backup-OpenWrt-common.tar.gz)    
+
 ## IPv6自动设置ula_prefix
 [data/etc/054-ula-prefix](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/data/etc/054-ula-prefix)  
 脚本负责在WAN网络连接之后查询 **ula prefix**  
-然后设置给全局网络使用  
-由于运营商给 **ula prefix** 时有延迟  
-所以开头加了睡眠等待  
 总共会尝试8次  
 每次失败会睡眠等待1秒  
-可以在系统启动之后检查/tmp/_ula_prefix文件的内容  
-如果为空则证明可能尝试次数不足  
-需要稍微加一点等待的时间或者增加尝试次数？  
-一般是4次大概4秒之后成功  
-视不同的机器最终结果可能略有差异  
+可以在系统启动之后检查日志内容：  
+/tmp/_ula_prefix  
 
 ## update_configs.sh
 脚本接受2个参数，  
