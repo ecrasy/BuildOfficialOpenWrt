@@ -46,13 +46,6 @@ master分支编译的云鲨目前(20230107)正常运行
 DHCP配置文件：  
 [点击查看配置](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/dhcp)  
 
-下面是可选的DNS转发配置：  
-dnsmasq会自动处理pppoe-wan拨号获取的dns设置  
-所以这个设置可做可不做  
-下面配置的DNS转发地址  
-来自于pppoe拨号获取的dns信息  
-![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/DHCP.jpg)  
-
 获取IPv6-PD：  
 ssh登录到OpenWrt路由器  
 打开编辑/etc/config/network  
