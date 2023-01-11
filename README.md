@@ -9,11 +9,14 @@ Build OpenWrt for official source code.
 
 ## 官方源码编译固件的恢复配置
 这是基于官方源码master分支编译的固件的恢复配置  
+使用恢复配置可以实现下面图片中的路由运行效果  
+免去每次烧写固件需要重新设置的烦恼  
 在系统->备份与升级->恢复配置  
 上传备份然后等待重启  
 登录密码是默认密码password  
-wan口配置为pppoe拨号上网  
+wan口已配置为pppoe拨号上网  
 需要手动填写拨号的账户密码  
+或者手动切换为DHCP协议  
 [点击下载配置](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/backup-OpenWrt-common.tar.gz)    
 
 ## IPv6自动设置ula_prefix
