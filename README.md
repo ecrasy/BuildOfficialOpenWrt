@@ -15,8 +15,8 @@ Build OpenWrt for official source code.
 上传备份然后等待重启  
 登录密码是默认密码password  
 wan口已配置为pppoe拨号上网  
-需要手动填写拨号的账户密码  
-或者手动切换为DHCP协议  
+需要手动填写拨号的账户密码(光猫桥接拨号)  
+或者手动切换为DHCP协议(光猫拨号)  
 [点击下载配置](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/backup-OpenWrt-common.tar.gz)    
 
 ## IPv6自动设置ula_prefix
