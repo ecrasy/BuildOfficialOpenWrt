@@ -2,7 +2,7 @@
  # File Name: RaspberryPi4B_master.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-10-23 05:38:21 UTC
- # Modified Time: 2023-01-14 02:15:16 UTC
+ # Modified Time: 2023-01-15 08:42:02 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -46,7 +46,6 @@ env:
   TOOLCHAIN_NAME: Toolchain-bcm2711-master
   TOOLCHAIN_RELEASE_UPLOAD: true
   FIRMWARE_RELEASE_UPLOAD: true
-  FREE_UP_DISK: true
   COMBINE_DISK: true
   TZ: Asia/Shanghai
 
@@ -78,12 +77,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Free Up Disk Space
-        if: env.FREE_UP_DISK == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo -E apt-get -qq update
-          sudo -E apt-get -qq -y upgrade
           sudo -E apt-get -qq -y purge ghc* zulu* google* dotnet* mysql* azure-cli firefox powershell
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get -y clean
@@ -94,6 +91,7 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
+          sudo -E apt-get -qq -y upgrade
           sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/openwrt-env)
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get -y clean
@@ -313,12 +311,10 @@ jobs:
           git checkout -t origin/$CURRENT_BRANCH
 
       - name: Free Up Disk Space
-        if: env.FREE_UP_DISK == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo -E apt-get -qq update
-          sudo -E apt-get -qq -y upgrade
           sudo -E apt-get -qq -y purge ghc* zulu* google* dotnet* mysql* azure-cli firefox powershell
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get -y clean
@@ -329,6 +325,7 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
+          sudo -E apt-get -qq -y upgrade
           sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/openwrt-env)
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get -y clean
@@ -482,12 +479,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Free Up Disk Space
-        if: env.FREE_UP_DISK == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo -E apt-get -qq update
-          sudo -E apt-get -qq -y upgrade
           sudo -E apt-get -qq -y purge ghc* zulu* google* dotnet* mysql* azure-cli firefox powershell
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get -y clean
@@ -498,6 +493,7 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
+          sudo -E apt-get -qq -y upgrade
           sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/openwrt-env)
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get -y clean
