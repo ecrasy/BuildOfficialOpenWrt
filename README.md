@@ -63,3 +63,6 @@ wan6的IPv6获取设置为自动
 实际运行效果图：  
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/network.jpg)  
 
+## 通过VPS搭建代理
+[Wiki教程](https://github.com/ecrasy/BuildOpenwrt/wiki)  
+
