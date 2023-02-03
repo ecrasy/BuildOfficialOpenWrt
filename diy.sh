@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-23 13:01:29 UTC
-# Modified Time: 2023-01-10 09:50:04 UTC
+# Modified Time: 2023-02-03 10:49:19 UTC
 #########################################################################
 
 
@@ -44,5 +44,34 @@ echo "Add 095-ula-prefix"
 # mkdir -p package/base-files/files/etc/config
 # cp -f $GITHUB_WORKSPACE/data/etc/config/* package/base-files/files/etc/config/
 # echo "Add base config files"
+
+# Custom miniDLNA zh_Hans translation
+miniDLNA_PATH="feeds/luci/applications/luci-app-minidlna/po/zh_Hans"
+sed -i 's/迷你DLNA/miniDLNA/g' ${miniDLNA_PATH}/minidlna.po
+sed -i 's/迷你 SSDP 插座/miniSSDP 插座/g' ${miniDLNA_PATH}/minidlna.po
+echo "Custom miniDLNA zh_Hans translation"
+
+# Custom MJPG-streamer zh_Hans translation
+ms_PATH="feeds/luci/applications/luci-app-mjpg-streamer/po/zh_Hans"
+sed -i 's/MJPG-streamer(网络摄像机串流)/MJPG-streamer/g' ${ms_PATH}/mjpg-streamer.po
+echo "Custom MJPG-streamer zh_Hans translation"
+
+# Custom DDns zh_Hans translation
+ddns_PATH="feeds/luci/applications/luci-app-ddns/po/zh_Hans"
+sed -i 's/动态DNS 服务项/DDns服务/g' ${ddns_PATH}/ddns.po
+sed -i 's/动态 DNS 版本/DDns版本/g' ${ddns_PATH}/ddns.po
+sed -i 's/动态DNS/DDns/g' ${ddns_PATH}/ddns.po
+sed -i 's/动态 DNS/DDns/g' ${ddns_PATH}/ddns.po
+echo "Custom DDns zh_Hans translation"
+
+# Custom Shairplay zh_Hans translation
+sp_PATH="feeds/luci/applications/luci-app-shairplay/po/zh_Hans"
+sed -i 's/Shairplay(多媒体程序)/Shairplay/g' ${sp_PATH}/shairplay.po
+echo "Custom Shairplay zh_Hans translation"
+
+# Custom Samba4 zh_Hans translation
+SB_PATH="feeds/luci/applications/luci-app-samba4/po/zh_Hans"
+sed -i 's/网络共享/Samba4/g' ${SB_PATH}/samba4.po
+echo "Custom Samba4 zh_Hans translation"
 
 echo -e "DIY Jobs Completed!!!\n"
