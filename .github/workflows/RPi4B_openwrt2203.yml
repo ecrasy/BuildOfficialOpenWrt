@@ -1,8 +1,8 @@
 ##************************************************************************
- # File Name: RaspberryPi4B_openwrt-2203.yml
+ # File Name: RPi4B_openwrt2203.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-12 11:11:39 UTC
- # Modified Time: 2023-01-15 08:42:34 UTC
+ # Modified Time: 2023-02-03 08:44:48 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -36,7 +36,7 @@ env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git
   SOURCE_BRANCH: openwrt-22.03
   CLONE_DEPTH: 200
-  CONFIG_FILE: configs/for_openwrt-2203/RaspberryPi4B.config
+  CONFIG_FILE: configs/for_openwrt2203/RPi4B.config
   DIY_SH: diy.sh
   FIX_SH: fix.sh
   FEEDS_SH: feeds.sh

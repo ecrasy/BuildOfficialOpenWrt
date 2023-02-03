@@ -1,11 +1,9 @@
 ##************************************************************************
- # File Name: RaspberryPi4B_tag2203.yml
+ # File Name: x86_64_openwrt2203.yml
  # Author: Carbon (ecrasy@gmail.com)
- # Created Time: 2022-07-16 15:23:37 UTC
- # Modified Time: 2023-01-15 08:43:27 UTC
- # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
- # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
- # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
+ # Created Time: 2022-11-08 11:38:30 UTC
+ # Modified Time: 2023-02-03 08:46:14 UTC
+ # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
  # ┃      ━     ┃
@@ -25,27 +23,27 @@
 ##**********************************************************************/
 
 
-name: Build openwrt tag v22.03 for raspberrypi 4b
+name: Build openwrt branch openwrt-22.03 for x86_64
 
 on:
   workflow_dispatch:
   #schedule:
-  # - cron: '15 8 * * SAT'
+  # - cron: '25 8 * * SAT'
   #watch:
   # types: [started]
 
 env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git
-  SOURCE_TAG: v22.03.3
+  SOURCE_BRANCH: openwrt-22.03
   CLONE_DEPTH: 200
-  CONFIG_FILE: configs/for_tag2203/RaspberryPi4B.config
+  CONFIG_FILE: configs/for_openwrt2203/x86_64.config
   DIY_SH: diy.sh
   FIX_SH: fix.sh
   FEEDS_SH: feeds.sh
-  IMAGE_TAG: firmware-bcm2711-TAG2203
-  IMAGE_NAME: Firmware-bcm2711-TAG2203
-  TOOLCHAIN_TAG: toolchain-bcm2711-TAG2203
-  TOOLCHAIN_NAME: Toolchain-bcm2711-TAG2203
+  IMAGE_TAG: firmware-x86_64-openwrt-2203
+  IMAGE_NAME: Firmware-x86_64-openwrt-2203
+  TOOLCHAIN_TAG: toolchain-x86_64-openwrt-2203
+  TOOLCHAIN_NAME: Toolchain-x86_64-openwrt-2203
   TOOLCHAIN_RELEASE_UPLOAD: true
   FIRMWARE_RELEASE_UPLOAD: true
   COMBINE_DISK: true
@@ -103,9 +101,8 @@ jobs:
       - name: Clone Openwrt Source
         id: clone
         run: |
-          git clone --depth $CLONE_DEPTH --branch $SOURCE_TAG $SOURCE_URL workspace/openwrt
+          git clone --depth $CLONE_DEPTH -b $SOURCE_BRANCH $SOURCE_URL workspace/openwrt
           cd workspace/openwrt
-          git checkout -b action_build
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_ENV
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_OUTPUT
 
@@ -227,7 +224,7 @@ jobs:
         if: env.TOOLCHAIN_RELEASE_UPLOAD == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          NOTES: Toolchain for RaspberryPi 4b built from openwrt tag ${{ env.SOURCE_TAG }} @ ${{ env.BUILD_DATE }}
+          NOTES: Toolchain for x86_64 built from branch openwrt-22.03 @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -411,6 +408,11 @@ jobs:
           make buildinfo
           make diffconfig buildversion feedsversion
           make target/compile -j$(nproc) IGNORE_ERRORS="m n"
+
+          make package/kernel/cryptodev-linux/compile -j$(nproc)
+          make package/kernel/ksmbd/compile -j$(nproc)
+          make package/kernel/button-hotplug/compile -j$(nproc)
+
           make package/compile -j$(nproc) IGNORE_ERRORS="m n"
           make package/index
 
@@ -418,9 +420,8 @@ jobs:
         id: generate
         run: |
           cd $OPENWRT_ROOT_PATH
-          echo "dtparam=i2c_arm=on,audio=on" >> target/linux/bcm27xx/image/config.txt
-          make package/install -j$(nproc)
-          make target/install -j$(nproc)
+          make package/install -j$(nproc) || make package/install -j1 V=s
+          make target/install -j$(nproc) || make target/install -j1 V=s
           make json_overview_image_info
           make checksum
 
@@ -540,7 +541,7 @@ jobs:
         if: env.FIRMWARE_RELEASE_UPLOAD == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          NOTES: Firmware for RaspberryPi 4b built from openwrt tag ${{ env.SOURCE_TAG }}@ ${{ env.BUILD_DATE }}
+          NOTES: Firmware for x86_64 built from branch openwrt-22.03 @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           IMAGE_OUTPUT: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

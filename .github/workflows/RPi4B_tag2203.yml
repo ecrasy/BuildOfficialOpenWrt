@@ -1,9 +1,11 @@
 ##************************************************************************
- # File Name: RaspberryPi4B_master.yml
+ # File Name: RPi4B_tag2203.yml
  # Author: Carbon (ecrasy@gmail.com)
- # Created Time: 2022-10-23 05:38:21 UTC
- # Modified Time: 2023-01-15 08:42:02 UTC
- # Description: feel free to use
+ # Created Time: 2022-07-16 15:23:37 UTC
+ # Modified Time: 2023-02-03 08:45:07 UTC
+ # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
+ # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
+ # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
  # ┃      ━     ┃
@@ -23,27 +25,27 @@
 ##**********************************************************************/
 
 
-name: Build openwrt branch master for raspberrypi 4b
+name: Build openwrt tag v22.03 for raspberrypi 4b
 
 on:
   workflow_dispatch:
   #schedule:
-  # - cron: '35 8 * * SAT'
+  # - cron: '15 8 * * SAT'
   #watch:
   # types: [started]
 
 env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git
-  SOURCE_BRANCH: master
+  SOURCE_TAG: v22.03.3
   CLONE_DEPTH: 200
-  CONFIG_FILE: configs/for_master/RaspberryPi4B.config
+  CONFIG_FILE: configs/for_tag2203/RPi4B.config
   DIY_SH: diy.sh
   FIX_SH: fix.sh
   FEEDS_SH: feeds.sh
-  IMAGE_TAG: firmware-bcm2711-master
-  IMAGE_NAME: Firmware-bcm2711-master
-  TOOLCHAIN_TAG: toolchain-bcm2711-master
-  TOOLCHAIN_NAME: Toolchain-bcm2711-master
+  IMAGE_TAG: firmware-bcm2711-TAG2203
+  IMAGE_NAME: Firmware-bcm2711-TAG2203
+  TOOLCHAIN_TAG: toolchain-bcm2711-TAG2203
+  TOOLCHAIN_NAME: Toolchain-bcm2711-TAG2203
   TOOLCHAIN_RELEASE_UPLOAD: true
   FIRMWARE_RELEASE_UPLOAD: true
   COMBINE_DISK: true
@@ -101,8 +103,9 @@ jobs:
       - name: Clone Openwrt Source
         id: clone
         run: |
-          git clone --depth $CLONE_DEPTH -b $SOURCE_BRANCH $SOURCE_URL workspace/openwrt
+          git clone --depth $CLONE_DEPTH --branch $SOURCE_TAG $SOURCE_URL workspace/openwrt
           cd workspace/openwrt
+          git checkout -b action_build
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_ENV
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_OUTPUT
 
@@ -224,7 +227,7 @@ jobs:
         if: env.TOOLCHAIN_RELEASE_UPLOAD == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          NOTES: Toolchain for RaspberryPi 4b built from openwrt master branch @ ${{ env.BUILD_DATE }}
+          NOTES: Toolchain for RaspberryPi 4b built from openwrt tag ${{ env.SOURCE_TAG }} @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -537,7 +540,7 @@ jobs:
         if: env.FIRMWARE_RELEASE_UPLOAD == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          NOTES: Firmware for RaspberryPi 4b built from openwrt master branch @ ${{ env.BUILD_DATE }}
+          NOTES: Firmware for RaspberryPi 4b built from openwrt tag ${{ env.SOURCE_TAG }}@ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           IMAGE_OUTPUT: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
