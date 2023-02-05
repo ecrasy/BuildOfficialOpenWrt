@@ -1,3 +1,4 @@
+
 config dnsmasq
 	option domainneeded '1'
 	option localise_queries '1'
@@ -6,30 +7,24 @@ config dnsmasq
 	option local '/lan/'
 	option domain 'lan'
 	option expandhosts '1'
-	option cachesize '8192'
 	option authoritative '1'
 	option readethers '1'
 	option leasefile '/tmp/dhcp.leases'
 	option resolvfile '/tmp/resolv.conf.d/resolv.conf.auto'
-	option nonwildcard '1'
 	option ednspacket_max '1232'
 	option localuse '1'
 	option localservice '0'
 	option boguspriv '0'
-	list notinterface 'pppoe-wan'
 	option sequential_ip '1'
+	option cachesize '8192'
+	list notinterface 'pppoe-wan'
 
 config dhcp 'lan'
 	option interface 'lan'
 	option limit '150'
 	option start '2'
-	option leasetime '2h'
+	option leasetime '6h'
 	option force '1'
-	option ra 'server'
-	option dhcpv6 'server'
-	option ra_management '1'
-	option ra_default '1'
-
 
 config dhcp 'wan'
 	option interface 'wan'
