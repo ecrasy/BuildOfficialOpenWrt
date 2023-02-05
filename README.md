@@ -4,9 +4,9 @@ Build OpenWrt for official source code.
 [LEDE源码编译版本](https://github.com/ecrasy/BuildOpenWrt)  
 
 ## 概览 
-Intel J4125用了两个多月，  
+Intel J4125用了两个多月master分支编译的固件，  
 非常稳定，速度很快，  
-LEDE版本的有些问题，  
+LEDE版本出现的有些问题，  
 官方源码编译的反而没有。  
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/config.jpg)  
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/network.jpg)  
