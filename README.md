@@ -64,7 +64,8 @@ DHCP配置文件(默认不开DHCPv6)：
 
 **获取IPv6-PD：**  
 ssh登录到OpenWrt路由器  
-打开编辑[/etc/config/network](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/network)  
+打开编辑  
+[/etc/config/network](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/network)  
 手动更改wan6为:  
 ```
 config interface 'wan6'
@@ -73,10 +74,10 @@ config interface 'wan6'
 	option reqaddress 'try'
 	option reqprefix 'auto'
 ```  
-让wan6成为wan的别名  
+这里修改让wan6成为wan的别名  
 wan的IPv6获取设置为手动  
 wan6的IPv6获取设置为自动  
-实际运行效果图：  
+**实际运行效果图：**  
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/network.jpg)  
 
 ## 通过VPS搭建代理
