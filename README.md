@@ -45,8 +45,8 @@ master分支编译的云鲨目前(20230107)正常运行
 ## 额外配置  
 为了适配最新的dnsmasq v2.88  
 去掉了冲突的odhcpd模块  
-如果DHCPv6无法分配IP  
-则需要额外配置lan打开DHCPv6功能
+如果想打开DHCPv6功能分配IPv6地址  
+则需要手动配置lan打开DHCPv6功能
 ```
 config dhcp 'lan'
 	option interface 'lan'
@@ -60,11 +60,11 @@ config dhcp 'lan'
 	option ra_default '1'
 ```	
 DHCP配置文件(默认不开DHCPv6)：  
-[点击查看配置](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/dhcp)  
+[/etc/config/dhcp](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/dhcp)  
 
-获取IPv6-PD：  
+**获取IPv6-PD：**  
 ssh登录到OpenWrt路由器  
-打开编辑/etc/config/network  
+打开编辑[/etc/config/network](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/network)  
 手动更改wan6为:  
 ```
 config interface 'wan6'
