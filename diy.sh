@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-23 13:01:29 UTC
-# Modified Time: 2023-02-03 10:49:19 UTC
+# Modified Time: 2023-02-07 13:09:18 UTC
 #########################################################################
 
 
@@ -73,5 +73,10 @@ echo "Custom Shairplay zh_Hans translation"
 SB_PATH="feeds/luci/applications/luci-app-samba4/po/zh_Hans"
 sed -i 's/网络共享/Samba4/g' ${SB_PATH}/samba4.po
 echo "Custom Samba4 zh_Hans translation"
+
+# Custom CloudShark zh_Hans translation
+CShark_PATH="feeds/luci/applications/luci-app-cshark/po/zh_Hans"
+sed -i 's/云鲨/CloudShark/g' ${CShark_PATH}/cshark.po
+echo "Custom CloudShark zh_Hans translation"
 
 echo -e "DIY Jobs Completed!!!\n"
