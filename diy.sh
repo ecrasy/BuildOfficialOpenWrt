@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-23 13:01:29 UTC
-# Modified Time: 2023-02-07 13:09:18 UTC
+# Modified Time: 2023-02-10 22:24:22 UTC
 #########################################################################
 
 
@@ -39,11 +39,6 @@ mkdir -p package/base-files/files/etc/hotplug.d/iface
 cp $GITHUB_WORKSPACE/data/etc/095-ula-prefix package/base-files/files/etc/hotplug.d/iface/
 chmod 0755 package/base-files/files/etc/hotplug.d/iface/095-ula-prefix
 echo "Add 095-ula-prefix"
-
-# Add base config files
-# mkdir -p package/base-files/files/etc/config
-# cp -f $GITHUB_WORKSPACE/data/etc/config/* package/base-files/files/etc/config/
-# echo "Add base config files"
 
 # Custom miniDLNA zh_Hans translation
 miniDLNA_PATH="feeds/luci/applications/luci-app-minidlna/po/zh_Hans"

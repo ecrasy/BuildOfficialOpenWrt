@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2023-01-06 00:18:01 UTC
+# Modified Time: 2023-02-10 22:23:53 UTC
 #########################################################################
 
 
@@ -65,5 +65,9 @@ echo "Remove hnetd depends on odhcpd*"
 # make shairplay depends on mdnsd instead of libavahi-compat-libdnssd
 sed -i "s/+libavahi-compat-libdnssd/+mdnsd/g" feeds/packages/sound/shairplay/Makefile
 echo "Set shairplay depends on mdnsd instead of libavahi-compat-libdnssd"
+
+# remove 98-passwall
+rm -rf feeds/PWluci/luci-app-passwall/root/etc/hotplug.d/iface/98-passwall
+echo "Remove passwall stupid restart script"
 
 echo -e "Fixing Jobs Completed!!!\n"
