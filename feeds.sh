@@ -3,11 +3,13 @@
 # author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-23 13:04:43 UTC
-# Modified Time: 2023-01-04 05:02:59 UTC
+# Modified Time: 2023-02-09 23:21:16 UTC
 #########################################################################
 
 #!/bin/bash
 
+echo "Backup old feeds.conf.default"
+mv feeds.conf.default feeds.conf.default.bak
 
 # passwall
 echo "Adding xiaorouji passwall"
@@ -25,6 +27,10 @@ echo "src-git CustomPkgs https://github.com/ecrasy/custom-packages.git;for_offic
 # ssrp
 echo "Adding ShadowSocksR Plus"
 echo "src-git ssrp https://github.com/ecrasy/ssrp.git;main" >> feeds.conf.default
+
+echo "Restore feeds.conf.default"
+cat feeds.conf.default.bak >> feeds.conf.default
+rm -rf feeds.conf.default.bak
 
 echo "Remove git full clone"
 sed -i "s/src-git-full/src-git/g" feeds.conf.default
