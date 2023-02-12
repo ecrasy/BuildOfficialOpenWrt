@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2023-02-10 22:23:53 UTC
+# Modified Time: 2023-02-12 08:52:53 UTC
 #########################################################################
 
 
@@ -69,5 +69,11 @@ echo "Set shairplay depends on mdnsd instead of libavahi-compat-libdnssd"
 # remove 98-passwall
 rm -rf feeds/PWluci/luci-app-passwall/root/etc/hotplug.d/iface/98-passwall
 echo "Remove passwall stupid restart script"
+
+# revert luci-app-firewall commit c54efde
+FW_PATH="feeds/luci/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall"
+sed -i '160d' ${FW_PATH}/zones.js
+sed -i '159 s/,$/);/' ${FW_PATH}/zones.js
+echo "Revert luci-app-firewall commit c54efde"
 
 echo -e "Fixing Jobs Completed!!!\n"
