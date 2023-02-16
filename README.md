@@ -9,7 +9,7 @@ Intel J4125用了两个多月master分支编译的固件，
 LEDE版本出现的有些问题，  
 官方源码编译的反而没有。  
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/config.jpg)  
-![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/network.jpg)  
+![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/net.jpg)  
 
 ## 官方源码编译固件的恢复配置
 这是基于官方源码master分支编译的固件的恢复配置  
@@ -79,7 +79,7 @@ wan的IPv6获取设置为手动
 wan6的IPv6获取设置为自动  
 实际运行效果图：   
 
-![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/network.jpg)  
+![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/net.jpg)  
 
 ## 通过VPS搭建代理
 [Wiki教程](https://github.com/ecrasy/BuildOpenwrt/wiki)  
