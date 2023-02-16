@@ -78,7 +78,7 @@ config interface 'wan6'
 wan的IPv6获取设置为手动  
 wan6的IPv6获取设置为自动  
 **实际运行效果图：**  
-![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/network.jpg)  
+![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/network.jpg)  
 
 ## 通过VPS搭建代理
 [Wiki教程](https://github.com/ecrasy/BuildOpenwrt/wiki)  
