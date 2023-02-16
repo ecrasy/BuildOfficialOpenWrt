@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2023-02-12 12:26:53 UTC
+# Modified Time: 2023-02-16 22:36:44 UTC
 #########################################################################
 
 
@@ -38,7 +38,7 @@ else
     nftables_path="package/network/utils/nftables"
     nftables_ver=$(grep 'PKG_VERSION:=0.9.6' ${nftables_path}/Makefile)
     if [ ! -z "${nftables_ver}" ]; then
-        rm -rf package/network/utils/nftables
+        rm -rf ${nftables_path}
         cp -r $GITHUB_WORKSPACE/data/app/nftables  package/network/utils/
         echo "try nftables version 1.0.5 for dnsmasq v2.87"
     fi
@@ -77,6 +77,15 @@ if [ ! -z "${FW_COMMIT}" ]; then
     sed -i '160d' ${FW_PATH}/zones.js
     sed -i '159 s/,$/);/' ${FW_PATH}/zones.js
     echo "Revert luci-app-firewall commit c54efde"
+fi
+
+# upgrade libtorrent-rasterbar to version 2.0.8
+RAS_PATH="feeds/packages/libs/libtorrent-rasterbar"
+RAS_VER=$(grep 'PKG_VERSION:=2.0.7' ${RAS_PATH}/Makefile)
+if [ ! -z "${RAS_VER}" ]; then
+    rm -rf ${RAS_PATH}
+    cp -r $GITHUB_WORKSPACE/data/app/libtorrent-rasterbar feeds/packages/libs/
+    echo "try libtorrent-rasterbar version 2.0.8 for qBittorrent"
 fi
 
 echo -e "Fixing Jobs Completed!!!\n"
