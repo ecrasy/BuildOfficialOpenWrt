@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2023-02-16 22:36:44 UTC
+# Modified Time: 2023-02-17 10:18:06 UTC
 #########################################################################
 
 
@@ -34,13 +34,13 @@ if [ ! -z "${dnsmasq_ver}" ]; then
     cp $GITHUB_WORKSPACE/data/patches/dnsmasq-struct-daemon.patch ${dnsmasq_path}/patches/
     echo "Fix dnsmasq v2.86 issue 9043"
 else
-# try nftables version 1.0.5 for dnsmasq v2.87
+# upgrade nftables to version 1.0.5
     nftables_path="package/network/utils/nftables"
     nftables_ver=$(grep 'PKG_VERSION:=0.9.6' ${nftables_path}/Makefile)
     if [ ! -z "${nftables_ver}" ]; then
         rm -rf ${nftables_path}
         cp -r $GITHUB_WORKSPACE/data/app/nftables  package/network/utils/
-        echo "try nftables version 1.0.5 for dnsmasq v2.87"
+        echo "Try nftables v1.0.5 for dnsmasq v2.87+"
     fi
 fi
 
@@ -85,7 +85,8 @@ RAS_VER=$(grep 'PKG_VERSION:=2.0.7' ${RAS_PATH}/Makefile)
 if [ ! -z "${RAS_VER}" ]; then
     rm -rf ${RAS_PATH}
     cp -r $GITHUB_WORKSPACE/data/app/libtorrent-rasterbar feeds/packages/libs/
-    echo "try libtorrent-rasterbar version 2.0.8 for qBittorrent"
+    echo "Try libtorrent-rasterbar v2.0.8 for qBittorrent"
 fi
 
 echo -e "Fixing Jobs Completed!!!\n"
+
