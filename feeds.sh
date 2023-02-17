@@ -3,7 +3,7 @@
 # author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-23 13:04:43 UTC
-# Modified Time: 2023-02-15 23:59:27 UTC
+# Modified Time: 2023-02-17 10:22:27 UTC
 #########################################################################
 
 #!/bin/bash
@@ -39,3 +39,4 @@ echo "Remove git full clone"
 sed -i "s/src-git-full/src-git/g" feeds.conf.default
 
 echo "Adding Feeds Completed!!!"
+
