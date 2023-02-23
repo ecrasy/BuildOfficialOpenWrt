@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2023-02-17 10:18:06 UTC
+# Modified Time: 2023-02-23 03:17:49 UTC
 #########################################################################
 
 
@@ -74,8 +74,9 @@ echo "Remove passwall stupid restart script"
 FW_PATH="feeds/luci/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall"
 FW_COMMIT=$(grep 'Enable network address' ${FW_PATH}/zones.js)
 if [ ! -z "${FW_COMMIT}" ]; then
-    sed -i '160d' ${FW_PATH}/zones.js
-    sed -i '159 s/,$/);/' ${FW_PATH}/zones.js
+    DL=$(echo ${FW_COMMIT} | awk '{ print $1 }' | cut -d':' -f1)
+    RL=$((DL-1))
+    sed -i -e "${DL}d" -e "${RL} s/,$/);/" ${FW_PATH}/zones.js
     echo "Revert luci-app-firewall commit c54efde"
 fi
 
