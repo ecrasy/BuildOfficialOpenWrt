@@ -2,7 +2,7 @@
  # File Name: RPi4B_openwrt2203.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-12 11:11:39 UTC
- # Modified Time: 2023-02-03 08:44:48 UTC
+ # Modified Time: 2023-03-06 20:51:51 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -80,8 +80,9 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
+          echo 'APT::Get::Always-Include-Phased-Updates "false";' | sudo tee /etc/apt/apt.conf.d/99-phased-updates
           sudo -E apt-get -qq update
-          sudo -E apt-get -qq -y purge ghc* zulu* google* dotnet* mysql* azure-cli firefox powershell
+          sudo -E apt-get -qq -y purge ghc* zulu* google* dotnet* mysql* php apache2 azure-cli firefox powershell
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get -y clean
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
@@ -314,8 +315,9 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
+          echo 'APT::Get::Always-Include-Phased-Updates "false";' | sudo tee /etc/apt/apt.conf.d/99-phased-updates
           sudo -E apt-get -qq update
-          sudo -E apt-get -qq -y purge ghc* zulu* google* dotnet* mysql* azure-cli firefox powershell
+          sudo -E apt-get -qq -y purge ghc* zulu* google* dotnet* mysql* php apache2 azure-cli firefox powershell
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get -y clean
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
@@ -482,8 +484,9 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
+          echo 'APT::Get::Always-Include-Phased-Updates "false";' | sudo tee /etc/apt/apt.conf.d/99-phased-updates
           sudo -E apt-get -qq update
-          sudo -E apt-get -qq -y purge ghc* zulu* google* dotnet* mysql* azure-cli firefox powershell
+          sudo -E apt-get -qq -y purge ghc* zulu* google* dotnet* mysql* php apache2 azure-cli firefox powershell
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get -y clean
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
