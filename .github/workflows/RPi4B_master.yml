@@ -2,7 +2,7 @@
  # File Name: RPi4B_master.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-10-23 05:38:21 UTC
- # Modified Time: 2023-03-06 20:51:12 UTC
+ # Modified Time: 2023-03-22 05:35:30 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -33,7 +33,7 @@ on:
   # types: [started]
 
 env:
-  SOURCE_URL: https://github.com/openwrt/openwrt.git
+  SOURCE_URL: https://github.com/ecrasy/openwrt.git
   SOURCE_BRANCH: master
   CLONE_DEPTH: 200
   CONFIG_FILE: configs/for_master/RPi4B.config
