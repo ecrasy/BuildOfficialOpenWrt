@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2023-03-19 04:30:30 UTC
+# Modified Time: 2023-03-22 11:00:19 UTC
 #########################################################################
 
 
@@ -29,14 +29,14 @@ echo "Touch coremark log file to fix uhttpd error!!!"
 # fixing dnsmasq v2.86 compile error
 # from: https://github.com/openwrt/openwrt/issues/9043
 dnsmasq_path="package/network/services/dnsmasq"
-dnsmasq_ver=$(grep 'PKG_UPSTREAM_VERSION:=2.86' ${dnsmasq_path}/Makefile)
+dnsmasq_ver=$(grep -m1 'PKG_UPSTREAM_VERSION:=2.86' ${dnsmasq_path}/Makefile)
 if [ ! -z "${dnsmasq_ver}" ]; then
     cp $GITHUB_WORKSPACE/data/patches/dnsmasq-struct-daemon.patch ${dnsmasq_path}/patches/
     echo "Fix dnsmasq v2.86 issue 9043"
 else
 # upgrade nftables to version 1.0.5
     nftables_path="package/network/utils/nftables"
-    nftables_ver=$(grep 'PKG_VERSION:=0.9.6' ${nftables_path}/Makefile)
+    nftables_ver=$(grep -m1 'PKG_VERSION:=0.9.6' ${nftables_path}/Makefile)
     if [ ! -z "${nftables_ver}" ]; then
         rm -rf ${nftables_path}
         cp -r $GITHUB_WORKSPACE/data/app/nftables  package/network/utils/
@@ -72,7 +72,7 @@ echo "Remove passwall stupid restart script"
 
 # revert luci-app-firewall commit c54efde
 #FW_PATH="feeds/luci/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall"
-#CM_LINE=$(grep -n 'Enable network address' ${FW_PATH}/zones.js |awk '{ print $1 }' |cut -d':' -f1)
+#CM_LINE=$(grep -m1 -n 'Enable network address' ${FW_PATH}/zones.js |awk '{ print $1 }' |cut -d':' -f1)
 #if [ ! -z "${CM_LINE}" ]; then
 #    DL=$CM_LINE
 #    RL=$((DL-1))
@@ -82,7 +82,7 @@ echo "Remove passwall stupid restart script"
 
 # upgrade libtorrent-rasterbar to version 2.0.8
 RAS_PATH="feeds/packages/libs/libtorrent-rasterbar"
-RAS_VER=$(grep 'PKG_VERSION:=2.0.7' ${RAS_PATH}/Makefile)
+RAS_VER=$(grep -m1 'PKG_VERSION:=2.0.7' ${RAS_PATH}/Makefile)
 if [ ! -z "${RAS_VER}" ]; then
     rm -rf ${RAS_PATH}
     cp -r $GITHUB_WORKSPACE/data/app/libtorrent-rasterbar feeds/packages/libs/
