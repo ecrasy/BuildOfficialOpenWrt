@@ -66,10 +66,6 @@ echo "Remove hnetd depends on odhcpd*"
 sed -i "s/+libavahi-compat-libdnssd/+mdnsd/g" feeds/packages/sound/shairplay/Makefile
 echo "Set shairplay depends on mdnsd instead of libavahi-compat-libdnssd"
 
-# remove 98-passwall
-rm -rf feeds/PWluci/luci-app-passwall/root/etc/hotplug.d/iface/98-passwall
-echo "Remove passwall stupid restart script"
-
 # revert luci-app-firewall commit c54efde
 #FW_PATH="feeds/luci/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall"
 #CM_LINE=$(grep -m1 -n 'Enable network address' ${FW_PATH}/zones.js |awk '{ print $1 }' |cut -d':' -f1)
