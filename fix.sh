@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2023-03-22 11:00:19 UTC
+# Modified Time: 2023-04-09 10:38:51 UTC
 #########################################################################
 
 
@@ -83,6 +83,13 @@ if [ ! -z "${RAS_VER}" ]; then
     rm -rf ${RAS_PATH}
     cp -r $GITHUB_WORKSPACE/data/app/libtorrent-rasterbar feeds/packages/libs/
     echo "Try libtorrent-rasterbar v2.0.8 for qBittorrent"
+fi
+
+RRDTOOL_PATH="feeds/packages/utils/rrdtool1"
+RRDTOOL_URL=$(grep -m1 'PKG_SOURCE_URL:= \\' ${RRDTOOL_PATH}/Makefile)
+if [ ! -z "${RRDTOOL_URL}" ]; then
+    cp $GITHUB_WORKSPACE/data/patches/rrdtool1-Makefile ${RRDTOOL_PATH}/Makefile
+    echo "Fix rrdtool1 package url mirrors error"
 fi
 
 echo -e "Fixing Jobs Completed!!!\n"
