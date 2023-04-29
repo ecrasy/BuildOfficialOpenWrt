@@ -2,7 +2,7 @@
  # File Name: x86_64_tag2203.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-07-16 15:39:29 UTC
- # Modified Time: 2023-04-10 02:38:03 UTC
+ # Modified Time: 2023-04-29 23:01:33 UTC
  # Description: Thanks to bigbugcc @ https://github.com/bigbugcc/OpenWrts
  # Description: Thanks to P3TERX @ https://github.com/P3TERX/Actions-OpenWrt
  # Description: Thanks to SuLingGG @ https://github.com/SuLingGG/OpenWrt-Rpi
@@ -36,7 +36,7 @@ on:
 
 env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git
-  SOURCE_TAG: v22.03.4
+  SOURCE_TAG: v22.03.5
   CLONE_DEPTH: 200
   CONFIG_FILE: configs/for_tag2203/x86_64.config
   DIY_SH: diy.sh
