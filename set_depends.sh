@@ -4,7 +4,7 @@
 # Description: feel free to use
 # Description: run this script once before make menuconfig
 # Created Time: 2022-12-18 14:15:22 UTC
-# Modified Time: 2023-03-22 10:55:08 UTC
+# Modified Time: 2023-05-08 03:06:14 UTC
 #########################################################################
 
 #!/bin/bash
@@ -20,7 +20,7 @@ do
     openwrt_dir=$(echo "$op_dir" | xargs realpath -s | sed 's:/*$::')
     cd "$openwrt_dir"
     echo "================================================================"
-    echo -e "update source code\n"
+    echo -e "update source code: $openwrt_dir\n"
     git pull && ./scripts/feeds update -a && ./scripts/feeds install -a
     echo -e "\nTry to fix $openwrt_dir depends issue\n"
 
