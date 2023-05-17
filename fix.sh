@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2023-04-09 10:38:51 UTC
+# Modified Time: 2023-05-17 08:42:20 UTC
 #########################################################################
 
 
@@ -90,6 +90,13 @@ RRDTOOL_URL=$(grep -m1 'PKG_SOURCE_URL:= \\' ${RRDTOOL_PATH}/Makefile)
 if [ ! -z "${RRDTOOL_URL}" ]; then
     cp $GITHUB_WORKSPACE/data/patches/rrdtool1-Makefile ${RRDTOOL_PATH}/Makefile
     echo "Fix rrdtool1 package url mirrors error"
+fi
+
+GD_PATH="feeds/packages/utils/gptfdisk"
+GD_VER=$(grep -m1 'PKG_VERSION:=1.0.9' ${GD_PATH}/Makefile)
+if [ ! -z "${GD_VER}" ]; then
+    sed -i '0,/^TARGET_CXXFLAGS.*/s/^TARGET_CXXFLAGS.*/TARGET_CFLAGS += -D_LARGEFILE64_SOURCE\n&/' ${GD_PATH}/Makefile
+    echo "Fix gptfdisk compile error"
 fi
 
 echo -e "Fixing Jobs Completed!!!\n"
