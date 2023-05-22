@@ -7,10 +7,12 @@ SmartDNS,FakeDNS,ChinaDNS-NG,Turbo-ACC等组件建议勿选
 经测试这些模块会拖累系统造成网络故障  
 
 ## 概览 
-Intel J4125用了半年多master分支编译的固件，  
+Intel软路由用master分支编译的固件，  
 非常稳定丝滑，速度很快，  
 LEDE版本出现的有些问题，  
 官方源码编译的反而没有。  
+将22.03的Dnsmasq升级刀2.89版本，  
+以更好的适配Passwall。  
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/config.jpg)  
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/net.jpg)  
 
