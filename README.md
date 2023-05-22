@@ -11,9 +11,9 @@ Intel软路由用master分支编译的固件，
 非常稳定丝滑，速度很快，  
 LEDE版本出现的有些问题，  
 官方源码编译的反而没有。  
-将22.03的Dnsmasq升级刀2.89版本，  
+将22.03的Dnsmasq升级到2.89版本，  
 以更好的适配Passwall，  
-测试了一段时间，  
+测试了超过一周的时间，  
 运行良好没发现相关的BUG。  
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/config.jpg)  
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/net.jpg)  
