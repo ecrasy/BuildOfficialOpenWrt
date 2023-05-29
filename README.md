@@ -6,15 +6,13 @@ Build OpenWrt for official source code.
 SmartDNS,FakeDNS,ChinaDNS-NG,Turbo-ACC等组件建议勿选  
 经测试这些模块会拖累系统造成网络故障  
 
-## 概览 
-Intel软路由用master分支编译的固件，  
-非常稳定丝滑，速度很快，  
-LEDE版本出现的有些问题，  
-官方源码编译的反而没有。  
-将22.03的Dnsmasq升级到2.89版本，  
-以更好的适配Passwall，  
-测试了超过一周的时间，  
-运行良好没发现相关的BUG。  
+## 概览   
+官方源码版本发布了23.05分支，  
+以后不再编译main分支。  
+22.03分支的Dnsmasq手动升级到2.89版本，  
+以更好的适配Passwall。  
+22.03和23.05都在x86机器上测试超过一周，  
+运行良好无故障发生。  
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/config.jpg)  
 ![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/net.jpg)  
 
