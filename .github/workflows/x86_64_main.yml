@@ -1,8 +1,8 @@
 ##************************************************************************
- # File Name: x86_64_master.yml
+ # File Name: x86_64_main.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-10-23 05:39:25 UTC
- # Modified Time: 2023-03-22 05:35:47 UTC
+ # Modified Time: 2023-05-29 10:29:35 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -23,7 +23,7 @@
 ##**********************************************************************/
 
 
-name: Build openwrt branch master for x86_64
+name: Build openwrt branch main for x86_64
 
 on:
   workflow_dispatch:
@@ -34,16 +34,16 @@ on:
 
 env:
   SOURCE_URL: https://github.com/ecrasy/openwrt.git
-  SOURCE_BRANCH: master
+  SOURCE_BRANCH: main
   CLONE_DEPTH: 200
-  CONFIG_FILE: configs/for_master/x86_64.config
+  CONFIG_FILE: configs/for_main/x86_64.config
   DIY_SH: diy.sh
   FIX_SH: fix.sh
   FEEDS_SH: feeds.sh
-  IMAGE_TAG: firmware-x86_64-master
-  IMAGE_NAME: Firmware-x86_64-master
-  TOOLCHAIN_TAG: toolchain-x86_64-master
-  TOOLCHAIN_NAME: Toolchain-x86_64-master
+  IMAGE_TAG: firmware-x86_64-main
+  IMAGE_NAME: Firmware-x86_64-main
+  TOOLCHAIN_TAG: toolchain-x86_64-main
+  TOOLCHAIN_NAME: Toolchain-x86_64-main
   TOOLCHAIN_RELEASE_UPLOAD: true
   FIRMWARE_RELEASE_UPLOAD: true
   COMBINE_DISK: true
@@ -225,7 +225,7 @@ jobs:
         if: env.TOOLCHAIN_RELEASE_UPLOAD == 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          NOTES: Toolchain for x86_64 built from openwrt master branch @ ${{ env.BUILD_DATE }}
+          NOTES: Toolchain for x86_64 built from openwrt main branch @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -542,7 +542,7 @@ jobs:
         if: env.FIRMWARE_RELEASE_UPLOAD == 'true'
         env:
           DEBIAN_FRONTEND: noninteractive
-          NOTES: Firmware for x86_64 built from openwrt master branch @ ${{ env.BUILD_DATE }}
+          NOTES: Firmware for x86_64 built from openwrt main branch @ ${{ env.BUILD_DATE }}
           COMMIT: ${{ env.CURRENT_BRANCH }}
           IMAGE_OUTPUT: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
