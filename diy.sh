@@ -53,11 +53,12 @@ echo "Custom MJPG-streamer zh_Hans translation"
 
 # Custom DDns zh_Hans translation
 ddns_PATH="feeds/luci/applications/luci-app-ddns/po/zh_Hans"
-sed -i 's/动态DNS 服务项/DDns服务/g' ${ddns_PATH}/ddns.po
-sed -i 's/动态 DNS 版本/DDns版本/g' ${ddns_PATH}/ddns.po
-sed -i 's/动态DNS/DDns/g' ${ddns_PATH}/ddns.po
-sed -i 's/动态 DNS/DDns/g' ${ddns_PATH}/ddns.po
-echo "Custom DDns zh_Hans translation"
+sed -i 's/动态DNS 服务项/DDNS服务/g' ${ddns_PATH}/ddns.po
+sed -i 's/动态 DNS 版本/DDNS版本/g' ${ddns_PATH}/ddns.po
+sed -i 's/动态 DNS(DDNS)/DDNS/g' ${ddns_PATH}/ddns.po
+sed -i 's/动态DNS/DDNS/g' ${ddns_PATH}/ddns.po
+sed -i 's/动态 DNS/DDNS/g' ${ddns_PATH}/ddns.po
+echo "Custom DDNS zh_Hans translation"
 
 # Custom Shairplay zh_Hans translation
 sp_PATH="feeds/luci/applications/luci-app-shairplay/po/zh_Hans"
