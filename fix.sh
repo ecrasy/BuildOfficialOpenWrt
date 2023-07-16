@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2023-05-21 10:38:06 UTC
+# Modified Time: 2023-07-16 23:50:37 UTC
 #########################################################################
 
 
@@ -39,9 +39,11 @@ else
     nftables_path="package/network/utils/nftables"
     nftables_ver=$(grep -m1 'PKG_VERSION:=0.9.6' ${nftables_path}/Makefile)
     if [ ! -z "${nftables_ver}" ]; then
-        rm -rf ${nftables_path}
-        cp -r $GITHUB_WORKSPACE/data/app/nftables  package/network/utils/
-        echo "Try nftables v1.0.5 for dnsmasq v2.87+"
+        rm -rf package/network/utils/nftables
+        rm -rf package/libs/libnftnl
+        cp -r $GITHUB_WORKSPACE/data/app/nftables package/network/utils/
+        cp -r $GITHUB_WORKSPACE/data/app/libnftnl package/libs/
+        echo "try nftables version 1.0.6 for dnsmasq v2.87+"
     fi
 fi
 
