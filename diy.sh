@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-23 13:01:29 UTC
-# Modified Time: 2023-08-21 14:07:17 UTC
+# Modified Time: 2023-08-23 02:40:36 UTC
 #########################################################################
 
 
@@ -88,6 +88,16 @@ echo "Custom Samba4 zh_Hans translation"
 CShark_PATH="feeds/luci/applications/luci-app-cshark/po/zh_Hans"
 sed -i 's/云鲨/CloudShark/g' ${CShark_PATH}/cshark.po
 echo "Custom CloudShark zh_Hans translation"
+
+# Add Port status zh_Hans translation
+LB_PATH="feeds/luci/modules/luci-base/po/zh_Hans"
+TLINE=$(grep -m1 -n '"Port status"' ${LB_PATH}/bb.po |awk '{ print $1 }' |cut -d':' -f1)
+if [ -n "$TLINE" ]; then
+    DLINE=$((TLINE+1))
+    sed -i "${DLINE}d" ${LB_PATH}/bb.po
+    sed -i "${TLINE}a msgstr \"网口状态\"" ${LB_PATH}/bb.po
+    echo "Add Port status zh_Hans translation"
+fi
 
 echo -e "DIY Jobs Completed!!!\n"
 
