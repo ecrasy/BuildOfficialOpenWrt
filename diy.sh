@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-23 13:01:29 UTC
-# Modified Time: 2023-08-23 02:40:36 UTC
+# Modified Time: 2023-08-23 04:07:31 UTC
 #########################################################################
 
 
@@ -91,11 +91,11 @@ echo "Custom CloudShark zh_Hans translation"
 
 # Add Port status zh_Hans translation
 LB_PATH="feeds/luci/modules/luci-base/po/zh_Hans"
-TLINE=$(grep -m1 -n '"Port status"' ${LB_PATH}/bb.po |awk '{ print $1 }' |cut -d':' -f1)
+TLINE=$(grep -m1 -n '"Port status"' ${LB_PATH}/base.po |awk '{ print $1 }' |cut -d':' -f1)
 if [ -n "$TLINE" ]; then
     DLINE=$((TLINE+1))
-    sed -i "${DLINE}d" ${LB_PATH}/bb.po
-    sed -i "${TLINE}a msgstr \"网口状态\"" ${LB_PATH}/bb.po
+    sed -i "${DLINE}d" ${LB_PATH}/base.po
+    sed -i "${TLINE}a msgstr \"网口状态\"" ${LB_PATH}/base.po
     echo "Add Port status zh_Hans translation"
 fi
 
