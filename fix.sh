@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2023-07-17 08:00:31 UTC
+# Modified Time: 2023-10-11 02:38:00 UTC
 #########################################################################
 
 
@@ -58,26 +58,20 @@ sed -i "s/libustream-mbedtls/libustream-openssl/g" feeds/packages/net/cshark/Mak
 echo "Set cshark depends on libustream-openssl instead of libustream-mbedtls"
 
 # remove ipv6-helper depends on odhcpd*
-sed -i "s/+odhcpd-ipv6only//g" package/feeds/CustomPkgs/ipv6-helper/Makefile
+sed -i "s/+odhcpd-ipv6only//g" feeds/CustomPkgs/net/ipv6-helper/Makefile
 echo "Remove ipv6-helper depends on odhcpd*"
 
 # remove hnetd depends on odhcpd*
-sed -i "s/+odhcpd//g" package/feeds/routing/hnetd/Makefile
+sed -i "s/+odhcpd//g" feeds/routing/hnetd/Makefile
 echo "Remove hnetd depends on odhcpd*"
 
 # make shairplay depends on mdnsd instead of libavahi-compat-libdnssd
 sed -i "s/+libavahi-compat-libdnssd/+mdnsd/g" feeds/packages/sound/shairplay/Makefile
 echo "Set shairplay depends on mdnsd instead of libavahi-compat-libdnssd"
 
-# revert luci-app-firewall commit c54efde
-#FW_PATH="feeds/luci/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall"
-#CM_LINE=$(grep -m1 -n 'Enable network address' ${FW_PATH}/zones.js |awk '{ print $1 }' |cut -d':' -f1)
-#if [ ! -z "${CM_LINE}" ]; then
-#    DL=$CM_LINE
-#    RL=$((DL-1))
-#    sed -i -e "${DL}d" -e "${RL} s/,$/);/" ${FW_PATH}/zones.js
-#    echo "Revert luci-app-firewall commit c54efde"
-#fi
+# set v2raya depends on v2ray-core
+sed -i "s/xray-core/v2ray-core/g" feeds/packages/net/v2raya/Makefile
+echo "set v2raya depends on v2ray-core"
 
 # upgrade libtorrent-rasterbar to version 2.0.8
 RAS_PATH="feeds/packages/libs/libtorrent-rasterbar"
@@ -101,6 +95,9 @@ if [ ! -z "${GD_VER}" ]; then
     sed -i '0,/^TARGET_CXXFLAGS.*/s/^TARGET_CXXFLAGS.*/TARGET_CFLAGS += -D_LARGEFILE64_SOURCE\n&/' ${GD_PATH}/Makefile
     echo "Fix gptfdisk compile error"
 fi
+
+sed -i "/PACKAGE_python3-pymysql/d" feeds/packages/lang/python/pymysql/Config.in
+echo "Fix pymysql dependency error"
 
 echo -e "Fixing Jobs Completed!!!\n"
 
