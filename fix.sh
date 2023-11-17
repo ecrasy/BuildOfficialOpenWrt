@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2023-10-11 02:38:00 UTC
+# Modified Time: 2023-11-17 11:21:09 UTC
 #########################################################################
 
 
@@ -95,9 +95,6 @@ if [ ! -z "${GD_VER}" ]; then
     sed -i '0,/^TARGET_CXXFLAGS.*/s/^TARGET_CXXFLAGS.*/TARGET_CFLAGS += -D_LARGEFILE64_SOURCE\n&/' ${GD_PATH}/Makefile
     echo "Fix gptfdisk compile error"
 fi
-
-sed -i "/PACKAGE_python3-pymysql/d" feeds/packages/lang/python/pymysql/Config.in
-echo "Fix pymysql dependency error"
 
 echo -e "Fixing Jobs Completed!!!\n"
 
