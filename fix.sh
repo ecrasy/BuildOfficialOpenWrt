@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2023-11-22 01:18:41 UTC
+# Modified Time: 2024-01-09 10:55:24 UTC
 #########################################################################
 
 
@@ -71,25 +71,25 @@ echo "Set shairplay depends on mdnsd instead of libavahi-compat-libdnssd"
 sed -i "s/xray-core/v2ray-core/g" feeds/packages/net/v2raya/Makefile
 echo "set v2raya depends on v2ray-core"
 
-# upgrade libtorrent-rasterbar to version 2.0.8
+# upgrade libtorrent-rasterbar to version 2.0.9
 RAS_PATH="feeds/packages/libs/libtorrent-rasterbar"
-RAS_VER=$(grep -m1 'PKG_VERSION:=2.0.7' ${RAS_PATH}/Makefile)
-if [ ! -z "${RAS_VER}" ]; then
+RAS_VER=$(grep -m1 'PKG_VERSION:=2.0.8' ${RAS_PATH}/Makefile)
+if [ -n "${RAS_VER}" ]; then
     rm -rf ${RAS_PATH}
     cp -r $GITHUB_WORKSPACE/data/app/libtorrent-rasterbar feeds/packages/libs/
-    echo "Try libtorrent-rasterbar v2.0.8 for qBittorrent"
+    echo "Try libtorrent-rasterbar v2.0.9 for qBittorrent"
 fi
 
 RRDTOOL_PATH="feeds/packages/utils/rrdtool1"
 RRDTOOL_URL=$(grep -m1 'PKG_SOURCE_URL:= \\' ${RRDTOOL_PATH}/Makefile)
-if [ ! -z "${RRDTOOL_URL}" ]; then
+if [ -n "${RRDTOOL_URL}" ]; then
     cp $GITHUB_WORKSPACE/data/patches/rrdtool1-Makefile ${RRDTOOL_PATH}/Makefile
     echo "Fix rrdtool1 package url mirrors error"
 fi
 
 GD_PATH="feeds/packages/utils/gptfdisk"
 GD_VER=$(grep -m1 'PKG_VERSION:=1.0.9' ${GD_PATH}/Makefile)
-if [ ! -z "${GD_VER}" ]; then
+if [ -n "${GD_VER}" ]; then
     sed -i '0,/^TARGET_CXXFLAGS.*/s/^TARGET_CXXFLAGS.*/TARGET_CFLAGS += -D_LARGEFILE64_SOURCE\n&/' ${GD_PATH}/Makefile
     echo "Fix gptfdisk compile error"
 fi
