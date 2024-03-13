@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2024-01-09 10:55:24 UTC
+# Modified Time: 2024-03-13 07:56:31 UTC
 #########################################################################
 
 
@@ -26,22 +26,22 @@ echo "Touch coremark log file to fix uhttpd error!!!"
 # cp $GITHUB_WORKSPACE/data/patches/lib-platform-sys-version.patch ${python3_path}/patches/
 # echo "Fix python host compile install error!!!"
 
-# Try dnsmasq v2.89 with pkg version 7
+# Try dnsmasq v2.90 pkg version 1
 dnsmasq_path="package/network/services/dnsmasq"
-dnsmasq_ver=$(grep -m1 'PKG_UPSTREAM_VERSION:=2.89' ${dnsmasq_path}/Makefile)
+dnsmasq_ver=$(grep -m1 'PKG_UPSTREAM_VERSION:=2.90' ${dnsmasq_path}/Makefile)
 if [ -z "${dnsmasq_ver}" ]; then
     rm -rf $dnsmasq_path
     cp $GITHUB_WORKSPACE/data/etc/ipcalc.sh package/base-files/files/bin/ipcalc.sh
     cp -r $GITHUB_WORKSPACE/data/dnsmasq ${dnsmasq_path}
-    echo "Try dnsmasq v2.89"
+    echo "Try dnsmasq v2.90"
 else
-# upgrade dnsmasq to version 2.89
-    pkg_ver=$(grep -m1 'PKG_RELEASE:=7' ${dnsmasq_path}/Makefile)
+# upgrade dnsmasq to version 2.90
+    pkg_ver=$(grep -m1 'PKG_RELEASE:=1' ${dnsmasq_path}/Makefile)
     if [ -z "${pkg_ver}" ]; then
         # rm -rf $dnsmasq_path
         # cp $GITHUB_WORKSPACE/data/etc/ipcalc.sh package/base-files/files/bin/ipcalc.sh
         # cp -r $GITHUB_WORKSPACE/data/dnsmasq ${dnsmasq_path}
-        echo "Already dnsmasq v2.89"
+        echo "Already dnsmasq v2.90"
     fi
 fi
 
