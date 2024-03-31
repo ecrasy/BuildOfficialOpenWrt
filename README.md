@@ -1,10 +1,18 @@
 # BuildOfficialOpenWrt
 
-Build OpenWrt for official source code.  
+## Build OpenWrt for official source code.  
 [LEDE源码编译版本](https://github.com/ecrasy/BuildOpenWrt)  
 
 SmartDNS,FakeDNS,ChinaDNS-NG,Turbo-ACC等组件建议勿选  
 经测试这些模块会拖累系统造成网络故障  
+
+## Caution
+最近来自中国大陆的Jia Cheong Tan  
+向测试验证过程做了手脚  
+一旦Linux发行版在编译过程后运行测试程序  
+就会触发“植入后门”  
+把后门植入xz 5.6.0 和 5.6.1，以及liblzma  
+需要谨慎对待来自中国大陆的代码  
 
 ## 概览   
 官方源码版本发布了23.05分支，  
