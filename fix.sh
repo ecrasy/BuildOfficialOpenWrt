@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2024-11-30 02:00:57 UTC
+# Modified Time: 2024-11-30 06:13:33 UTC
 #########################################################################
 
 
@@ -34,14 +34,14 @@ if [ -z "${dnsmasq_ver}" ]; then
     rm -rf $dnsmasq_path
     cp $GITHUB_WORKSPACE/data/etc/ipcalc.sh package/base-files/files/bin/ipcalc.sh
     cp -r $GITHUB_WORKSPACE/data/dnsmasq ${dnsmasq_path}
-    echo "Try dnsmasq v2.90 pkg 3"
+    echo "Try dnsmasq v2.90 with pkg 2"
 else
 # upgrade dnsmasq to pkg version 3
     if [ -z "${dnsmasq_pkg}" ]; then
-        rm -rf $dnsmasq_path
-        cp $GITHUB_WORKSPACE/data/etc/ipcalc.sh package/base-files/files/bin/ipcalc.sh
-        cp -r $GITHUB_WORKSPACE/data/dnsmasq ${dnsmasq_path}
-        echo "upgrade dnsmasq to v2.90 pkg 3"
+        # rm -rf $dnsmasq_path
+        # cp $GITHUB_WORKSPACE/data/etc/ipcalc.sh package/base-files/files/bin/ipcalc.sh
+        # cp -r $GITHUB_WORKSPACE/data/dnsmasq ${dnsmasq_path}
+        echo "dnsmasq v2.90 is not ready for pkg 3"
     fi
 fi
 
