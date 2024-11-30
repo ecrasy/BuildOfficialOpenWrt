@@ -15,17 +15,15 @@ SmartDNS,FakeDNS,ChinaDNS-NG,Turbo-ACC等组件建议勿选
 需要谨慎对待来自中国大陆的代码  
 
 ## 概览   
-官方源码版本发布了23.05分支，  
-以后不再编译main分支。  
-22.03分支的Dnsmasq手动升级到2.89版本，  
-以更好的适配Passwall。  
-22.03和23.05都在x86机器上测试超过一周，  
+官方源码版本发布了24.10分支，  
+以后不再编译其它分支。  
+固件在x86机器上测试超过一周，  
 运行良好无故障发生。  
-![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/config.jpg)  
-![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/net.jpg)  
+![image](/pics/config.jpg)  
+![image](/pics/net.jpg)  
 
 ## 官方源码编译固件的恢复配置
-这是基于官方源码master分支编译的固件的恢复配置  
+这是基于官方源码编译的固件的恢复配置  
 使用恢复配置可以实现下面图片中的路由运行效果  
 免去每次烧写固件需要重新设置的烦恼  
 在系统->备份与升级->恢复配置  
@@ -34,10 +32,10 @@ SmartDNS,FakeDNS,ChinaDNS-NG,Turbo-ACC等组件建议勿选
 wan口已配置为pppoe拨号上网  
 需要手动填写拨号的账户密码(光猫桥接拨号)  
 或者手动切换为DHCP协议(光猫拨号)  
-[点击下载配置](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/backup-OpenWrt-common.tar.gz)    
+[点击下载配置](/wiki/backup-OpenWrt-common.tar.gz)    
 
 ## IPv6自动设置ula_prefix
-[ula prefix](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/data/etc/095-ula-prefix)  
+[ula prefix](/data/etc/095-ula-prefix)  
 脚本负责在WAN网络连接之后查询 **ula prefix**  
 总共会尝试8次  
 每次失败会睡眠等待1秒  
@@ -73,12 +71,12 @@ config dhcp 'lan'
 	option ra_default '1'
 ```	
 DHCP配置文件(默认不开DHCPv6)：  
-[/etc/config/dhcp](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/dhcp)  
+[/etc/config/dhcp](/wiki/dhcp)  
 
 **获取IPv6-PD：**  
 ssh登录到OpenWrt路由器  
 打开编辑  
-[/etc/config/network](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/wiki/network)  
+[/etc/config/network]/wiki/network)  
 手动更改wan6为:  
 ```
 config interface 'wan6'
@@ -92,7 +90,7 @@ wan的IPv6获取设置为手动
 wan6的IPv6获取设置为自动  
 实际运行效果图：   
 
-![image](https://github.com/ecrasy/BuildOfficialOpenWrt/blob/main/pics/net.jpg)  
+![image](/pics/net.jpg)  
 
 ## 通过VPS搭建代理
 [Wiki教程](https://github.com/ecrasy/BuildOpenwrt/wiki)  
