@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2024-11-30 01:44:53 UTC
+# Modified Time: 2024-11-30 01:54:56 UTC
 #########################################################################
 
 
@@ -42,6 +42,23 @@ else
         cp $GITHUB_WORKSPACE/data/etc/ipcalc.sh package/base-files/files/bin/ipcalc.sh
         cp -r $GITHUB_WORKSPACE/data/dnsmasq ${dnsmasq_path}
         echo "upgrade dnsmasq to v2.90 pkg 3"
+    fi
+fi
+
+# Try golang v1.23.3
+golang_path="feeds/packages/lang/golang"
+golang_ver=$(grep -m1 'GO_VERSION_MAJOR_MINOR:=1.23' ${golang_path}/golang/Makefile)
+golang_pkg=$(grep -m1 'GO_VERSION_PATCH:=3' ${golang_path}/golang/Makefile)
+if [ -z "${golang_ver}" ]; then
+    rm -rf $golang_path
+    cp -r $GITHUB_WORKSPACE/data/golang ${golang_path}
+    echo "Try golang v1.23.3"
+else
+# upgrade golang to pkg version 3
+    if [ -z "${golang_pkg}" ]; then
+        rm -rf $golang_path
+        cp -r $GITHUB_WORKSPACE/data/golang ${golang_path}
+        echo "upgrade golang to v1.23.3"
     fi
 fi
 
