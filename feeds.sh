@@ -3,12 +3,16 @@
 # author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-23 13:04:43 UTC
-# Modified Time: 2023-10-11 11:24:30 UTC
+# Modified Time: 2025-01-22 07:35:23 UTC
 #########################################################################
 
 #!/bin/bash
 
 echo -e "\n# Custom feeds for OpenWrt" >> feeds.conf.default
+
+# add custom packages
+echo "Adding custom packages"
+echo "src-git CustomPkgs https://github.com/ecrasy/custom-packages.git;for_official" >> feeds.conf.default
 
 # passwall
 echo "Adding xiaorouji passwall"
@@ -22,10 +26,6 @@ echo "src-git Passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main"
 # ssrp
 echo "Adding ShadowSocksR Plus"
 echo "src-git ssrp https://github.com/ecrasy/ssrp.git;main" >> feeds.conf.default
-
-# add custom packages
-echo "Adding custom packages"
-echo "src-git CustomPkgs https://github.com/ecrasy/custom-packages.git;for_official" >> feeds.conf.default
 
 echo "Remove git full clone"
 sed -i "s/src-git-full/src-git/g" feeds.conf.default
