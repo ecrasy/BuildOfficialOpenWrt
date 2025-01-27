@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2025-01-27 02:17:19 UTC
+# Modified Time: 2025-01-27 02:29:03 UTC
 #########################################################################
 
 
@@ -71,15 +71,15 @@ if [ -z "${v2ray_ver}" ]; then
     echo "Try v2ray-core v5.26.0"
 fi
 
-# make minidlna depends on libffmpeg-full instead of libffmpeg
+# make minidlna depends on libffmpeg-full not libffmpeg
 # little bro ffmpeg mini custom be gone
 sed -i "s/libffmpeg /libffmpeg-full /g" feeds/packages/multimedia/minidlna/Makefile
-echo "Set minidlna depends on libffmpeg-full instead of libffmpeg"
+echo "Set minidlna depends on libffmpeg-full not libffmpeg"
 
-# make cshark depends on libustream-openssl instead of libustream-mbedtls
+# make cshark depends on libustream-openssl not libustream-mbedtls
 # i fucking hate stupid mbedtls so much, be gone
 sed -i "s/libustream-mbedtls/libustream-openssl/g" feeds/packages/net/cshark/Makefile
-echo "Set cshark depends on libustream-openssl instead of libustream-mbedtls"
+echo "Set cshark depends on libustream-openssl not libustream-mbedtls"
 
 # remove ipv6-helper depends on odhcpd*
 sed -i "s/+odhcpd-ipv6only//g" feeds/CustomPkgs/net/ipv6-helper/Makefile
@@ -89,9 +89,12 @@ echo "Remove ipv6-helper depends on odhcpd*"
 sed -i "s/+odhcpd//g" feeds/routing/hnetd/Makefile
 echo "Remove hnetd depends on odhcpd*"
 
-# make shairplay depends on mdnsd instead of libavahi-compat-libdnssd
-sed -i "s/+libavahi-compat-libdnssd/+mdnsd/g" feeds/packages/sound/shairplay/Makefile
-echo "Set shairplay depends on mdnsd instead of libavahi-compat-libdnssd"
+# make shairplay depends on mdnsd not libavahi-compat-libdnssd
+shairplay_path=feeds/packages/sound/shairplay/Makefile
+if [ -f ${shairplay_path} ]; then
+    sed -i "s/+libavahi-compat-libdnssd/+mdnsd/g" ${shairplay_path}
+    echo "Set shairplay depends on mdnsd not libavahi-compat-libdnssd"
+fi
 
 # set v2raya depends on v2ray-core
 sed -i "s/xray-core/v2ray-core/g" feeds/packages/net/v2raya/Makefile
