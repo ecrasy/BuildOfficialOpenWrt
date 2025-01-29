@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-23 13:01:29 UTC
-# Modified Time: 2023-09-08 14:11:44 UTC
+# Modified Time: 2025-01-29 06:52:28 UTC
 #########################################################################
 
 
@@ -76,8 +76,10 @@ echo "Custom DDNS zh_Hans translation"
 
 # Custom Shairplay zh_Hans translation
 sp_PATH="feeds/luci/applications/luci-app-shairplay/po/zh_Hans"
-sed -i 's/Shairplay(多媒体程序)/Shairplay/g' ${sp_PATH}/shairplay.po
-echo "Custom Shairplay zh_Hans translation"
+if [ -f "${sp_PATH}/shairplay.po" ]; then
+    sed -i 's/Shairplay(多媒体程序)/Shairplay/g' ${sp_PATH}/shairplay.po
+    echo "Custom Shairplay zh_Hans translation"
+fi
 
 # Custom Samba4 zh_Hans translation
 SB_PATH="feeds/luci/applications/luci-app-samba4/po/zh_Hans"
