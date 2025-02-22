@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2025-02-22 04:35:42 UTC
+# Modified Time: 2025-02-22 04:38:48 UTC
 #########################################################################
 
 
@@ -29,47 +29,47 @@ echo "Touch coremark log file to fix uhttpd error!!!"
 # Try latest dnsmasq
 tmp_ver=$(grep -m1 'PKG_UPSTREAM_VERSION:=' $GITHUB_WORKSPACE/data/dnsmasq/Makefile)
 tmp_pkg=$(grep -m1 'PKG_RELEASE:=' $GITHUB_WORKSPACE/data/dnsmasq/Makefile)
-dnsmasq_fix_ver="${tmp_ver##*=}.${tmp_pkg##*=}"
-if [ -n "${dnsmasq_fix_ver}" ]; then
+dnsmasq_data_ver="${tmp_ver##*=}.${tmp_pkg##*=}"
+if [ -n "${dnsmasq_data_ver}" ]; then
     dnsmasq_path="package/network/services/dnsmasq"
     tmp_ver=$(grep -m1 'PKG_UPSTREAM_VERSION:=' ${dnsmasq_path}/Makefile)
     tmp_pkg=$(grep -m1 'PKG_RELEASE:=' ${dnsmasq_path}/Makefile)
     dnsmasq_repo_ver="${tmp_ver##*=}.${tmp_pkg##*=}"
-    if [ "${dnsmasq_repo_ver}" != "${dnsmasq_fix_ver}" ]; then
+    if [ "${dnsmasq_repo_ver}" != "${dnsmasq_data_ver}" ]; then
         rm -rf $dnsmasq_path
         cp $GITHUB_WORKSPACE/data/etc/ipcalc.sh package/base-files/files/bin/ipcalc.sh
         cp -r $GITHUB_WORKSPACE/data/dnsmasq ${dnsmasq_path}
-        echo "Try dnsmasq ${dnsmasq_fix_ver}"
+        echo "Try dnsmasq ${dnsmasq_data_ver}"
     fi
 fi
 
 # Try latest golang
 tmp_ver=$(grep -m1 'GO_VERSION_MAJOR_MINOR:=' $GITHUB_WORKSPACE/data/golang/golang/Makefile)
 tmp_pkg=$(grep -m1 'GO_VERSION_PATCH:=' $GITHUB_WORKSPACE/data/golang/golang/Makefile)
-golang_fix_ver="${tmp_ver##*=}.${tmp_pkg##*=}"
-if [ -n "${golang_fix_ver}" ]; then
+golang_data_ver="${tmp_ver##*=}.${tmp_pkg##*=}"
+if [ -n "${golang_data_ver}" ]; then
     golang_path="feeds/packages/lang/golang"
     tmp_ver=$(grep -m1 'GO_VERSION_MAJOR_MINOR:=' ${golang_path}/golang/Makefile)
     tmp_pkg=$(grep -m1 'GO_VERSION_PATCH:=' ${golang_path}/golang/Makefile)
     golang_feeds_ver="${tmp_ver##*=}.${tmp_pkg##*=}"
-    if [ "${golang_feeds_ver}" != "${golang_fix_ver}" ]; then
+    if [ "${golang_feeds_ver}" != "${golang_data_ver}" ]; then
         rm -rf $golang_path
         cp -r $GITHUB_WORKSPACE/data/golang ${golang_path}
-        echo "Try golang ${golang_fix_ver}"
+        echo "Try golang ${golang_data_ver}"
     fi
 fi
 
 # Try latest v2ray-core
 tmp_ver=$(grep -m1 'PKG_VERSION:=' ${GITHUB_WORKSPACE}/data/v2ray-core/Makefile)
-v2ray_fix_ver="${tmp_ver##*=}"
-if [ -n "${v2ray_fix_ver}" ]; then
+v2ray_data_ver="${tmp_ver##*=}"
+if [ -n "${v2ray_data_ver}" ]; then
     v2ray_path="feeds/packages/net/v2ray-core"
     tmp_ver=$(grep -m1 'PKG_VERSION:=' ${v2ray_path}/Makefile)
     v2ray_feeds_ver="${tmp_ver##*=}"
-    if  [ "${v2ray_feeds_ver}" != "${v2ray_fix_ver}" ]; then
+    if  [ "${v2ray_feeds_ver}" != "${v2ray_data_ver}" ]; then
         rm -rf $v2ray_path
         cp -r $GITHUB_WORKSPACE/data/v2ray-core ${v2ray_path}
-        echo "Try v2ray-core ${v2ray_fix_ver}"
+        echo "Try v2ray-core ${v2ray_data_ver}"
     fi
 fi
 
