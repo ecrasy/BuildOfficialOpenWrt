@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2025-02-22 04:25:38 UTC
+# Modified Time: 2025-02-22 04:35:42 UTC
 #########################################################################
 
 
@@ -74,7 +74,6 @@ if [ -n "${v2ray_fix_ver}" ]; then
 fi
 
 # make minidlna depends on libffmpeg-full not libffmpeg
-# little bro ffmpeg mini custom be gone
 sed -i "s/libffmpeg /libffmpeg-full /g" feeds/packages/multimedia/minidlna/Makefile
 echo "Set minidlna depends on libffmpeg-full not libffmpeg"
 
