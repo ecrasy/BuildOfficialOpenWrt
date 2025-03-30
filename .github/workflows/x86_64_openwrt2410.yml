@@ -2,7 +2,7 @@
  # File Name: x86_64_openwrt2410.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-08 11:38:30 UTC
- # Modified Time: 2024-11-13 09:59:07 UTC
+ # Modified Time: 2025-03-30 12:06:04 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -35,7 +35,7 @@ on:
 env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git
   SOURCE_BRANCH: openwrt-24.10
-  CLONE_DEPTH: 50
+  CLONE_DEPTH: 200
   CONFIG_FILE: configs/for_openwrt2410/x86_64.config
   DIY_SH: diy.sh
   FIX_SH: fix.sh
