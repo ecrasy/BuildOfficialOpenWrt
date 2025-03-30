@@ -23,7 +23,7 @@
 ##**********************************************************************/
 
 
-name: Build openwrt branch openwrt-24.10 for raspberrypi 4b
+name: Build openwrt-24.10 for raspberrypi 4b
 
 on:
   workflow_dispatch:
