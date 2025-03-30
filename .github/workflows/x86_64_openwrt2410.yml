@@ -23,7 +23,7 @@
 ##**********************************************************************/
 
 
-name: Build openwrt branch openwrt-24.10 for x86_64
+name: Build openwrt-24.10 for x86_64
 
 on:
   workflow_dispatch:
