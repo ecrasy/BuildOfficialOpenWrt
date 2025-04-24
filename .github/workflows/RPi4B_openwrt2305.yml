@@ -2,7 +2,7 @@
  # File Name: RPi4B_openwrt2305.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-12 11:11:39 UTC
- # Modified Time: 2025-04-14 22:48:39 UTC
+ # Modified Time: 2025-04-24 16:38:20 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -355,9 +355,6 @@ jobs:
           sudo mount -t overlay overlay -o lowerdir=openwrt-ro,upperdir=overlay,workdir=workdir openwrt
           cd $OPENWRT_ROOT_PATH
           git pull
-          git checkout 271c9ac39a540ef569a4453d73b14e478ee4c08e
-          git branch test_build
-          git checkout test_build
 
       - name: Prepare Toolchain Image From Releases
         if: env.TOOLCHAIN_RELEASE_UPLOAD == 'true'
@@ -372,9 +369,6 @@ jobs:
           sudo mount -t overlay overlay -o lowerdir=openwrt-ro,upperdir=overlay,workdir=workdir openwrt
           cd $OPENWRT_ROOT_PATH
           git pull
-          git checkout 271c9ac39a540ef569a4453d73b14e478ee4c08e
-          git branch test_build
-          git checkout test_build
 
       - name: Load Custom Feeds
         run: |
