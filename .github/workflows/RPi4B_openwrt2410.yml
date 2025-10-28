@@ -2,7 +2,7 @@
  # File Name: RPi4B_openwrt2410.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-12 11:11:39 UTC
- # Modified Time: 2025-10-28 02:52:40 UTC
+ # Modified Time: 2025-10-28 08:06:51 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -51,7 +51,7 @@ env:
 
 jobs:
   Toolchain:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
 
     outputs:
       OPENWRT_ROOT_PATH: ${{ steps.clone.outputs.OPENWRT_ROOT_PATH }}
@@ -255,7 +255,7 @@ jobs:
 
   Build:
     needs: [Toolchain]
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Combine Disks
@@ -458,7 +458,7 @@ jobs:
 
   Upload:
     needs: [Build, Toolchain]
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Restore Variables
