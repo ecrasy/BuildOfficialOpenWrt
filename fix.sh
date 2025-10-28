@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2025-04-13 07:01:27 UTC
+# Modified Time: 2025-10-28 21:43:34 UTC
 #########################################################################
 
 
@@ -163,13 +163,27 @@ fi
 sed -i "s/xray-core/v2ray-core/g" feeds/packages/net/v2raya/Makefile
 echo "set v2raya depends on v2ray-core"
 
-# upgrade libtorrent-rasterbar to version 2.0.9
-RAS_PATH="feeds/packages/libs/libtorrent-rasterbar"
-RAS_VER=$(grep -m1 'PKG_VERSION:=2.0.8' ${RAS_PATH}/Makefile)
-if [ -n "${RAS_VER}" ]; then
-    rm -rf ${RAS_PATH}
-    cp -r $GITHUB_WORKSPACE/data/app/libtorrent-rasterbar feeds/packages/libs/
-    echo "Try libtorrent-rasterbar v2.0.9 for qBittorrent"
+# upgrade libtorrent-rasterbar to latest version
+tmp_ver=$(grep -m1 'PKG_VERSION:=' ${GITHUB_WORKSPACE}/data/app/libtorrent-rasterbar/Makefile)
+ras_ver="${tmp_ver##*=}"
+if [ -n "${ras_ver}" ]; then
+    ras_path="feeds/packages/libs/libtorrent-rasterbar"
+    if [ -d "${ras_path}" ]; then
+        tmp_ver=$(grep -m1 'PKG_VERSION:=' ${ras_path}/Makefile)
+        ras_repo_ver="${tmp_ver##*=}"
+        cr=$(version_comp "${ras_repo_ver}" "${ras_ver}")
+        if [ "$cr" == "<" ]; then
+            rm -rf ${ras_path}
+            cp -r $GITHUB_WORKSPACE/data/app/libtorrent-rasterbar feeds/packages/libs/
+            echo "Upgrade libtorrent-rasterbar from ${ras_repo_ver} to ${ras_ver}"
+        else
+            echo "libtorrent-rasterbar no change need make: ${ras_repo_ver}"
+        fi
+    else
+            rm -rf ${ras_path}
+            cp -r $GITHUB_WORKSPACE/data/app/libtorrent-rasterbar feeds/packages/libs/
+            echo "Add libtorrent-rasterbar ${ras_ver} to repo"
+    fi
 fi
 
 RRDTOOL_PATH="feeds/packages/utils/rrdtool1"
