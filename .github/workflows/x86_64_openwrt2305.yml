@@ -2,7 +2,7 @@
  # File Name: x86_64_openwrt2305.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-08 11:38:30 UTC
- # Modified Time: 2025-10-28 08:06:03 UTC
+ # Modified Time: 2025-10-29 22:47:53 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -72,7 +72,7 @@ jobs:
           git config --global advice.detachedHead false
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -200,7 +200,7 @@ jobs:
 
       - name: Upload Toolchain Image To Artifact
         if: env.TOOLCHAIN_RELEASE_UPLOAD != 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ${{ env.TOOLCHAIN_IMAGE }}
           path: output
@@ -336,7 +336,7 @@ jobs:
 
       - name: Download Toolchain Image From Artifacts
         if: env.TOOLCHAIN_RELEASE_UPLOAD != 'true'
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: ${{ env.TOOLCHAIN_IMAGE }}
           path: workspace
@@ -451,7 +451,7 @@ jobs:
           echo -e "============================\n"
 
       - name: Upload Bin Archive
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: bin-archive
           path: ${{ env.OPENWRT_ROOT_PATH }}/${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}.zip
@@ -476,7 +476,7 @@ jobs:
           echo "BUILD_DATE=$(echo '${{needs.Toolchain.outputs.BUILD_DATE}}')" >> $GITHUB_ENV
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -504,7 +504,7 @@ jobs:
           mkdir workspace
 
       - name: Download Bin Archive
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: bin-archive
           path: ${{ env.OPENWRT_ROOT_PATH }}
