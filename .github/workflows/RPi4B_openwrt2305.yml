@@ -2,7 +2,7 @@
  # File Name: RPi4B_openwrt2305.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-12 11:11:39 UTC
- # Modified Time: 2025-10-30 13:16:24 UTC
+ # Modified Time: 2026-06-28 23:26:32 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -72,9 +72,15 @@ jobs:
           git config --global advice.detachedHead false
 
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: '1.26.x'
+          cache: false
 
       - name: Free Up Disk Space
         env:
@@ -311,6 +317,12 @@ jobs:
           git fetch --depth 1 origin $GITHUB_REF
           git checkout -t origin/$CURRENT_BRANCH
 
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: '1.26.x'
+          cache: false
+
       - name: Free Up Disk Space
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -476,9 +488,15 @@ jobs:
           echo "BUILD_DATE=$(echo '${{needs.Toolchain.outputs.BUILD_DATE}}')" >> $GITHUB_ENV
 
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: '1.26.x'
+          cache: false
 
       - name: Free Up Disk Space
         env:
