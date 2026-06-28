@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2025-10-28 21:43:34 UTC
+# Modified Time: 2026-06-28 02:55:27 UTC
 #########################################################################
 
 
@@ -58,78 +58,86 @@ echo "Touch coremark log file to fix uhttpd error!!!"
 # echo "Fix python host compile install error!!!"
 
 # Try latest dnsmasq
-tmp_ver=$(grep -m1 'PKG_UPSTREAM_VERSION:=' $GITHUB_WORKSPACE/data/dnsmasq/Makefile)
-tmp_pkg=$(grep -m1 'PKG_RELEASE:=' $GITHUB_WORKSPACE/data/dnsmasq/Makefile)
-dnsmasq_data_ver="${tmp_ver##*=}.${tmp_pkg##*=}"
-if [ -n "${dnsmasq_data_ver}" ]; then
-    dnsmasq_path="package/network/services/dnsmasq"
-    tmp_ver=$(grep -m1 'PKG_UPSTREAM_VERSION:=' ${dnsmasq_path}/Makefile)
-    tmp_pkg=$(grep -m1 'PKG_RELEASE:=' ${dnsmasq_path}/Makefile)
-    dnsmasq_repo_ver="${tmp_ver##*=}.${tmp_pkg##*=}"
-    cr=$(version_comp "${dnsmasq_repo_ver}" "${dnsmasq_data_ver}")
+dnsmasq_patch_path="$GITHUB_WORKSPACE/data/dnsmasq"
+dnsmasq_package_path="package/network/services/dnsmasq"
+puv_patch=$(grep -m1 'PKG_UPSTREAM_VERSION:=' ${dnsmasq_patch_path}/Makefile)
+pr_patch=$(grep -m1 'PKG_RELEASE:=' ${dnsmasq_patch_path}/Makefile)
+dnsmasq_ver_patch="${puv_patch##*=}.${pr_patch##*=}"
+if [ -n "${dnsmasq_ver_patch}" ]; then
+    puv_package=$(grep -m1 'PKG_UPSTREAM_VERSION:=' ${dnsmasq_package_path}/Makefile)
+    pr_package=$(grep -m1 'PKG_RELEASE:=' ${dnsmasq_package_path}/Makefile)
+    dnsmasq_ver_package="${puv_package##*=}.${pr_package##*=}"
+    cr=$(version_comp "${dnsmasq_ver_package}" "${dnsmasq_ver_patch}")
     if [ "$cr" == "<" ]; then
-        rm -rf $dnsmasq_path
+        rm -rf ${dnsmasq_package_path}
         cp $GITHUB_WORKSPACE/data/etc/ipcalc.sh package/base-files/files/bin/ipcalc.sh
-        cp -r $GITHUB_WORKSPACE/data/dnsmasq ${dnsmasq_path}
-        echo "Upgrade dnsmasq from ${dnsmasq_repo_ver} to ${dnsmasq_data_ver}"
+        cp -r ${dnsmasq_patch_path} ${dnsmasq_package_path}
+        echo "Upgrade dnsmasq from ${dnsmasq_ver_package} to ${dnsmasq_ver_patch}"
     else
-        echo "Dnsmasq no change need to make: ${dnsmasq_repo_ver}"
+        echo "Dnsmasq no change need to make: ${dnsmasq_ver_package}"
     fi
 fi
 
 # Try latest golang
-tmp_ver=$(grep -m1 'GO_VERSION_MAJOR_MINOR:=' $GITHUB_WORKSPACE/data/golang/golang/Makefile)
-tmp_pkg=$(grep -m1 'GO_VERSION_PATCH:=' $GITHUB_WORKSPACE/data/golang/golang/Makefile)
-golang_data_ver="${tmp_ver##*=}.${tmp_pkg##*=}"
-if [ -n "${golang_data_ver}" ]; then
-    golang_path="feeds/packages/lang/golang"
-    tmp_ver=$(grep -m1 'GO_VERSION_MAJOR_MINOR:=' ${golang_path}/golang/Makefile)
-    tmp_pkg=$(grep -m1 'GO_VERSION_PATCH:=' ${golang_path}/golang/Makefile)
-    golang_repo_ver="${tmp_ver##*=}.${tmp_pkg##*=}"
-    cr=$(version_comp "${golang_repo_ver}" "${golang_data_ver}")
+golang_feeds_path="feeds/packages/lang/golang"
+golang_patch_path="$GITHUB_WORKSPACE/data/golang"
+gp_default=$(grep -m1 'GO_DEFAULT_VERSION:=' ${golang_patch_path}/golang-values.mk)
+gf_default=$(grep -m1 'GO_DEFAULT_VERSION:=' ${golang_feeds_path}/golang-values.mk)
+golang_patch_default="${gp_default##*=}"
+golang_feeds_default="${gf_default##*=}"
+gvmm_patch=$(grep -m1 'GO_VERSION_MAJOR_MINOR:=' ${golang_patch_path}/golang${golang_patch_default}/Makefile)
+gvp_patch=$(grep -m1 'GO_VERSION_PATCH:=' ${golang_patch_path}/golang${golang_patch_default}/Makefile)
+golang_ver_patch="${gvmm_patch##*=}.${gvp_patch##*=}"
+if [ -n "${golang_ver_patch}" ]; then
+    gvmm_feeds=$(grep -m1 'GO_VERSION_MAJOR_MINOR:=' ${golang_feeds_path}/golang${golang_feeds_default}/Makefile)
+    gvp_feeds=$(grep -m1 'GO_VERSION_PATCH:=' ${golang_feeds_path}/golang${golang_feeds_default}/Makefile)
+    golang_ver_feeds="${gvmm_feeds##*=}.${gvp_feeds##*=}"
+    cr=$(version_comp "${golang_ver_feeds}" "${golang_ver_patch}")
     if [ "$cr" == "<" ]; then
-        rm -rf $golang_path
-        cp -r $GITHUB_WORKSPACE/data/golang ${golang_path}
-        echo "Upgrade golang from ${golang_repo_ver} to ${golang_data_ver}"
+        rm -rf ${golang_feeds_path}
+        cp -r ${golang_patch_path} ${golang_feeds_path}
+        echo "Upgrade golang from ${golang_ver_feeds} to ${golang_ver_patch}"
     else
-        echo "Golang no change need to make: ${golang_repo_ver}"
+        echo "Golang no change need to make: ${golang_ver_feeds}"
     fi
 fi
 
 # Try latest v2ray-core
-tmp_ver=$(grep -m1 'PKG_VERSION:=' ${GITHUB_WORKSPACE}/data/v2ray-core/Makefile)
-v2ray_core_ver="${tmp_ver##*=}"
-if [ -n "${v2ray_core_ver}" ]; then
-    v2ray_path="feeds/packages/net/v2ray-core"
-    if [ -d "${v2ray_path}" ]; then
-        tmp_ver=$(grep -m1 'PKG_VERSION:=' ${v2ray_path}/Makefile)
-        v2ray_core_repo_ver="${tmp_ver##*=}"
-        cr=$(version_comp "${v2ray_core_repo_ver}" "${v2ray_core_ver}")
+v2ray_patch_path="${GITHUB_WORKSPACE}/data/v2ray-core"
+v2ray_feeds_path="feeds/packages/net/v2ray-core"
+pv_patch=$(grep -m1 'PKG_VERSION:=' ${v2ray_patch_path}/Makefile)
+v2ray_ver_patch="${pv_patch##*=}"
+if [ -n "${v2ray_ver_patch}" ]; then
+    if [ -d "${v2ray_feeds_path}" ]; then
+        pv_feeds=$(grep -m1 'PKG_VERSION:=' ${v2ray_feeds_path}/Makefile)
+        v2ray_ver_feeds="${pv_feeds##*=}"
+        cr=$(version_comp "${v2ray_ver_feeds}" "${v2ray_ver_patch}")
         if [ "$cr" == "<" ]; then
-            rm -rf $v2ray_path
-            cp -r $GITHUB_WORKSPACE/data/v2ray-core ${v2ray_path}
-            echo "Upgrade v2ray-core from ${v2ray_core_repo_ver} to ${v2ray_core_ver}"
+            rm -rf ${v2ray_feeds_path}
+            cp -r ${v2ray_patch_path} ${v2ray_feeds_path}
+            echo "Upgrade v2ray-core from ${v2ray_ver_feeds} to ${v2ray_ver_patch}"
         else
-            echo "v2ray-core no change need to make: ${v2ray_core_repo_ver}"
+            echo "v2ray-core no change need to make: ${v2ray_ver_feeds}"
         fi
     fi
 fi
 
 #Try latest v2ray-geodata
-tmp_ver=$(grep -m1 'GEOIP_VER:=' ${GITHUB_WORKSPACE}/data/v2ray-geodata/Makefile)
-v2ray_geodata_ver="${tmp_ver##*=}"
-if [ -n "${v2ray_geodata_ver}" ]; then
-    v2ray_geodata_path="feeds/packages/net/v2ray-geodata"
-    if [ -d "${v2ray_geodata_path}" ]; then
-        tmp_ver=$(grep -m1 'GEOIP_VER:=' ${v2ray_geodata_path}/Makefile)
-        v2ray_geodata_repo_ver="${tmp_ver##*=}"
-        cr=$(version_comp "${v2ray_geodata_repo_ver}" "${v2ray_geodata_ver}")
+v2ray_geodata_patch_path="${GITHUB_WORKSPACE}/data/v2ray-geodata"
+v2ray_geodata_feeds_path="feeds/packages/net/v2ray-geodata"
+gv_patch=$(grep -m1 'GEOIP_VER:=' ${v2ray_geodata_patch_path}/Makefile)
+v2ray_geodata_ver_patch="${gv_patch##*=}"
+if [ -n "${v2ray_geodata_ver_patch}" ]; then
+    if [ -d "${v2ray_geodata_feeds_path}" ]; then
+        gv_feeds=$(grep -m1 'GEOIP_VER:=' ${v2ray_geodata_feeds_path}/Makefile)
+        v2ray_geodata_ver_feeds="${gv_feeds##*=}"
+        cr=$(version_comp "${v2ray_geodata_ver_feeds}" "${v2ray_geodata_ver_patch}")
         if [ "$cr" == "<" ]; then
-            rm -rf $v2ray_geodata_path
-            cp -r $GITHUB_WORKSPACE/data/v2ray-geodata ${v2ray_geodata_path}
-            echo "Upgrade v2ray-geodata from ${v2ray_geodata_repo_ver} to ${v2ray_geodata_ver}"
+            rm -rf ${v2ray_geodata_feeds_path}
+            cp -r ${v2ray_geodata_patch_path} ${v2ray_geodata_feeds_path}
+            echo "Upgrade v2ray-geodata from ${v2ray_geodata_ver_feeds} to ${v2ray_geodata_ver_patch}"
         else
-            echo "v2ray-geodata no change need to make: ${v2ray_geodata_repo_ver}"
+            echo "v2ray-geodata no change need to make: ${v2ray_geodata_ver_feeds}"
         fi
     fi
 fi
@@ -164,28 +172,33 @@ sed -i "s/xray-core/v2ray-core/g" feeds/packages/net/v2raya/Makefile
 echo "set v2raya depends on v2ray-core"
 
 # upgrade libtorrent-rasterbar to latest version
-tmp_ver=$(grep -m1 'PKG_VERSION:=' ${GITHUB_WORKSPACE}/data/app/libtorrent-rasterbar/Makefile)
-ras_ver="${tmp_ver##*=}"
-if [ -n "${ras_ver}" ]; then
-    ras_path="feeds/packages/libs/libtorrent-rasterbar"
-    if [ -d "${ras_path}" ]; then
-        tmp_ver=$(grep -m1 'PKG_VERSION:=' ${ras_path}/Makefile)
-        ras_repo_ver="${tmp_ver##*=}"
-        cr=$(version_comp "${ras_repo_ver}" "${ras_ver}")
+ras_patch_path="${GITHUB_WORKSPACE}/data/app/libtorrent-rasterbar"
+ras_feeds_path="feeds/packages/libs/libtorrent-rasterbar"
+pv_patch=$(grep -m1 'PKG_VERSION:=' ${ras_patch_path}/Makefile)
+pr_patch=$(grep -m1 'PKG_RELEASE:=' ${ras_patch_path}/Makefile)
+ras_ver_patch="${pv_patch##*=}.${pr_patch##*=}"
+if [ -n "${ras_ver_patch}" ]; then
+    if [ -d "${ras_feeds_path}" ]; then
+        pv_feeds=$(grep -m1 'PKG_VERSION:=' ${ras_feeds_path}/Makefile)
+        pr_feeds=$(grep -m1 'PKG_RELEASE:=' ${ras_feeds_path}/Makefile)
+        if [ ! -n "$pr_feeds" ]; then pr_feeds="0"; fi
+        ras_ver_feeds="${pv_feeds##*=}.${pr_feeds##*=}"
+        cr=$(version_comp "${ras_ver_feeds}" "${ras_ver_patch}")
         if [ "$cr" == "<" ]; then
-            rm -rf ${ras_path}
-            cp -r $GITHUB_WORKSPACE/data/app/libtorrent-rasterbar feeds/packages/libs/
-            echo "Upgrade libtorrent-rasterbar from ${ras_repo_ver} to ${ras_ver}"
+            rm -rf ${ras_feeds_path}
+            cp -r ${ras_patch_path} ${ras_feeds_path}
+            echo "Upgrade libtorrent-rasterbar from ${ras_ver_feeds} to ${ras_ver_patch}"
         else
-            echo "libtorrent-rasterbar no change need make: ${ras_repo_ver}"
+            echo "libtorrent-rasterbar no change need make: ${ras_ver_feeds}"
         fi
     else
-            rm -rf ${ras_path}
-            cp -r $GITHUB_WORKSPACE/data/app/libtorrent-rasterbar feeds/packages/libs/
-            echo "Add libtorrent-rasterbar ${ras_ver} to repo"
+            rm -rf ${ras_feeds_path}
+            cp -r ${ras_patch_path} ${ras_feeds_path}
+            echo "Add libtorrent-rasterbar ${ras_ver_patch} to repo"
     fi
 fi
 
+: '
 RRDTOOL_PATH="feeds/packages/utils/rrdtool1"
 RRDTOOL_URL=$(grep -m1 'PKG_SOURCE_URL:= \\' ${RRDTOOL_PATH}/Makefile)
 if [ -n "${RRDTOOL_URL}" ]; then
@@ -199,6 +212,7 @@ if [ -n "${GD_VER}" ]; then
     sed -i '0,/^TARGET_CXXFLAGS.*/s/^TARGET_CXXFLAGS.*/TARGET_CFLAGS += -D_LARGEFILE64_SOURCE\n&/' ${GD_PATH}/Makefile
     echo "Fix gptfdisk compile error"
 fi
+'
 
 echo -e "Fixing Jobs Completed!!!\n"
 
