@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2026-06-28 07:23:59 UTC
+# Modified Time: 2026-06-28 07:33:42 UTC
 #########################################################################
 
 
@@ -228,12 +228,14 @@ if [ -n "${rrdtool_ver_patch}" ]; then
     fi
 fi
 
-#gf_path="feeds/packages/utils/gptfdisk"
-#gf_ver_feeds=$(grep -m1 'PKG_VERSION:=1.0.9' ${gf_path}/Makefile)
-#if [ -n "${gf_ver_feeds}" ]; then
-#    sed -i '0,/^TARGET_CXXFLAGS.*/s/^TARGET_CXXFLAGS.*/TARGET_CFLAGS += -D_LARGEFILE64_SOURCE\n&/' ${gf_path}/Makefile
-#    echo "Fix gptfdisk compile error"
-#fi
+gf_feeds_path="feeds/packages/utils/gptfdisk"
+if [ -d ${gf_feeds_path} ]; then
+    gf_cf_feeds=$(grep -m1 'LARGEFILE64_SOURCE' ${gf_feeds_path}/Makefile)
+    if [ -z "${gf_ver_feeds}" ]; then
+        sed -i '0,/^TARGET_CXXFLAGS.*/s/^TARGET_CXXFLAGS.*/TARGET_CFLAGS += -D_LARGEFILE64_SOURCE\n&/' ${gf_feeds_path}/Makefile
+        echo "Fix gptfdisk compile error"
+    fi
+fi
 
 echo -e "Fixing Jobs Completed!!!\n"
 
