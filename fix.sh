@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2026-06-28 06:54:34 UTC
+# Modified Time: 2026-06-28 07:23:59 UTC
 #########################################################################
 
 
@@ -187,7 +187,6 @@ if [ -n "${ras_ver_patch}" ]; then
     if [ -d "${ras_feeds_path}" ]; then
         pv_feeds=$(grep -m1 'PKG_VERSION:=' ${ras_feeds_path}/Makefile)
         pr_feeds=$(grep -m1 'PKG_RELEASE:=' ${ras_feeds_path}/Makefile)
-        if [ -z "$pr_feeds" ]; then pr_feeds="0"; fi
         ras_ver_feeds="${pv_feeds##*=}.${pr_feeds##*=}"
         cr=$(version_comp "${ras_ver_feeds}" "${ras_ver_patch}")
         if [ "$cr" == "<" ]; then
@@ -198,23 +197,41 @@ if [ -n "${ras_ver_patch}" ]; then
             echo "libtorrent-rasterbar no change need make: ${ras_ver_feeds} ${ras_ver_patch}"
         fi
     else
-            rm -rf ${ras_feeds_path}
-            cp -r ${ras_patch_path} ${ras_feeds_path}
-            echo "Add libtorrent-rasterbar ${ras_ver_patch} to repo"
+        rm -rf ${ras_feeds_path}
+        cp -r ${ras_patch_path} ${ras_feeds_path}
+        echo "Add libtorrent-rasterbar ${ras_ver_patch} to repo"
     fi
 fi
 
-#RRDTOOL_PATH="feeds/packages/utils/rrdtool1"
-#RRDTOOL_URL=$(grep -m1 'PKG_SOURCE_URL:= \\' ${RRDTOOL_PATH}/Makefile)
-#if [ -n "${RRDTOOL_URL}" ]; then
-#    cp $GITHUB_WORKSPACE/data/patches/rrdtool1-Makefile ${RRDTOOL_PATH}/Makefile
-#    echo "Fix rrdtool1 package url mirrors error"
-#fi
+rrdtool_feeds_path="feeds/packages/utils/rrdtool1"
+rrdtool_patch_path="$GITHUB_WORKSPACE/data/patches/rrdtool1"
+pv_patch=$(grep -m1 'PKG_VERSION:=' ${rrdtool_patch_path}/Makefile)
+pr_patch=$(grep -m1 'PKG_RELEASE:=' ${rrdtool_patch_path}/Makefile)
+rrdtool_ver_patch="${pv_patch##*=}.${pr_patch##*=}"
+if [ -n "${rrdtool_ver_patch}" ]; then
+    if [ -d ${rrdtool_feeds_path} ]; then
+        pv_patch=$(grep -m1 'PKG_VERSION:=' ${rrdtool_feeds_path}/Makefile)
+        pr_patch=$(grep -m1 'PKG_RELEASE:=' ${rrdtool_feeds_path}/Makefile)
+        rrdtool_ver_feeds="${pv_patch##*=}.${pr_patch##*=}"
+        cr=$(version_comp "${rrdtool_ver_feeds}" "${rrdtool_ver_patch}")
+        if [ "$cr" == "<" ]; then
+            rm -rf ${rrdtool_feeds_path}
+            cp -r ${rrdtool_patch_path} ${rrdtool_feeds_path}
+            echo "Fix rrdtool1 package url mirrors error with version ${rrdtool_ver_patch}"
+        else
+            echo "rrdtool1 no change need make ${rrdtool_ver_feeds}"
+        fi
+    else
+        rm -rf ${rrdtool_feeds_path}
+        cp -r ${rrdtool_patch_path} ${rrdtool_feeds_path}
+        echo "Fix rrdtool1 package url mirrors error with version ${rrdtool_ver_patch}"
+    fi
+fi
 
-#GD_PATH="feeds/packages/utils/gptfdisk"
-#GD_VER=$(grep -m1 'PKG_VERSION:=1.0.9' ${GD_PATH}/Makefile)
-#if [ -n "${GD_VER}" ]; then
-#    sed -i '0,/^TARGET_CXXFLAGS.*/s/^TARGET_CXXFLAGS.*/TARGET_CFLAGS += -D_LARGEFILE64_SOURCE\n&/' ${GD_PATH}/Makefile
+#gf_path="feeds/packages/utils/gptfdisk"
+#gf_ver_feeds=$(grep -m1 'PKG_VERSION:=1.0.9' ${gf_path}/Makefile)
+#if [ -n "${gf_ver_feeds}" ]; then
+#    sed -i '0,/^TARGET_CXXFLAGS.*/s/^TARGET_CXXFLAGS.*/TARGET_CFLAGS += -D_LARGEFILE64_SOURCE\n&/' ${gf_path}/Makefile
 #    echo "Fix gptfdisk compile error"
 #fi
 
