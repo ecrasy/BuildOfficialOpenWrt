@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2026-06-28 02:55:27 UTC
+# Modified Time: 2026-06-28 06:54:34 UTC
 #########################################################################
 
 
@@ -149,16 +149,22 @@ echo "Set minidlna depends on libffmpeg-full not libffmpeg"
 
 # make cshark depends on libustream-openssl not libustream-mbedtls
 # i fucking hate stupid mbedtls so much, be gone
-sed -i "s/libustream-mbedtls/libustream-openssl/g" feeds/packages/net/cshark/Makefile
-echo "Set cshark depends on libustream-openssl not libustream-mbedtls"
+cshark_path="feeds/packages/net/cshark/Makefile"
+if [ -f ${cshark_path} ]; then
+    sed -i "s/libustream-mbedtls/libustream-openssl/g" ${cshark_path}
+    echo "Set cshark depends on libustream-openssl not libustream-mbedtls"
+fi
 
 # remove ipv6-helper depends on odhcpd*
 sed -i "s/+odhcpd-ipv6only//g" feeds/CustomPkgs/net/ipv6-helper/Makefile
 echo "Remove ipv6-helper depends on odhcpd*"
 
 # remove hnetd depends on odhcpd*
-sed -i "s/+odhcpd//g" feeds/routing/hnetd/Makefile
-echo "Remove hnetd depends on odhcpd*"
+hnetd_path="feeds/routing/hnetd/Makefile"
+if [ -f ${hnetd_path} ]; then
+    sed -i "s/+odhcpd//g" ${hnetd_path}
+    echo "Remove hnetd depends on odhcpd*"
+fi
 
 # make shairplay depends on mdnsd not libavahi-compat-libdnssd
 shairplay_path=feeds/packages/sound/shairplay/Makefile
@@ -181,7 +187,7 @@ if [ -n "${ras_ver_patch}" ]; then
     if [ -d "${ras_feeds_path}" ]; then
         pv_feeds=$(grep -m1 'PKG_VERSION:=' ${ras_feeds_path}/Makefile)
         pr_feeds=$(grep -m1 'PKG_RELEASE:=' ${ras_feeds_path}/Makefile)
-        if [ ! -n "$pr_feeds" ]; then pr_feeds="0"; fi
+        if [ -z "$pr_feeds" ]; then pr_feeds="0"; fi
         ras_ver_feeds="${pv_feeds##*=}.${pr_feeds##*=}"
         cr=$(version_comp "${ras_ver_feeds}" "${ras_ver_patch}")
         if [ "$cr" == "<" ]; then
@@ -189,7 +195,7 @@ if [ -n "${ras_ver_patch}" ]; then
             cp -r ${ras_patch_path} ${ras_feeds_path}
             echo "Upgrade libtorrent-rasterbar from ${ras_ver_feeds} to ${ras_ver_patch}"
         else
-            echo "libtorrent-rasterbar no change need make: ${ras_ver_feeds}"
+            echo "libtorrent-rasterbar no change need make: ${ras_ver_feeds} ${ras_ver_patch}"
         fi
     else
             rm -rf ${ras_feeds_path}
@@ -198,21 +204,19 @@ if [ -n "${ras_ver_patch}" ]; then
     fi
 fi
 
-: '
-RRDTOOL_PATH="feeds/packages/utils/rrdtool1"
-RRDTOOL_URL=$(grep -m1 'PKG_SOURCE_URL:= \\' ${RRDTOOL_PATH}/Makefile)
-if [ -n "${RRDTOOL_URL}" ]; then
-    cp $GITHUB_WORKSPACE/data/patches/rrdtool1-Makefile ${RRDTOOL_PATH}/Makefile
-    echo "Fix rrdtool1 package url mirrors error"
-fi
+#RRDTOOL_PATH="feeds/packages/utils/rrdtool1"
+#RRDTOOL_URL=$(grep -m1 'PKG_SOURCE_URL:= \\' ${RRDTOOL_PATH}/Makefile)
+#if [ -n "${RRDTOOL_URL}" ]; then
+#    cp $GITHUB_WORKSPACE/data/patches/rrdtool1-Makefile ${RRDTOOL_PATH}/Makefile
+#    echo "Fix rrdtool1 package url mirrors error"
+#fi
 
-GD_PATH="feeds/packages/utils/gptfdisk"
-GD_VER=$(grep -m1 'PKG_VERSION:=1.0.9' ${GD_PATH}/Makefile)
-if [ -n "${GD_VER}" ]; then
-    sed -i '0,/^TARGET_CXXFLAGS.*/s/^TARGET_CXXFLAGS.*/TARGET_CFLAGS += -D_LARGEFILE64_SOURCE\n&/' ${GD_PATH}/Makefile
-    echo "Fix gptfdisk compile error"
-fi
-'
+#GD_PATH="feeds/packages/utils/gptfdisk"
+#GD_VER=$(grep -m1 'PKG_VERSION:=1.0.9' ${GD_PATH}/Makefile)
+#if [ -n "${GD_VER}" ]; then
+#    sed -i '0,/^TARGET_CXXFLAGS.*/s/^TARGET_CXXFLAGS.*/TARGET_CFLAGS += -D_LARGEFILE64_SOURCE\n&/' ${GD_PATH}/Makefile
+#    echo "Fix gptfdisk compile error"
+#fi
 
 echo -e "Fixing Jobs Completed!!!\n"
 

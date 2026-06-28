@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-23 13:01:29 UTC
-# Modified Time: 2025-01-29 06:52:28 UTC
+# Modified Time: 2026-06-28 06:58:46 UTC
 #########################################################################
 
 
@@ -61,9 +61,11 @@ sed -i 's/迷你 SSDP 插座/miniSSDP 插座/g' ${miniDLNA_PATH}/minidlna.po
 echo "Custom miniDLNA zh_Hans translation"
 
 # Custom MJPG-streamer zh_Hans translation
-ms_PATH="feeds/luci/applications/luci-app-mjpg-streamer/po/zh_Hans"
-sed -i 's/MJPG-streamer(网络摄像机串流)/MJPG-streamer/g' ${ms_PATH}/mjpg-streamer.po
-echo "Custom MJPG-streamer zh_Hans translation"
+mjpg_path="feeds/luci/applications/luci-app-mjpg-streamer/po/zh_Hans"
+if [ -d ${mjpg_path} ]; then
+    sed -i 's/MJPG-streamer(网络摄像机串流)/MJPG-streamer/g' ${mjpg_path}/mjpg-streamer.po
+    echo "Custom MJPG-streamer zh_Hans translation"
+fi
 
 # Custom DDns zh_Hans translation
 ddns_PATH="feeds/luci/applications/luci-app-ddns/po/zh_Hans"
@@ -87,9 +89,11 @@ sed -i 's/网络共享/Samba4/g' ${SB_PATH}/samba4.po
 echo "Custom Samba4 zh_Hans translation"
 
 # Custom CloudShark zh_Hans translation
-CShark_PATH="feeds/luci/applications/luci-app-cshark/po/zh_Hans"
-sed -i 's/云鲨/CloudShark/g' ${CShark_PATH}/cshark.po
-echo "Custom CloudShark zh_Hans translation"
+cs_path="feeds/luci/applications/luci-app-cshark/po/zh_Hans"
+if [ -d ${cs_path} ]; then
+    sed -i 's/云鲨/CloudShark/g' ${cs_path}/cshark.po
+    echo "Custom CloudShark zh_Hans translation"
+fi
 
 # Add Port status zh_Hans translation
 LB_PATH="feeds/luci/modules/luci-base/po/zh_Hans"
