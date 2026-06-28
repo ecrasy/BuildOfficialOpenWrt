@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2026-06-28 07:33:42 UTC
+# Modified Time: 2026-06-28 07:36:15 UTC
 #########################################################################
 
 
@@ -231,7 +231,7 @@ fi
 gf_feeds_path="feeds/packages/utils/gptfdisk"
 if [ -d ${gf_feeds_path} ]; then
     gf_cf_feeds=$(grep -m1 'LARGEFILE64_SOURCE' ${gf_feeds_path}/Makefile)
-    if [ -z "${gf_ver_feeds}" ]; then
+    if [ -z "${gf_cf_feeds}" ]; then
         sed -i '0,/^TARGET_CXXFLAGS.*/s/^TARGET_CXXFLAGS.*/TARGET_CFLAGS += -D_LARGEFILE64_SOURCE\n&/' ${gf_feeds_path}/Makefile
         echo "Fix gptfdisk compile error"
     fi
