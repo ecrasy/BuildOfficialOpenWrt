@@ -2,7 +2,7 @@
  # File Name: x86_64_openwrt2512.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-08 11:38:30 UTC
- # Modified Time: 2026-06-28 23:28:31 UTC
+ # Modified Time: 2026-06-29 01:23:29 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -206,7 +206,7 @@ jobs:
 
       - name: Upload Toolchain Image To Artifact
         if: env.TOOLCHAIN_RELEASE_UPLOAD != 'true' && steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ env.TOOLCHAIN_IMAGE }}
           path: output
@@ -348,7 +348,7 @@ jobs:
 
       - name: Download Toolchain Image From Artifacts
         if: env.TOOLCHAIN_RELEASE_UPLOAD != 'true'
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: ${{ env.TOOLCHAIN_IMAGE }}
           path: workspace
@@ -463,7 +463,7 @@ jobs:
           echo -e "============================\n"
 
       - name: Upload Bin Archive
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: bin-archive
           path: ${{ env.OPENWRT_ROOT_PATH }}/${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}.zip
@@ -522,7 +522,7 @@ jobs:
           mkdir workspace
 
       - name: Download Bin Archive
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: bin-archive
           path: ${{ env.OPENWRT_ROOT_PATH }}
