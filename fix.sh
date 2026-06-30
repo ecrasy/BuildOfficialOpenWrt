@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2026-06-28 07:36:15 UTC
+# Modified Time: 2026-06-30 01:19:25 UTC
 #########################################################################
 
 
@@ -142,10 +142,12 @@ if [ -n "${v2ray_geodata_ver_patch}" ]; then
     fi
 fi
 
-
 # make minidlna depends on libffmpeg-full not libffmpeg
-sed -i "s/libffmpeg /libffmpeg-full /g" feeds/packages/multimedia/minidlna/Makefile
-echo "Set minidlna depends on libffmpeg-full not libffmpeg"
+minidlna_path="feeds/packages/multimedia/minidlna/Makefile"
+if [ -f ${minidlna_path} ]; then
+    sed -i "s/libffmpeg /libffmpeg-full /g" ${minidlna_path}
+    echo "Set minidlna depends on libffmpeg-full not libffmpeg"
+fi
 
 # make cshark depends on libustream-openssl not libustream-mbedtls
 # i fucking hate stupid mbedtls so much, be gone
@@ -154,10 +156,6 @@ if [ -f ${cshark_path} ]; then
     sed -i "s/libustream-mbedtls/libustream-openssl/g" ${cshark_path}
     echo "Set cshark depends on libustream-openssl not libustream-mbedtls"
 fi
-
-# remove ipv6-helper depends on odhcpd*
-sed -i "s/+odhcpd-ipv6only//g" feeds/CustomPkgs/net/ipv6-helper/Makefile
-echo "Remove ipv6-helper depends on odhcpd*"
 
 # remove hnetd depends on odhcpd*
 hnetd_path="feeds/routing/hnetd/Makefile"
@@ -172,6 +170,10 @@ if [ -f ${shairplay_path} ]; then
     sed -i "s/+libavahi-compat-libdnssd/+mdnsd/g" ${shairplay_path}
     echo "Set shairplay depends on mdnsd not libavahi-compat-libdnssd"
 fi
+
+# remove ipv6-helper depends on odhcpd*
+sed -i "s/+odhcpd-ipv6only//g" feeds/CustomPkgs/net/ipv6-helper/Makefile
+echo "Remove ipv6-helper depends on odhcpd*"
 
 # set v2raya depends on v2ray-core
 sed -i "s/xray-core/v2ray-core/g" feeds/packages/net/v2raya/Makefile
