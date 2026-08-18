@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2026-08-18 08:10:56 UTC
+# Modified Time: 2026-08-18 08:29:17 UTC
 #########################################################################
 
 
@@ -243,7 +243,7 @@ dockerd_path="feeds/packages/utils/dockerd/patches/001-skip-copy-nested-binaries
 if [ -f ${dockerd_path} ]; then
     echo "dockerd patch already exists"
 else
-    touch $dockerd_path
+    mkdir -p feeds/packages/utils/dockerd/patches
     cp $GITHUB_WORKSPACE/data/patches/dockerd.patch $docker_path
     echo "Fix dockerd nested copy error"
 fi
