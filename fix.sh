@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2026-08-18 08:29:17 UTC
+# Modified Time: 2026-08-18 08:41:14 UTC
 #########################################################################
 
 
@@ -244,7 +244,7 @@ if [ -f ${dockerd_path} ]; then
     echo "dockerd patch already exists"
 else
     mkdir -p feeds/packages/utils/dockerd/patches
-    cp $GITHUB_WORKSPACE/data/patches/dockerd.patch $docker_path
+    cp $GITHUB_WORKSPACE/data/patches/dockerd.patch $dockerd_path
     echo "Fix dockerd nested copy error"
 fi
 
