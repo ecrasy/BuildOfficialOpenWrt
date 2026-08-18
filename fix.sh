@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2026-06-30 01:19:25 UTC
+# Modified Time: 2026-08-18 08:10:56 UTC
 #########################################################################
 
 
@@ -237,6 +237,15 @@ if [ -d ${gf_feeds_path} ]; then
         sed -i '0,/^TARGET_CXXFLAGS.*/s/^TARGET_CXXFLAGS.*/TARGET_CFLAGS += -D_LARGEFILE64_SOURCE\n&/' ${gf_feeds_path}/Makefile
         echo "Fix gptfdisk compile error"
     fi
+fi
+
+dockerd_path="feeds/packages/utils/dockerd/patches/001-skip-copy-nested-binaries.patch"
+if [ -f ${dockerd_path} ]; then
+    echo "dockerd patch already exists"
+else
+    touch $dockerd_path
+    cp $GITHUB_WORKSPACE/data/patches/dockerd.patch $docker_path
+    echo "Fix dockerd nested copy error"
 fi
 
 echo -e "Fixing Jobs Completed!!!\n"
