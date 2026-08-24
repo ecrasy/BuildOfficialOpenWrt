@@ -78,7 +78,7 @@ DHCP配置文件(默认不开DHCPv6)：
 **获取IPv6-PD：**  
 ssh登录到OpenWrt路由器  
 打开编辑  
-[/etc/config/network]/wiki/network)  
+[/etc/config/network](/wiki/network)  
 手动更改wan6为:  
 ```
 config interface 'wan6'
