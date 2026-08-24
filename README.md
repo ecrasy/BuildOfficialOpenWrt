@@ -37,7 +37,7 @@ wan口已配置为pppoe拨号上网
 [点击下载配置](/wiki/backup-OpenWrt-common.tar.gz)    
 
 ## IPv6自动设置ula_prefix
-[ula prefix](/data/etc/095-ula-prefix)  
+[ula prefix](/data/etc/92-ula-prefix)   
 脚本负责在WAN网络连接之后查询 **ula prefix**  
 总共会尝试8次  
 每次失败会睡眠等待1秒  
