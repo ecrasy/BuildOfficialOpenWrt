@@ -56,21 +56,23 @@ master分支编译的云鲨目前(20230107)正常运行
 目前(20230107)master分支固件使用中没发现什么大问题
 
 ## 额外配置  
-为了适配dnsmasq v2.88以上的版本  
-去掉了冲突的odhcpd模块  
 如果想打开DHCPv6功能分配IPv6地址  
 则需要手动配置lan打开DHCPv6功能
 ```
 config dhcp 'lan'
 	option interface 'lan'
-	option limit '150'
 	option start '2'
-	option leasetime '6h'
+	option limit '150'
+	option leasetime '2h'
 	option force '1'
+	option ra_useleasetime '1'
+	option dhcpv4 'server'
+	option ra_management '1'
+	option ra_preference 'medium'
+	option ra_default '1'
 	option ra 'server'
 	option dhcpv6 'server'
-	option ra_management '1'
-	option ra_default '1'
+	option dhcpv6_pd '1'
 ```	
 DHCP配置文件(默认不开DHCPv6)：  
 [/etc/config/dhcp](/wiki/dhcp)  

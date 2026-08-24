@@ -6,6 +6,7 @@ config interface 'loopback'
 	option netmask '255.0.0.0'
 
 config globals 'globals'
+	option packet_steering '1'
 
 config device
 	option name 'br-lan'
@@ -13,6 +14,8 @@ config device
 	list ports 'eth1'
 	list ports 'eth2'
 	list ports 'eth3'
+	list ports 'eth4'
+	list ports 'eth5'
 
 config interface 'lan'
 	option device 'br-lan'
@@ -20,25 +23,30 @@ config interface 'lan'
 	option ipaddr '192.168.2.1'
 	option netmask '255.255.255.0'
 	option ip6assign '60'
+	option ip6ifaceid 'eui64'
+	option force_link '0'
+	option multipath 'off'
 
 config interface 'wan'
 	option device 'eth0'
 	option proto 'pppoe'
-	option username ''
-	option password ''
+	option username '拨号账号'
+	option password '拨号密码'
 	option ipv6 '1'
 
 config interface 'wan6'
 	option proto 'dhcpv6'
-	option device '@wan'
 	option reqaddress 'try'
 	option reqprefix 'auto'
+	option device '@wan'
 
 config interface 'Modem'
 	option proto 'static'
 	option device 'eth0'
 	option ipaddr '192.168.1.2'
 	option netmask '255.255.255.0'
+	option metric '86'
+	option multipath 'off'
 
 config interface 'docker'
 	option device 'docker0'
@@ -48,4 +56,3 @@ config interface 'docker'
 config device
 	option type 'bridge'
 	option name 'docker0'
-
