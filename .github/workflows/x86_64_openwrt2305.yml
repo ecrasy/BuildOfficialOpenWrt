@@ -2,7 +2,7 @@
  # File Name: x86_64_openwrt2305.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-08 11:38:30 UTC
- # Modified Time: 2026-06-29 01:23:04 UTC
+ # Modified Time: 2026-08-24 07:49:36 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -35,7 +35,7 @@ on:
 env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git
   SOURCE_BRANCH: openwrt-23.05
-  CLONE_DEPTH: 200
+  CLONE_DEPTH: 500
   CONFIG_FILE: configs/for_openwrt2305/x86_64.config
   DIY_SH: diy.sh
   FIX_SH: fix.sh

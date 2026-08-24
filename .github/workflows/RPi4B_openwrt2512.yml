@@ -2,7 +2,7 @@
  # File Name: RPi4B_openwrt2512.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-12 11:11:39 UTC
- # Modified Time: 2026-06-29 01:22:19 UTC
+ # Modified Time: 2026-08-24 07:49:18 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -35,7 +35,7 @@ on:
 env:
   SOURCE_URL: https://github.com/openwrt/openwrt.git
   SOURCE_BRANCH: openwrt-25.12
-  CLONE_DEPTH: 200
+  CLONE_DEPTH: 500
   CONFIG_FILE: configs/for_openwrt2512/RPi4B.config
   DIY_SH: diy.sh
   FIX_SH: fix.sh
