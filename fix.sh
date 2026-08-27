@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2026-08-27 02:42:58 UTC
+# Modified Time: 2026-08-27 13:22:41 UTC
 #########################################################################
 
 
@@ -252,6 +252,24 @@ qtbase_path="feeds/CustomPkgs/net/qBittorrent/qt6base/patches/011-struct-statx.p
 cp $GITHUB_WORKSPACE/data/patches/qt.patch $qtbase_path
 echo "Fix qt6base struct statx incomplete type error"
 
+agh_feeds_path="feeds/packages/net/adguardhome"
+if [ -d $agh_feeds_path ]; then
+    agh_feeds_version=$(grep -m1 'PKG_VERSION:=' $agh_feeds_path/Makefile)
+    agh_feeds_version="${agh_feeds_version##*=}"
+
+    agh_patch_path="$GITHUB_WORKSPACE/data/adguardhome"
+    agh_patch_version=$(grep -m1 'PKG_VERSION:=' $agh_patch_path/Makefile)
+    agh_patch_version=${agh_patch_version##*=}
+
+    cr=$(version_comp "$agh_feeds_version" "$agh_patch_version")
+    if [ "$cr" == "<" ]; then
+        rm -rf $agh_feeds_path
+        cp -r $agh_patch_path $agh_feeds_path
+        echo "upgrade adguardhome from $agh_feeds_version to $agh_patch_version"
+    else
+        echo "adguardhome $agh_feeds_version no changes need to make"
+    fi
+fi
 
 echo -e "Fixing Jobs Completed!!!\n"
 
