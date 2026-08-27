@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2026-08-23 13:30:48 UTC
+# Modified Time: 2026-08-27 02:42:58 UTC
 #########################################################################
 
 
@@ -247,6 +247,11 @@ else
     cp $GITHUB_WORKSPACE/data/patches/dockerd.patch $dockerd_path
     echo "Fix dockerd nested copy error"
 fi
+
+qtbase_path="feeds/CustomPkgs/net/qBittorrent/qt6base/patches/011-struct-statx.patch"
+cp $GITHUB_WORKSPACE/data/patches/qt.patch $qtbase_path
+echo "Fix qt6base struct statx incomplete type error"
+
 
 echo -e "Fixing Jobs Completed!!!\n"
 

@@ -1,0 +1,11 @@
+--- a/src/corelib/io/qioring_linux.cpp	2026-08-27 10:29:51.866471446 +0800
++++ b/src/corelib/io/qioring_linux.cpp	2026-08-27 10:29:43.742474287 +0800
+@@ -16,6 +16,8 @@
+ #include <sys/mman.h>
+ #include <sys/eventfd.h>
+ #include <sys/stat.h>
++#include <sys/sysmacros.h>
++#include <linux/stat.h>
+ 
+ QT_BEGIN_NAMESPACE
+ 
