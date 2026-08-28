@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2026-08-27 13:22:41 UTC
+# Modified Time: 2026-08-27 23:59:25 UTC
 #########################################################################
 
 
@@ -239,18 +239,22 @@ if [ -d ${gf_feeds_path} ]; then
     fi
 fi
 
-dockerd_path="feeds/packages/utils/dockerd/patches/001-skip-copy-nested-binaries.patch"
-if [ -f ${dockerd_path} ]; then
-    echo "dockerd patch already exists"
-else
-    mkdir -p $(dirname $dockerd_path)
-    cp $GITHUB_WORKSPACE/data/patches/dockerd.patch $dockerd_path
-    echo "Fix dockerd nested copy error"
+if [ $SOURCE_BRANCH == "openwrt-25.12" ]; then
+    dockerd_path="feeds/packages/utils/dockerd/patches/001-skip-copy-nested-binaries.patch"
+    if [ -f ${dockerd_path} ]; then
+        echo "dockerd patch already exists"
+    else
+        mkdir -p $(dirname $dockerd_path)
+        cp $GITHUB_WORKSPACE/data/patches/dockerd.patch $dockerd_path
+        echo "Fix dockerd nested copy error"
+    fi
 fi
 
-qtbase_path="feeds/CustomPkgs/net/qBittorrent/qt6base/patches/011-struct-statx.patch"
-cp $GITHUB_WORKSPACE/data/patches/qt.patch $qtbase_path
-echo "Fix qt6base struct statx incomplete type error"
+if [ $SOURCE_BRANCH == "openwrt-23.05" ]; then
+    qtbase_path="feeds/CustomPkgs/net/qBittorrent/qt6base/patches/011-struct-statx.patch"
+    cp $GITHUB_WORKSPACE/data/patches/qt.patch $qtbase_path
+    echo "Fix qt6base struct statx incomplete type error"
+fi
 
 agh_feeds_path="feeds/packages/net/adguardhome"
 if [ -d $agh_feeds_path ]; then
