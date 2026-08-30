@@ -3,7 +3,7 @@
 # Author: Carbon (ecrasy@gmail.com)
 # Description: feel free to use
 # Created Time: 2022-07-30 04:57:44 UTC
-# Modified Time: 2026-08-27 23:59:25 UTC
+# Modified Time: 2026-08-30 12:07:05 UTC
 #########################################################################
 
 
@@ -163,10 +163,6 @@ fi
 #     sed -i "s/+odhcpd//g" ${hnetd_path}
 #     echo "Remove hnetd depends on odhcpd*"
 # fi
-
-# remove ipv6-helper depends on odhcpd*
-# sed -i "s/+odhcpd-ipv6only//g" feeds/CustomPkgs/net/ipv6-helper/Makefile
-# echo "Remove ipv6-helper depends on odhcpd*"
 
 # make shairplay depends on mdnsd not libavahi-compat-libdnssd
 shairplay_path=feeds/packages/sound/shairplay/Makefile
