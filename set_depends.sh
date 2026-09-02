@@ -4,7 +4,7 @@
 # Description: feel free to use
 # Description: run this script once before make menuconfig
 # Created Time: 2022-12-18 14:15:22 UTC
-# Modified Time: 2026-08-24 02:43:11 UTC
+# Modified Time: 2026-09-02 09:27:28 UTC
 #########################################################################
 
 #!/bin/bash
@@ -43,16 +43,6 @@ do
     else
         echo -e "operation ustream-openssl fail\n"
     fi
-
-    # remove ipv6-helper depends on odhcpd*
-    # sed -i "s/+odhcpd-ipv6only//g" feeds/CustomPkgs/net/ipv6-helper/Makefile
-    # echo "Remove ipv6-helper depends on odhcpd*"
-    # fr=$(grep -m1 "odhcpd" feeds/CustomPkgs/net/ipv6-helper/Makefile)
-    # if [ -z "$fr" ]; then
-    #    echo -e "operation ipv6-helper success\n"
-    # else
-    #     echo -e "operation ipv6-helper fail:\n${fr:0:50}\n"
-    # fi
 
     # remove hnetd depends on odhcpd*
     # sed -i "s/+odhcpd//g" feeds/routing/hnetd/Makefile
