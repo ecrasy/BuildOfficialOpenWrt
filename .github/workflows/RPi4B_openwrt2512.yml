@@ -2,7 +2,7 @@
  # File Name: RPi4B_openwrt2512.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-12 11:11:39 UTC
- # Modified Time: 2026-08-24 07:49:18 UTC
+ # Modified Time: 2026-10-02 22:54:09 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -415,13 +415,20 @@ jobs:
           make download -j8
           df -hT
 
+      - name: Compile Target
+        run: |
+          cd $OPENWRT_ROOT_PATH
+          echo "$(nproc) threads compile target"
+          make buildinfo
+          make diffconfig buildversion feedsversion
+          make target/compile -j$(nproc) IGNORE_ERRORS="m n"
+          make package/kernel/button-hotplug/compile -j$(nproc)
+          make package/feeds/luci/luci-app-qbittorrent/compile -j$(nproc)
+
       - name: Compile Packages
         run: |
           cd $OPENWRT_ROOT_PATH
           echo "$(nproc) threads compile packages"
-          make buildinfo
-          make diffconfig buildversion feedsversion
-          make target/compile -j$(nproc) IGNORE_ERRORS="m n"
           make package/compile -j$(nproc) IGNORE_ERRORS="m n"
           make package/index
 
