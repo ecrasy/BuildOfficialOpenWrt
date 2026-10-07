@@ -2,7 +2,7 @@
  # File Name: RPi4B_openwrt2305.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-12 11:11:39 UTC
- # Modified Time: 2026-10-02 22:54:50 UTC
+ # Modified Time: 2026-10-07 08:18:51 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -422,8 +422,7 @@ jobs:
           make buildinfo
           make diffconfig buildversion feedsversion
           make target/compile -j$(nproc) IGNORE_ERRORS="m n"
-          make package/kernel/button-hotplug/compile -j$(nproc)
-          make package/feeds/luci/luci-app-qbittorrent/compile -j$(nproc)
+          make package/feeds/CustomPkgs/luci-app-qbittorrent/compile -j$(nproc)
 
       - name: Compile Packages
         run: |

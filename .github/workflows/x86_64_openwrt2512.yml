@@ -2,7 +2,7 @@
  # File Name: x86_64_openwrt2512.yml
  # Author: Carbon (ecrasy@gmail.com)
  # Created Time: 2022-11-08 11:38:30 UTC
- # Modified Time: 2026-10-02 22:52:41 UTC
+ # Modified Time: 2026-10-07 08:19:44 UTC
  # Description: feel free to use
  # ┏┛ ┻━━━━━┛ ┻┓
  # ┃           ┃
@@ -423,7 +423,7 @@ jobs:
           make diffconfig buildversion feedsversion
           make target/compile -j$(nproc) IGNORE_ERRORS="m n"
           make package/kernel/button-hotplug/compile -j$(nproc)
-          make package/feeds/luci/luci-app-qbittorrent/compile -j$(nproc)
+          make package/feeds/CustomPkgs/luci-app-qbittorrent/compile -j$(nproc)
 
       - name: Compile Packages
         run: |
